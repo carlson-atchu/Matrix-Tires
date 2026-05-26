@@ -2,6 +2,7 @@
 
 let allInventory = [];
 let cart = JSON.parse(localStorage.getItem('mt_cart') || '[]');
+let selectedServices = [];
 
 // ── Navbar scroll effect ──────────────────────────────────────────────────────
 window.addEventListener('scroll', () => {
@@ -313,7 +314,8 @@ function submitQuote(e) {
     condition: document.getElementById('qCond').value,
     notes: document.getElementById('qNotes').value,
     timestamp: new Date().toISOString(),
-    cartItems: cart
+    cartItems: cart,
+    services: [...selectedServices]
   };
 
   // Save quote to Firestore
@@ -338,8 +340,68 @@ function submitQuote(e) {
     document.getElementById('quoteForm').reset();
     cart = [];
     saveCart();
+    selectedServices = [];
+    document.querySelectorAll('.service-card').forEach(card => {
+      card.classList.remove('selected');
+      const btn = card.querySelector('.service-add-btn');
+      if (btn) { btn.textContent = '+ Add to Quote'; btn.classList.remove('selected'); }
+    });
+    const cta = document.getElementById('servicesCta');
+    if (cta) cta.style.display = 'none';
+    updateServicesSummary();
     setTimeout(() => document.getElementById('formSuccess').style.display = 'none', 6000);
   }, 900);
+}
+
+// ── Services ──────────────────────────────────────────────────────────────────
+function toggleService(name, btn) {
+  const idx = selectedServices.indexOf(name);
+  if (idx === -1) {
+    selectedServices.push(name);
+    btn.textContent = '✓ Added';
+    btn.classList.add('selected');
+    btn.closest('.service-card').classList.add('selected');
+  } else {
+    selectedServices.splice(idx, 1);
+    btn.textContent = '+ Add to Quote';
+    btn.classList.remove('selected');
+    btn.closest('.service-card').classList.remove('selected');
+  }
+  updateServicesSummary();
+  const cta = document.getElementById('servicesCta');
+  if (cta) cta.style.display = selectedServices.length ? 'flex' : 'none';
+}
+
+function removeService(name) {
+  const idx = selectedServices.indexOf(name);
+  if (idx !== -1) selectedServices.splice(idx, 1);
+  document.querySelectorAll('.service-card').forEach(card => {
+    const h3 = card.querySelector('h3');
+    if (h3 && h3.textContent.trim() === name) {
+      const btn = card.querySelector('.service-add-btn');
+      if (btn) { btn.textContent = '+ Add to Quote'; btn.classList.remove('selected'); }
+      card.classList.remove('selected');
+    }
+  });
+  updateServicesSummary();
+  const cta = document.getElementById('servicesCta');
+  if (cta) cta.style.display = selectedServices.length ? 'flex' : 'none';
+}
+
+function updateServicesSummary() {
+  const field = document.getElementById('servicesSummaryField');
+  const div = document.getElementById('servicesSummary');
+  if (!field || !div) return;
+  if (!selectedServices.length) { field.style.display = 'none'; return; }
+  field.style.display = 'block';
+  div.innerHTML = selectedServices.map(s =>
+    `<span class="service-tag">${s} <button class="service-tag-remove" onclick="removeService('${s}')">✕</button></span>`
+  ).join('');
+}
+
+function scrollToServicesQuote() {
+  updateServicesSummary();
+  document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
 }
 
 // ── Toast ─────────────────────────────────────────────────────────────────────

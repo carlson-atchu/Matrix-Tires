@@ -196,22 +196,35 @@ window.dispatchEvent(new Event('firebase-ready'));
         <div class="service-icon">🔧</div>
         <h3>Tire Installation</h3>
         <p>Professional mounting and balancing for all vehicle types. We come to you or you come to us.</p>
+        <button class="service-add-btn" onclick="toggleService('Tire Installation', this)">+ Add to Quote</button>
       </div>
       <div class="service-card">
         <div class="service-icon">🔄</div>
         <h3>Tire Rotation</h3>
         <p>Extend the life of your tires with regular rotation service. Quick and affordable.</p>
+        <button class="service-add-btn" onclick="toggleService('Tire Rotation', this)">+ Add to Quote</button>
       </div>
       <div class="service-card">
         <div class="service-icon">🛞</div>
         <h3>Flat Repair</h3>
         <p>Puncture repairs and emergency flat tire service. Get back on the road fast.</p>
+        <button class="service-add-btn" onclick="toggleService('Flat Repair', this)">+ Add to Quote</button>
       </div>
       <div class="service-card">
         <div class="service-icon">🚗</div>
         <h3>Mobile Service</h3>
         <p>We bring the shop to you — driveway, parking lot, or roadside. Available 7 days a week.</p>
+        <button class="service-add-btn" onclick="toggleService('Mobile Service', this)">+ Add to Quote</button>
       </div>
+      <div class="service-card">
+        <div class="service-icon">⚖️</div>
+        <h3>Tire Balancing</h3>
+        <p>Eliminate vibrations and uneven wear with precision wheel balancing for a smoother, safer ride.</p>
+        <button class="service-add-btn" onclick="toggleService('Tire Balancing', this)">+ Add to Quote</button>
+      </div>
+    </div>
+    <div class="services-cta" id="servicesCta" style="display:none">
+      <button class="submit-btn services-quote-btn" onclick="scrollToServicesQuote()">Request Quote for Selected Services →</button>
     </div>
   </div>
 </section>
@@ -276,6 +289,10 @@ window.dispatchEvent(new Event('firebase-ready'));
       <div class="form-field" id="cartSummaryField" style="display:none">
         <label>Selected Tires from Cart</label>
         <div class="cart-quote-summary" id="cartQuoteSummary"></div>
+      </div>
+      <div class="form-field" id="servicesSummaryField" style="display:none">
+        <label>Requested Services</label>
+        <div class="services-tags" id="servicesSummary"></div>
       </div>
       <div class="form-field">
         <label>Additional Notes</label>
