@@ -92,22 +92,22 @@ window.dispatchEvent(new Event('firebase-ready'));
         <div class="search-row">
           <div class="search-field">
             <label>Width</label>
-            <select id="hWidth">
-              <option value="">Any</option>
+            <select id="hWidth" onchange="onWidthChange()">
+              <option value="">Any Width</option>
             </select>
           </div>
           <div class="search-sep">/</div>
           <div class="search-field">
             <label>Aspect Ratio</label>
-            <select id="hAspect">
-              <option value="">Any</option>
+            <select id="hAspect" onchange="onAspectChange()">
+              <option value="">Any Ratio</option>
             </select>
           </div>
           <div class="search-sep">R</div>
           <div class="search-field">
             <label>Rim Size</label>
             <select id="hRim">
-              <option value="">Any</option>
+              <option value="">Any Rim</option>
             </select>
           </div>
           <button class="hero-search-btn" onclick="heroSearch()">Search →</button>

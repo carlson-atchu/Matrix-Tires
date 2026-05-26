@@ -77,17 +77,43 @@ function populateFilters() {
 function populateSizeDropdowns() {
   const sizes = allInventory.map(i => parseSize(i.size)).filter(Boolean);
   const widths = [...new Set(sizes.map(s => s.w))].sort((a,b) => a-b);
-  const aspects = [...new Set(sizes.map(s => s.a))].sort((a,b) => a-b);
-  const rims = [...new Set(sizes.map(s => s.r))].sort((a,b) => a-b);
-
-  fill('hWidth', widths);
-  fill('hAspect', aspects);
-  fill('hRim', rims);
+  fill('hWidth', widths, 'Width');
+  // Reset dependent dropdowns to "all" until user picks a width
+  fillAspectsByWidth('');
 }
 
-function fill(id, vals) {
+function fillAspectsByWidth(w) {
+  const sizes = allInventory.map(i => parseSize(i.size)).filter(Boolean);
+  const filtered = w ? sizes.filter(s => s.w === w) : sizes;
+  const aspects = [...new Set(filtered.map(s => s.a))].sort((a,b) => a-b);
+  fill('hAspect', aspects, 'Ratio');
+  fillRimsByWidthAspect(w, '');
+}
+
+function fillRimsByWidthAspect(w, a) {
+  const sizes = allInventory.map(i => parseSize(i.size)).filter(Boolean);
+  let filtered = sizes;
+  if (w) filtered = filtered.filter(s => s.w === w);
+  if (a) filtered = filtered.filter(s => s.a === a);
+  const rims = [...new Set(filtered.map(s => s.r))].sort((a,b) => a-b);
+  fill('hRim', rims, 'Rim');
+}
+
+function onWidthChange() {
+  const w = document.getElementById('hWidth').value;
+  fillAspectsByWidth(w);
+}
+
+function onAspectChange() {
+  const w = document.getElementById('hWidth').value;
+  const a = document.getElementById('hAspect').value;
+  fillRimsByWidthAspect(w, a);
+}
+
+function fill(id, vals, label = 'Any') {
   const el = document.getElementById(id);
-  el.innerHTML = '<option value="">Any</option>' +
+  if (!el) return;
+  el.innerHTML = `<option value="">Any ${label}</option>` +
     vals.map(v => `<option value="${v}">${v}</option>`).join('');
 }
 
