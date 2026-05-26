@@ -58,8 +58,12 @@ window.addEventListener('load', () => {
   renderCart();
   initVehicleSearch();
   showPage('home');
-  // Retry populating size dropdowns after Firebase has had time to load
-  setTimeout(() => { if (allInventory.length) populateSizeDropdowns(); }, 2000);
+  // Retry until inventory arrives and dropdowns are populated
+  const retryPopulate = (attempts) => {
+    if (allInventory.length) { populateSizeDropdowns(); return; }
+    if (attempts > 0) setTimeout(() => retryPopulate(attempts - 1), 1500);
+  };
+  setTimeout(() => retryPopulate(5), 1000);
 });
 
 // ── Populate filter dropdowns ─────────────────────────────────────────────────
@@ -120,11 +124,21 @@ function fill(id, vals, label = 'Any') {
 }
 
 function parseSize(s) {
-  if (!s) return null;
-  // Strip whitespace, optional P/LT/C prefix, then match 3-digit width / 2-3 digit ratio R 2-digit rim
-  const m = s.replace(/\s/g, '').replace(/^[A-Za-z]+/, '')
-    .match(/^(\d{3})[\/]?(\d{2,3})[Rr](\d{2})/);
-  return m ? { w: m[1], a: m[2], r: m[3] } : null;
+  if (!s || typeof s !== 'string') return null;
+  // Extract all numeric groups (handles any separator, prefix like P/LT, suffix like 97H)
+  const nums = s.match(/\d+/g);
+  if (!nums) return null;
+  // Find the 3-digit width, then pick the next two 2-digit groups as ratio and rim
+  const widthIdx = nums.findIndex(n => n.length === 3);
+  if (widthIdx === -1) {
+    // Fallback: everything jammed together e.g. "2255517"
+    const jammed = nums.find(n => n.length >= 7);
+    if (jammed) return { w: jammed.slice(0,3), a: jammed.slice(3,5), r: jammed.slice(5,7) };
+    return null;
+  }
+  const twoDigit = nums.slice(widthIdx + 1).filter(n => n.length === 2);
+  if (twoDigit.length < 2) return null;
+  return { w: nums[widthIdx], a: twoDigit[0], r: twoDigit[1] };
 }
 
 // ── Hero stats ────────────────────────────────────────────────────────────────
