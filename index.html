@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Matrix Tires — New & Used Tires | Best Prices</title>
+<meta name="description" content="Matrix Tires — Shop new and used tires by size, brand, and category. Fast installation, competitive prices, and expert service."/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800;900&family=Manrope:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="css/store.css"/>
+<!-- Firebase -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getFirestore, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { getStorage } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
+const firebaseConfig = {
+  apiKey: "AIzaSyANXqjAvRhB4kU37B6ZpzZJO-g12W6Bx8c",
+  authDomain: "matrix-mobile-tires.firebaseapp.com",
+  projectId: "matrix-mobile-tires",
+  storageBucket: "matrix-mobile-tires.firebasestorage.app",
+  messagingSenderId: "367250783970",
+  appId: "1:367250783970:web:d6243eea150e96a26568bb"
+};
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+window._db = db;
+window._firestoreDoc = doc;
+window._firestoreOnSnapshot = onSnapshot;
+window.dispatchEvent(new Event('firebase-ready'));
+</script>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <div class="logo-mark">M</div>
+      <div>
+        <div class="logo-name">Matrix Tires</div>
+        <div class="logo-tagline">New &amp; Used · Best Prices</div>
+      </div>
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="#shop" class="nav-link" onclick="scrollToShop()">Shop Tires</a>
+      <a href="#brands" class="nav-link">Brands</a>
+      <a href="#services" class="nav-link">Services</a>
+      <a href="#contact" class="nav-link">Contact</a>
+      <a href="admin/index.html" class="nav-link admin-link">Admin ↗</a>
+    </div>
+    <div class="nav-actions">
+      <button class="cart-btn" onclick="toggleCart()" aria-label="Shopping cart">
+        🛒 <span class="cart-badge" id="cartBadge">0</span>
+      </button>
+      <button class="menu-btn" id="menuBtn" onclick="toggleMenu()" aria-label="Menu">☰</button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-grid"></div>
+  <div class="hero-content">
+    <div class="hero-badge">🔴 New &amp; Used Tires In Stock</div>
+    <h1 class="hero-title">Find Your<br/><span class="hero-accent">Perfect Tire</span></h1>
+    <p class="hero-sub">Search by size, brand, or category. New and used tires at unbeatable prices with expert installation.</p>
+    <div class="hero-search-box">
+      <div class="search-row">
+        <div class="search-field">
+          <label>Width</label>
+          <select id="hWidth" onchange="heroSearch()">
+            <option value="">Any</option>
+          </select>
+        </div>
+        <div class="search-sep">/</div>
+        <div class="search-field">
+          <label>Aspect Ratio</label>
+          <select id="hAspect" onchange="heroSearch()">
+            <option value="">Any</option>
+          </select>
+        </div>
+        <div class="search-sep">R</div>
+        <div class="search-field">
+          <label>Rim Size</label>
+          <select id="hRim" onchange="heroSearch()">
+            <option value="">Any</option>
+          </select>
+        </div>
+        <button class="hero-search-btn" onclick="heroSearch()">Search Tires →</button>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><span class="stat-num" id="heroStockCount">—</span><span class="stat-label">Tires in Stock</span></div>
+      <div class="hero-stat"><span class="stat-num" id="heroBrandCount">—</span><span class="stat-label">Top Brands</span></div>
+      <div class="hero-stat"><span class="stat-num">Same</span><span class="stat-label">Day Service</span></div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="tire-graphic">
+      <div class="tire-ring t1"></div>
+      <div class="tire-ring t2"></div>
+      <div class="tire-ring t3"></div>
+      <div class="tire-center">M</div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST STRIP -->
+<div class="trust-strip">
+  <div class="trust-item">✅ Price Match Guarantee</div>
+  <div class="trust-item">🚗 Mobile Installation Available</div>
+  <div class="trust-item">⚡ Same-Day Service</div>
+  <div class="trust-item">🔒 Quality Guaranteed</div>
+</div>
+
+<!-- SHOP SECTION -->
+<section class="shop-section" id="shop">
+  <div class="section-inner">
+    <div class="section-header">
+      <div>
+        <div class="section-eyebrow">Browse Inventory</div>
+        <h2 class="section-title">Shop All Tires</h2>
+      </div>
+      <div class="result-count" id="resultCount">Loading inventory…</div>
+    </div>
+
+    <!-- FILTERS -->
+    <div class="filter-bar">
+      <div class="filter-group">
+        <input type="text" class="filter-input search-input" id="searchInput" placeholder="🔍 Search size, brand, type…" oninput="applyFilters()"/>
+      </div>
+      <div class="filter-group">
+        <select class="filter-select" id="filterCond" onchange="applyFilters()">
+          <option value="">All Conditions</option>
+          <option value="New">🟢 New</option>
+          <option value="Used">🟡 Used</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <select class="filter-select" id="filterBrand" onchange="applyFilters()">
+          <option value="">All Brands</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <select class="filter-select" id="filterType" onchange="applyFilters()">
+          <option value="">All Types</option>
+          <option value="All-Season">All-Season</option>
+          <option value="Summer">Summer</option>
+          <option value="Winter">Winter</option>
+          <option value="Performance">Performance</option>
+          <option value="Truck/SUV">Truck/SUV</option>
+          <option value="Run-Flat">Run-Flat</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <select class="filter-select" id="filterSort" onchange="applyFilters()">
+          <option value="price-asc">Price: Low → High</option>
+          <option value="price-desc">Price: High → Low</option>
+          <option value="brand">Brand A–Z</option>
+          <option value="newest">Newest First</option>
+        </select>
+      </div>
+      <button class="filter-clear" onclick="clearFilters()">✕ Clear</button>
+    </div>
+
+    <!-- TIRE GRID -->
+    <div class="tire-grid" id="tireGrid">
+      <div class="loading-state">
+        <div class="spinner"></div>
+        <p>Loading live inventory…</p>
+      </div>
+    </div>
+    <div class="empty-state" id="emptyState" style="display:none">
+      <div class="empty-icon">🔍</div>
+      <h3>No tires match your search</h3>
+      <p>Try adjusting your filters or <button class="link-btn" onclick="clearFilters()">clear all filters</button></p>
+    </div>
+  </div>
+</section>
+
+<!-- BRANDS SECTION -->
+<section class="brands-section" id="brands">
+  <div class="section-inner">
+    <div class="section-eyebrow">Top Brands We Carry</div>
+    <h2 class="section-title">Trusted Manufacturers</h2>
+    <div class="brands-grid" id="brandsGrid"></div>
+  </div>
+</section>
+
+<!-- SERVICES SECTION -->
+<section class="services-section" id="services">
+  <div class="section-inner">
+    <div class="section-eyebrow">What We Offer</div>
+    <h2 class="section-title">Our Services</h2>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">🔧</div>
+        <h3>Tire Installation</h3>
+        <p>Professional mounting and balancing for all vehicle types. We come to you or you come to us.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🔄</div>
+        <h3>Tire Rotation</h3>
+        <p>Extend the life of your tires with regular rotation service. Quick and affordable.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🛞</div>
+        <h3>Flat Repair</h3>
+        <p>Puncture repairs and emergency flat tire service. Get back on the road fast.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🚗</div>
+        <h3>Mobile Service</h3>
+        <p>We bring the shop to you — driveway, parking lot, or roadside. Available 7 days a week.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT / QUOTE SECTION -->
+<section class="contact-section" id="contact">
+  <div class="section-inner contact-inner">
+    <div class="contact-info">
+      <div class="section-eyebrow">Get In Touch</div>
+      <h2 class="section-title">Request a Quote</h2>
+      <p class="contact-body">Tell us what you're looking for and we'll get back to you with the best price and availability.</p>
+      <div class="contact-details">
+        <div class="contact-item">📞 <span id="contactPhone">(571) 555-0199</span></div>
+        <div class="contact-item">📧 <span>info@matrixtires.com</span></div>
+        <div class="contact-item">📍 <span>Manassas, VA &amp; Surrounding Areas</span></div>
+        <div class="contact-item">🕐 <span>Mon–Sat 8am–7pm · Sun 10am–5pm</span></div>
+      </div>
+    </div>
+    <form class="quote-form" id="quoteForm" onsubmit="submitQuote(event)">
+      <h3 class="form-title">Get Your Free Quote</h3>
+      <div class="form-row">
+        <div class="form-field">
+          <label>First Name *</label>
+          <input type="text" id="qFirstName" required placeholder="John"/>
+        </div>
+        <div class="form-field">
+          <label>Last Name *</label>
+          <input type="text" id="qLastName" required placeholder="Smith"/>
+        </div>
+      </div>
+      <div class="form-field">
+        <label>Phone Number *</label>
+        <input type="tel" id="qPhone" required placeholder="(555) 000-0000"/>
+      </div>
+      <div class="form-field">
+        <label>Email Address</label>
+        <input type="email" id="qEmail" placeholder="john@example.com"/>
+      </div>
+      <div class="form-row">
+        <div class="form-field">
+          <label>Tire Size (e.g. 225/45R17)</label>
+          <input type="text" id="qSize" placeholder="225/45R17"/>
+        </div>
+        <div class="form-field">
+          <label>Quantity Needed</label>
+          <select id="qQty">
+            <option value="1">1 tire</option>
+            <option value="2">2 tires</option>
+            <option value="4" selected>4 tires (full set)</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-field">
+        <label>Condition Preference</label>
+        <select id="qCond">
+          <option value="any">Any (Best Price)</option>
+          <option value="New">New Only</option>
+          <option value="Used">Used Only</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label>Additional Notes</label>
+        <textarea id="qNotes" rows="3" placeholder="Vehicle year/make/model, brand preferences, or anything else…"></textarea>
+      </div>
+      <button type="submit" class="submit-btn" id="submitBtn">Send Quote Request →</button>
+      <div class="form-success" id="formSuccess" style="display:none">
+        ✅ Quote request sent! We'll contact you within 2 hours during business hours.
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="nav-logo">
+        <div class="logo-mark">M</div>
+        <div>
+          <div class="logo-name">Matrix Tires</div>
+          <div class="logo-tagline">Serving Manassas, VA &amp; Surrounding Areas</div>
+        </div>
+      </div>
+      <p class="footer-copy">© 2025 Matrix Tires. All rights reserved.</p>
+    </div>
+    <div class="footer-links">
+      <div class="footer-col">
+        <div class="footer-col-title">Shop</div>
+        <a href="#shop" onclick="scrollToShop()">New Tires</a>
+        <a href="#shop" onclick="scrollToShop()">Used Tires</a>
+        <a href="#brands">Brands</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Company</div>
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
+        <a href="admin/index.html">Staff Login</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- CART SIDEBAR -->
+<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+<div class="cart-sidebar" id="cartSidebar">
+  <div class="cart-header">
+    <h3>Your Cart</h3>
+    <button onclick="toggleCart()" class="cart-close">✕</button>
+  </div>
+  <div class="cart-body" id="cartBody">
+    <div class="cart-empty">Your cart is empty.<br/>Add tires from the shop!</div>
+  </div>
+  <div class="cart-footer" id="cartFooter" style="display:none">
+    <div class="cart-total">Total: <strong id="cartTotal">$0.00</strong></div>
+    <button class="submit-btn" onclick="checkoutCart()">Request Quote for Cart →</button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script src="js/store.js"></script>
+</body>
+</html>
