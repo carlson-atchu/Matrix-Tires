@@ -632,52 +632,66 @@ function submitQuote(e) {
   btn.textContent = 'Sending…';
   btn.disabled = true;
 
-  const data = {
-    name: `${document.getElementById('qFirstName').value} ${document.getElementById('qLastName').value}`,
-    phone: document.getElementById('qPhone').value,
-    email: document.getElementById('qEmail').value,
-    size: document.getElementById('qSize').value,
-    qty: document.getElementById('qQty').value,
-    condition: document.getElementById('qCond').value,
-    notes: document.getElementById('qNotes').value,
-    timestamp: new Date().toISOString(),
-    cartItems: cart,
-    services: [...selectedServices]
+  const firstName = document.getElementById('qFirstName').value;
+  const lastName  = document.getElementById('qLastName').value;
+  const phone     = document.getElementById('qPhone').value;
+  const email     = document.getElementById('qEmail').value;
+  const size      = document.getElementById('qSize').value;
+  const qty       = document.getElementById('qQty').value;
+  const condition = document.getElementById('qCond').value;
+  const notes     = document.getElementById('qNotes').value;
+
+  const cartLines = cart.length
+    ? cart.map(c => `${c.qty||1}x ${c.size} ${c.brand} (${c.condition}) — $${((c.price||0)*(c.qty||1)).toFixed(2)}`).join('\n')
+    : 'No cart items';
+  const serviceLines = selectedServices.length ? selectedServices.join(', ') : 'None';
+
+  const templateParams = {
+    from_name:  `${firstName} ${lastName}`,
+    reply_to:   email || 'Not provided',
+    phone:      phone,
+    size:       size || 'Not specified',
+    qty:        qty,
+    condition:  condition,
+    services:   serviceLines,
+    cart_items: cartLines,
+    notes:      notes || 'None',
+    timestamp:  new Date().toLocaleString('en-US', { timeZone: 'America/New_York' }),
   };
 
-  // Save quote to Firestore
-  if (window._db && window._firestoreDoc) {
-    const { getFirestore, collection, addDoc } = window;
-    // Save as a new doc in quotes collection
+  // Save to Firestore
+  if (window._db && window._firestoreDoc && window._setDoc) {
     try {
-      const db = window._db;
-      const quoteId = `quote_${Date.now()}`;
-      const docRef = window._firestoreDoc(db, 'quotes', quoteId);
-      // Use setDoc if available
-      if (window._setDoc) {
-        window._setDoc(docRef, data);
-      }
-    } catch(err) { console.log('Quote save:', err); }
+      const docRef = window._firestoreDoc(window._db, 'quotes', `quote_${Date.now()}`);
+      window._setDoc(docRef, { ...templateParams, cartItems: cart, services: [...selectedServices] });
+    } catch(err) { console.log('Firestore save:', err); }
   }
 
-  setTimeout(() => {
-    btn.textContent = 'Send Quote Request →';
-    btn.disabled = false;
-    document.getElementById('formSuccess').style.display = 'block';
-    document.getElementById('quoteForm').reset();
-    cart = [];
-    saveCart();
-    selectedServices = [];
-    document.querySelectorAll('.service-card').forEach(card => {
-      card.classList.remove('selected');
-      const btn = card.querySelector('.service-add-btn');
-      if (btn) { btn.textContent = '+ Add to Quote'; btn.classList.remove('selected'); }
+  // Send email via EmailJS
+  emailjs.send('service_wtb1gzm', 'template_a9y4bpc', templateParams)
+    .then(() => {
+      btn.textContent = 'Send Quote Request →';
+      btn.disabled = false;
+      document.getElementById('formSuccess').style.display = 'block';
+      document.getElementById('quoteForm').reset();
+      cart = [];
+      saveCart();
+      selectedServices = [];
+      document.querySelectorAll('.service-card').forEach(sc => {
+        sc.classList.remove('selected');
+        const sb = sc.querySelector('.service-add-btn');
+        if (sb) { sb.textContent = '+ Add to Quote'; sb.classList.remove('selected'); }
+      });
+      const cta = document.getElementById('servicesCta');
+      if (cta) cta.style.display = 'none';
+      updateServicesSummary();
+      setTimeout(() => document.getElementById('formSuccess').style.display = 'none', 6000);
+    })
+    .catch(() => {
+      btn.textContent = 'Send Quote Request →';
+      btn.disabled = false;
+      showToast('⚠ Failed to send — please call us directly');
     });
-    const cta = document.getElementById('servicesCta');
-    if (cta) cta.style.display = 'none';
-    updateServicesSummary();
-    setTimeout(() => document.getElementById('formSuccess').style.display = 'none', 6000);
-  }, 900);
 }
 
 // ── Services ──────────────────────────────────────────────────────────────────
