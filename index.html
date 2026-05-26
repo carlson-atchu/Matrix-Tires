@@ -84,28 +84,57 @@ window.dispatchEvent(new Event('firebase-ready'));
     <h1 class="hero-title">Find Your<br/><span class="hero-accent">Perfect Tire</span></h1>
     <p class="hero-sub">Search by size, brand, or category. New and used tires at unbeatable prices with expert installation.</p>
     <div class="hero-search-box">
-      <div class="search-row">
-        <div class="search-field">
-          <label>Width</label>
-          <select id="hWidth" onchange="heroSearch()">
-            <option value="">Any</option>
-          </select>
+      <div class="search-tabs">
+        <button class="search-tab active" id="tab-size" onclick="switchSearchTab('size')">🔍 By Tire Size</button>
+        <button class="search-tab" id="tab-vehicle" onclick="switchSearchTab('vehicle')">🚗 By Vehicle</button>
+      </div>
+      <div id="panel-size" class="search-panel">
+        <div class="search-row">
+          <div class="search-field">
+            <label>Width</label>
+            <select id="hWidth">
+              <option value="">Any</option>
+            </select>
+          </div>
+          <div class="search-sep">/</div>
+          <div class="search-field">
+            <label>Aspect Ratio</label>
+            <select id="hAspect">
+              <option value="">Any</option>
+            </select>
+          </div>
+          <div class="search-sep">R</div>
+          <div class="search-field">
+            <label>Rim Size</label>
+            <select id="hRim">
+              <option value="">Any</option>
+            </select>
+          </div>
+          <button class="hero-search-btn" onclick="heroSearch()">Search →</button>
         </div>
-        <div class="search-sep">/</div>
-        <div class="search-field">
-          <label>Aspect Ratio</label>
-          <select id="hAspect" onchange="heroSearch()">
-            <option value="">Any</option>
-          </select>
+      </div>
+      <div id="panel-vehicle" class="search-panel" style="display:none">
+        <div class="search-row">
+          <div class="search-field">
+            <label>Make</label>
+            <select id="vMake" onchange="onVehicleMakeChange()">
+              <option value="">Select Make</option>
+            </select>
+          </div>
+          <div class="search-field">
+            <label>Model</label>
+            <select id="vModel" onchange="onVehicleModelChange()">
+              <option value="">Select Model</option>
+            </select>
+          </div>
+          <div class="search-field">
+            <label>Year</label>
+            <select id="vYear">
+              <option value="">Any Year</option>
+            </select>
+          </div>
+          <button class="hero-search-btn" onclick="vehicleSearch()">Search →</button>
         </div>
-        <div class="search-sep">R</div>
-        <div class="search-field">
-          <label>Rim Size</label>
-          <select id="hRim" onchange="heroSearch()">
-            <option value="">Any</option>
-          </select>
-        </div>
-        <button class="hero-search-btn" onclick="heroSearch()">Search Tires →</button>
       </div>
     </div>
     <div class="hero-stats">
@@ -180,6 +209,12 @@ window.dispatchEvent(new Event('firebase-ready'));
         </select>
       </div>
       <button class="filter-clear" onclick="clearFilters()">✕ Clear</button>
+    </div>
+
+    <!-- VEHICLE FILTER BANNER -->
+    <div id="vehicleFilterBanner" class="vehicle-filter-banner" style="display:none">
+      <span>🚗 Showing tires for <strong id="vehicleFilterLabel"></strong></span>
+      <button class="filter-clear" onclick="clearVehicleFilter()">✕ Clear</button>
     </div>
 
     <!-- TIRE GRID -->
