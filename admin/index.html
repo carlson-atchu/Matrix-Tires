@@ -725,9 +725,15 @@ async function fixAllTireSizes() {
     return;
   }
   inventory = sortInventoryBySize(inventory);
-  save();
   render();
-  showToast(`✓ Fixed ${fixed.length} tire size(s) to R-format!`);
+  showToast('⏳ Saving updated sizes to Firebase…', '#4D9EFF');
+  try {
+    await window._setDoc(window._docRef, { sales, expenses, inventory, updatedAt: Date.now() });
+    showToast(`✓ Fixed ${fixed.length} tire size(s) to R-format and saved!`);
+  } catch(e) {
+    console.error('Migration save error:', e);
+    showToast('⚠ Save failed — check console', '#FF4D6D');
+  }
 }
 
 // ── INVENTORY ─────────────────────────────────────────────────
