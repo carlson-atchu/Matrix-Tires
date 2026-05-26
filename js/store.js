@@ -3,6 +3,7 @@
 let allInventory = [];
 let cart = JSON.parse(localStorage.getItem('mt_cart') || '[]');
 let selectedServices = [];
+let currentPage = 'home';
 
 // ── Navbar scroll effect ──────────────────────────────────────────────────────
 window.addEventListener('scroll', () => {
@@ -10,8 +11,27 @@ window.addEventListener('scroll', () => {
 });
 
 // ── Mobile menu ───────────────────────────────────────────────────────────────
-function toggleMenu() {
-  document.getElementById('navLinks').classList.toggle('open');
+function toggleDrawer() {
+  document.getElementById('drawer').classList.toggle('open');
+  document.getElementById('drawerOverlay').classList.toggle('open');
+}
+
+function closeDrawer() {
+  document.getElementById('drawer').classList.remove('open');
+  document.getElementById('drawerOverlay').classList.remove('open');
+}
+
+function showPage(name) {
+  currentPage = name;
+  document.querySelectorAll('.page-section').forEach(el => {
+    el.classList.toggle('active', el.dataset.page === name);
+  });
+  document.querySelectorAll('.drawer-link[data-page]').forEach(el => {
+    el.classList.toggle('active', el.dataset.page === name);
+  });
+  closeDrawer();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (name === 'shop') applyFilters();
 }
 
 // ── Firebase: load inventory ──────────────────────────────────────────────────
@@ -34,6 +54,7 @@ window.addEventListener('load', () => {
   if (window._db) initFirebase();
   updateCartBadge();
   renderCart();
+  showPage('home');
 });
 
 // ── Populate filter dropdowns ─────────────────────────────────────────────────
@@ -94,7 +115,7 @@ function heroSearch() {
 }
 
 function scrollToShop() {
-  document.getElementById('shop').scrollIntoView({ behavior: 'smooth' });
+  showPage('shop');
 }
 
 // ── Filters ───────────────────────────────────────────────────────────────────
@@ -165,8 +186,12 @@ function renderGrid(tires) {
     const price = tire.sell ? `$${Number(tire.sell).toFixed(2)}` : 'Call for Price';
     const outOfStock = tire.qty === 0;
 
+    const imgHtml = tire.imgUrl
+      ? `<div class="card-img"><img src="${tire.imgUrl}" alt="${tire.size}" loading="lazy"/></div>`
+      : '';
     return `
     <div class="tire-card" style="animation-delay:${idx * 0.04}s">
+      ${imgHtml}
       <div class="card-badge-row">
         <span class="cond-badge ${isNew ? 'cond-new' : 'cond-used'}">${isNew ? '🟢 New' : '🟡 Used'}</span>
         <span class="stock-badge stock-${stockStatus}">${stockLabel}</span>
@@ -295,7 +320,7 @@ function checkoutCart() {
   document.getElementById('qNotes').value = lines;
 
   toggleCart();
-  document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+  showPage('contact');
 }
 
 // ── Quote form ────────────────────────────────────────────────────────────────
@@ -401,7 +426,7 @@ function updateServicesSummary() {
 
 function scrollToServicesQuote() {
   updateServicesSummary();
-  document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+  showPage('contact');
 }
 
 // ── Toast ─────────────────────────────────────────────────────────────────────

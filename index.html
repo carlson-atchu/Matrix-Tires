@@ -40,24 +40,40 @@ window.dispatchEvent(new Event('firebase-ready'));
         <div class="logo-tagline">New &amp; Used · Best Prices</div>
       </div>
     </a>
-    <div class="nav-links" id="navLinks">
-      <a href="#shop" class="nav-link" onclick="scrollToShop()">Shop Tires</a>
-      <a href="#brands" class="nav-link">Brands</a>
-      <a href="#services" class="nav-link">Services</a>
-      <a href="#contact" class="nav-link">Contact</a>
-      <a href="admin/index.html" class="nav-link admin-link">Admin ↗</a>
-    </div>
     <div class="nav-actions">
       <button class="cart-btn" onclick="toggleCart()" aria-label="Shopping cart">
         🛒 <span class="cart-badge" id="cartBadge">0</span>
       </button>
-      <button class="menu-btn" id="menuBtn" onclick="toggleMenu()" aria-label="Menu">☰</button>
+      <button class="menu-btn" id="menuBtn" onclick="toggleDrawer()" aria-label="Menu">☰</button>
     </div>
   </div>
 </nav>
 
+<!-- DRAWER -->
+<div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
+<div class="drawer" id="drawer">
+  <div class="drawer-header">
+    <a href="#" onclick="showPage('home')" class="nav-logo" style="text-decoration:none">
+      <div class="logo-mark">M</div>
+      <div>
+        <div class="logo-name">Matrix Tires</div>
+        <div class="logo-tagline">New &amp; Used · Best Prices</div>
+      </div>
+    </a>
+    <button class="drawer-close" onclick="closeDrawer()">✕</button>
+  </div>
+  <nav class="drawer-nav">
+    <a class="drawer-link active" data-page="home" onclick="showPage('home')">🏠 Home</a>
+    <a class="drawer-link" data-page="shop" onclick="showPage('shop')">🛞 Shop Tires</a>
+    <a class="drawer-link" data-page="brands" onclick="showPage('brands')">🏷️ Brands</a>
+    <a class="drawer-link" data-page="services" onclick="showPage('services')">🔧 Services</a>
+    <a class="drawer-link" data-page="contact" onclick="showPage('contact')">📋 Get a Quote</a>
+    <a class="drawer-link drawer-admin" href="admin/index.html">⚙️ Admin ↗</a>
+  </nav>
+</div>
+
 <!-- HERO -->
-<section class="hero">
+<section class="hero page-section" data-page="home">
   <div class="hero-bg-grid"></div>
   <div class="hero-content">
     <div class="hero-badge">🔴 New &amp; Used Tires In Stock</div>
@@ -105,7 +121,7 @@ window.dispatchEvent(new Event('firebase-ready'));
 </section>
 
 <!-- TRUST STRIP -->
-<div class="trust-strip">
+<div class="trust-strip page-section" data-page="home">
   <div class="trust-item">✅ Price Match Guarantee</div>
   <div class="trust-item">🚗 Mobile Installation Available</div>
   <div class="trust-item">⚡ Same-Day Service</div>
@@ -113,7 +129,7 @@ window.dispatchEvent(new Event('firebase-ready'));
 </div>
 
 <!-- SHOP SECTION -->
-<section class="shop-section" id="shop">
+<section class="shop-section page-section" data-page="shop" id="shop">
   <div class="section-inner">
     <div class="section-header">
       <div>
@@ -178,7 +194,7 @@ window.dispatchEvent(new Event('firebase-ready'));
 </section>
 
 <!-- BRANDS SECTION -->
-<section class="brands-section" id="brands">
+<section class="brands-section page-section" data-page="brands" id="brands">
   <div class="section-inner">
     <div class="section-eyebrow">Top Brands We Carry</div>
     <h2 class="section-title">Trusted Manufacturers</h2>
@@ -187,7 +203,7 @@ window.dispatchEvent(new Event('firebase-ready'));
 </section>
 
 <!-- SERVICES SECTION -->
-<section class="services-section" id="services">
+<section class="services-section page-section" data-page="services" id="services">
   <div class="section-inner">
     <div class="section-eyebrow">What We Offer</div>
     <h2 class="section-title">Our Services</h2>
@@ -230,7 +246,7 @@ window.dispatchEvent(new Event('firebase-ready'));
 </section>
 
 <!-- CONTACT / QUOTE SECTION -->
-<section class="contact-section" id="contact">
+<section class="contact-section page-section" data-page="contact" id="contact">
   <div class="section-inner contact-inner">
     <div class="contact-info">
       <div class="section-eyebrow">Get In Touch</div>

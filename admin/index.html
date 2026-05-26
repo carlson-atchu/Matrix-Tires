@@ -11,6 +11,7 @@
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getFirestore, doc, setDoc, onSnapshot, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyANXqjAvRhB4kU37B6ZpzZJO-g12W6Bx8c",
@@ -31,6 +32,11 @@ window._docRef = DOC_REF;
 window._setDoc = setDoc;
 window._onSnapshot = onSnapshot;
 window._getDoc = getDoc;
+const storage = getStorage(app);
+window._storage = storage;
+window._storageRef = storageRef;
+window._uploadBytes = uploadBytes;
+window._getDownloadURL = getDownloadURL;
 window._firebaseReady = true;
 window.dispatchEvent(new Event('firebase-ready'));
 </script>
@@ -266,6 +272,11 @@ select option{background:var(--surface);}
           <div class="field"><label>Selling Price ($)</label><input type="number" id="i-sell" placeholder="0.00" step="0.01"/></div>
           <div class="field"><label>Low Stock Alert At</label><input type="number" id="i-low" placeholder="2" min="1"/></div>
           <div class="field"><label>Notes</label><input type="text" id="i-notes" placeholder="Optional"/></div>
+          <div class="field span2">
+            <label>Tire Photo (optional)</label>
+            <input type="file" id="i-img" accept="image/*" onchange="previewInvImg(this)" style="padding:6px;cursor:pointer"/>
+            <div id="i-img-preview" style="display:none;margin-top:8px;border-radius:8px;overflow:hidden;"></div>
+          </div>
         </div>
         <button class="btn btn-blue" onclick="addInventory()">＋ Add to Inventory</button>
       </div>
@@ -691,14 +702,27 @@ function switchTab(tab) {
 }
 
 // ── INVENTORY ─────────────────────────────────────────────────
-function addInventory() {
+async function addInventory() {
   const size = document.getElementById('i-size').value.trim();
   const qty = parseInt(document.getElementById('i-qty').value);
   if (!size || isNaN(qty)) { showToast('⚠ Tire size & quantity required', '#FF4D6D'); return; }
-  inventory.unshift({ id: genId(), condition: invCondition, size, brand: document.getElementById('i-brand').value.trim(), type: document.getElementById('i-type').value, qty, cost: parseFloat(document.getElementById('i-cost').value)||0, sell: parseFloat(document.getElementById('i-sell').value)||0, lowAt: parseInt(document.getElementById('i-low').value)||2, notes: document.getElementById('i-notes').value.trim() });
+  const id = genId();
+  const imgFile = document.getElementById('i-img')?.files?.[0];
+  let imgUrl = null;
+  if (imgFile) {
+    showToast('⏳ Uploading photo…', '#4D9EFF');
+    imgUrl = await uploadTireImage(imgFile, id);
+  }
+  const item = { id, condition: invCondition, size, brand: document.getElementById('i-brand').value.trim(), type: document.getElementById('i-type').value, qty, cost: parseFloat(document.getElementById('i-cost').value)||0, sell: parseFloat(document.getElementById('i-sell').value)||0, lowAt: parseInt(document.getElementById('i-low').value)||2, notes: document.getElementById('i-notes').value.trim() };
+  if (imgUrl) item.imgUrl = imgUrl;
+  inventory.unshift(item);
   inventory = sortInventoryBySize(inventory);
   save();
-  ['i-size','i-brand','i-qty','i-cost','i-sell','i-low','i-notes'].forEach(id => document.getElementById(id).value = '');
+  ['i-size','i-brand','i-qty','i-cost','i-sell','i-low','i-notes'].forEach(fid => document.getElementById(fid).value = '');
+  const imgInput = document.getElementById('i-img');
+  if (imgInput) imgInput.value = '';
+  const preview = document.getElementById('i-img-preview');
+  if (preview) { preview.style.display = 'none'; preview.innerHTML = ''; }
   render(); showToast(`✓ ${invCondition} tire added & sorted by size!`);
 }
 
@@ -732,6 +756,50 @@ function deleteInventory(id) {
     'This tire will be permanently removed from your inventory and cannot be recovered.',
     `${item.condition} · ${item.size}${item.brand ? ' · ' + item.brand : ''}  ·  Qty: ${item.qty}`
   );
+}
+
+async function uploadTireImage(file, tireId) {
+  if (!window._storage || !file) return null;
+  try {
+    const ref = window._storageRef(window._storage, `tires/${tireId}`);
+    await window._uploadBytes(ref, file);
+    return await window._getDownloadURL(ref);
+  } catch(e) {
+    console.error('Image upload failed:', e);
+    return null;
+  }
+}
+
+function previewInvImg(input) {
+  const preview = document.getElementById('i-img-preview');
+  if (!preview) return;
+  if (input.files && input.files[0]) {
+    const reader = new FileReader();
+    reader.onload = e => {
+      preview.innerHTML = `<img src="${e.target.result}" style="width:100%;object-fit:cover;border-radius:8px;max-height:120px;"/>`;
+      preview.style.display = 'block';
+    };
+    reader.readAsDataURL(input.files[0]);
+  } else {
+    preview.style.display = 'none';
+    preview.innerHTML = '';
+  }
+}
+
+function previewEditImg(input) {
+  const preview = document.getElementById('ed-img-preview');
+  if (!preview) return;
+  if (input.files && input.files[0]) {
+    const reader = new FileReader();
+    reader.onload = e => {
+      preview.innerHTML = `<img src="${e.target.result}" style="width:100%;object-fit:cover;border-radius:8px;max-height:120px;"/>`;
+      preview.style.display = 'block';
+    };
+    reader.readAsDataURL(input.files[0]);
+  } else {
+    preview.style.display = 'none';
+    preview.innerHTML = '';
+  }
 }
 
 // ── SALES ─────────────────────────────────────────────────────
@@ -1158,6 +1226,12 @@ function editInventory(id) {
       <div class="field"><label>Cost Price ($)</label><input type="number" id="ed-cost" value="${item.cost||0}" step="0.01"/></div>
       <div class="field"><label>Selling Price ($)</label><input type="number" id="ed-sell" value="${item.sell||0}" step="0.01"/></div>
       <div class="field span2"><label>Notes</label><input type="text" id="ed-notes" value="${item.notes||''}"/></div>
+      <div class="field span2">
+        <label>Tire Photo (optional — upload to replace)</label>
+        <input type="file" id="ed-img" accept="image/*" onchange="previewEditImg(this)" style="padding:6px;cursor:pointer"/>
+        <div id="ed-img-preview" style="display:none;margin-top:8px;border-radius:8px;overflow:hidden;"></div>
+        ${item.imgUrl ? `<div style="margin-top:8px;border-radius:8px;overflow:hidden;max-height:100px"><img src="${item.imgUrl}" style="width:100%;object-fit:cover;"/></div>` : ''}
+      </div>
     </div>`;
   window._editInvCondition = item.condition || 'New';
   document.getElementById('edit-overlay').style.display = 'flex';
@@ -1170,7 +1244,7 @@ function setEditCondition(c) {
 }
 
 // ── SAVE EDIT ─────────────────────────────────────────────────
-function saveEdit() {
+async function saveEdit() {
   if (_editType === 'sale') {
     const idx = sales.findIndex(s => s.id === _editId);
     if (idx === -1) return;
@@ -1206,6 +1280,12 @@ function saveEdit() {
   } else if (_editType === 'inventory') {
     const idx = inventory.findIndex(i => i.id === _editId);
     if (idx === -1) return;
+    const imgFile = document.getElementById('ed-img')?.files?.[0];
+    if (imgFile) {
+      showToast('⏳ Uploading photo…', '#4D9EFF');
+      const url = await uploadTireImage(imgFile, _editId);
+      if (url) inventory[idx].imgUrl = url;
+    }
     inventory[idx] = {
       ...inventory[idx],
       condition: window._editInvCondition || inventory[idx].condition,
@@ -1451,7 +1531,8 @@ function renderInventory() {
     else{bc='stock-ok';bt='In Stock';}
     const cb=item.condition==='New'?'<span class="badge-new">🟢 New</span>':'<span class="badge-used">🟡 Used</span>';
     const marg=item.sell>0&&item.cost>0?`<div style="font-size:11px;color:var(--muted);margin-top:8px">Margin: <span style="color:var(--green);font-weight:700">${fmt(item.sell-item.cost)} (${((item.sell-item.cost)/item.sell*100).toFixed(0)}%)</span> · Value: <span style="color:var(--blue)">${fmt(item.qty*item.cost)}</span></div>`:'';
-    const hs=invSearch;return`<div class="inv-card ${sc}"><div class="inv-header"><div><div class="inv-title">${hs?highlightText(item.size,hs):item.size}</div><div class="inv-sub">${hs?highlightText(item.brand||'No brand',hs):item.brand||'No brand'} · ${hs?highlightText(item.type,hs):item.type}</div></div><div class="inv-badges">${cb}<span class="stock-badge ${bc}">${bt}</span></div></div><div class="inv-stats"><div class="inv-stat"><div class="inv-stat-label">QTY</div><div class="inv-stat-val" style="color:${item.qty===0?'var(--red)':item.qty<=item.lowAt?'var(--yellow)':'var(--green)'}">${item.qty}</div></div><div class="inv-stat"><div class="inv-stat-label">COST</div><div class="inv-stat-val">${fmt(item.cost)}</div></div><div class="inv-stat"><div class="inv-stat-label">SELL</div><div class="inv-stat-val" style="color:var(--green)">${fmt(item.sell)}</div></div></div>${marg}<div class="inv-actions"><button class="inv-btn inv-btn-add" onclick="openAdjustModal('${item.id}','add')">＋ Restock</button><button class="inv-btn inv-btn-remove" onclick="openAdjustModal('${item.id}','remove')">− Remove</button><button class="inv-btn" onclick="editInventory('${item.id}')" style="background:rgba(77,158,255,0.12);color:var(--blue);border:1px solid rgba(77,158,255,0.25)">✏️ Edit</button><button class="inv-btn inv-btn-del" onclick="deleteInventory('${item.id}')">🗑</button></div></div>`;
+    const imgThumb=item.imgUrl?`<div style="border-radius:8px;overflow:hidden;margin-bottom:10px;max-height:100px"><img src="${item.imgUrl}" style="width:100%;object-fit:cover;max-height:100px;" loading="lazy"/></div>`:'';
+    const hs=invSearch;return`<div class="inv-card ${sc}">${imgThumb}<div class="inv-header"><div><div class="inv-title">${hs?highlightText(item.size,hs):item.size}</div><div class="inv-sub">${hs?highlightText(item.brand||'No brand',hs):item.brand||'No brand'} · ${hs?highlightText(item.type,hs):item.type}</div></div><div class="inv-badges">${cb}<span class="stock-badge ${bc}">${bt}</span></div></div><div class="inv-stats"><div class="inv-stat"><div class="inv-stat-label">QTY</div><div class="inv-stat-val" style="color:${item.qty===0?'var(--red)':item.qty<=item.lowAt?'var(--yellow)':'var(--green)'}">${item.qty}</div></div><div class="inv-stat"><div class="inv-stat-label">COST</div><div class="inv-stat-val">${fmt(item.cost)}</div></div><div class="inv-stat"><div class="inv-stat-label">SELL</div><div class="inv-stat-val" style="color:var(--green)">${fmt(item.sell)}</div></div></div>${marg}<div class="inv-actions"><button class="inv-btn inv-btn-add" onclick="openAdjustModal('${item.id}','add')">＋ Restock</button><button class="inv-btn inv-btn-remove" onclick="openAdjustModal('${item.id}','remove')">− Remove</button><button class="inv-btn" onclick="editInventory('${item.id}')" style="background:rgba(77,158,255,0.12);color:var(--blue);border:1px solid rgba(77,158,255,0.25)">✏️ Edit</button><button class="inv-btn inv-btn-del" onclick="deleteInventory('${item.id}')">🗑</button></div></div>`;
   }).join('');
 }
 
