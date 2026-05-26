@@ -58,6 +58,8 @@ window.addEventListener('load', () => {
   renderCart();
   initVehicleSearch();
   showPage('home');
+  // Retry populating size dropdowns after Firebase has had time to load
+  setTimeout(() => { if (allInventory.length) populateSizeDropdowns(); }, 2000);
 });
 
 // ── Populate filter dropdowns ─────────────────────────────────────────────────
@@ -85,17 +87,17 @@ function populateSizeDropdowns() {
 function fillAspectsByWidth(w) {
   const sizes = allInventory.map(i => parseSize(i.size)).filter(Boolean);
   const filtered = w ? sizes.filter(s => s.w === w) : sizes;
-  const aspects = [...new Set(filtered.map(s => s.a))].sort((a,b) => a-b);
+  const aspects = [...new Set(filtered.map(s => s.a))].sort((x, y) => x - y);
   fill('hAspect', aspects, 'Ratio');
   fillRimsByWidthAspect(w, '');
 }
 
-function fillRimsByWidthAspect(w, a) {
+function fillRimsByWidthAspect(w, aspect) {
   const sizes = allInventory.map(i => parseSize(i.size)).filter(Boolean);
   let filtered = sizes;
   if (w) filtered = filtered.filter(s => s.w === w);
-  if (a) filtered = filtered.filter(s => s.a === a);
-  const rims = [...new Set(filtered.map(s => s.r))].sort((a,b) => a-b);
+  if (aspect) filtered = filtered.filter(s => s.a === aspect);
+  const rims = [...new Set(filtered.map(s => s.r))].sort((x, y) => x - y);
   fill('hRim', rims, 'Rim');
 }
 
@@ -119,7 +121,9 @@ function fill(id, vals, label = 'Any') {
 
 function parseSize(s) {
   if (!s) return null;
-  const m = s.replace(/\s/g,'').match(/^(\d{3})\/?(\d{2})R?(\d{2})$/i);
+  // Strip whitespace, optional P/LT/C prefix, then match 3-digit width / 2-3 digit ratio R 2-digit rim
+  const m = s.replace(/\s/g, '').replace(/^[A-Za-z]+/, '')
+    .match(/^(\d{3})[\/]?(\d{2,3})[Rr](\d{2})/);
   return m ? { w: m[1], a: m[2], r: m[3] } : null;
 }
 
