@@ -280,6 +280,9 @@ select option{background:var(--surface);}
         </div>
         <button class="btn btn-blue" onclick="addInventory()">＋ Add to Inventory</button>
       </div>
+      <div style="margin:10px 0 4px;display:flex;gap:10px;align-items:center;">
+        <button class="btn" style="background:#f59e0b;color:#fff;font-size:13px;" onclick="fixAllTireSizes()">🔧 Fix All Tire Sizes (205/65/17 → 205/65R17)</button>
+      </div>
       <div class="filter-tabs">
         <button class="filter-tab active" id="f-all" onclick="setFilter('all')">All Tires</button>
         <button class="filter-tab" id="f-New" onclick="setFilter('New')">🟢 New</button>
@@ -701,9 +704,35 @@ function switchTab(tab) {
   render();
 }
 
+// ── TIRE SIZE NORMALIZATION ────────────────────────────────────
+function normalizeSize(s) {
+  if (!s) return s;
+  // Convert "205/65/17" → "205/65R17"  (last slash before 2-digit rim → R)
+  return s.replace(/\/(\d{2})$/, 'R$1');
+}
+
+async function fixAllTireSizes() {
+  const fixed = [];
+  inventory.forEach(item => {
+    const normalized = normalizeSize(item.size);
+    if (normalized !== item.size) {
+      item.size = normalized;
+      fixed.push(item.id);
+    }
+  });
+  if (fixed.length === 0) {
+    showToast('✓ All sizes already in correct format!');
+    return;
+  }
+  inventory = sortInventoryBySize(inventory);
+  save();
+  render();
+  showToast(`✓ Fixed ${fixed.length} tire size(s) to R-format!`);
+}
+
 // ── INVENTORY ─────────────────────────────────────────────────
 async function addInventory() {
-  const size = document.getElementById('i-size').value.trim();
+  let size = normalizeSize(document.getElementById('i-size').value.trim());
   const qty = parseInt(document.getElementById('i-qty').value);
   if (!size || isNaN(qty)) { showToast('⚠ Tire size & quantity required', '#FF4D6D'); return; }
   const id = genId();
@@ -1289,7 +1318,7 @@ async function saveEdit() {
     inventory[idx] = {
       ...inventory[idx],
       condition: window._editInvCondition || inventory[idx].condition,
-      size: document.getElementById('ed-size').value.trim(),
+      size: normalizeSize(document.getElementById('ed-size').value.trim()),
       brand: document.getElementById('ed-brand').value.trim(),
       type: document.getElementById('ed-type').value,
       qty: parseInt(document.getElementById('ed-qty').value) || 0,
