@@ -33,19 +33,23 @@ window.dispatchEvent(new Event('firebase-ready'));
 <!-- NAV -->
 <nav class="navbar" id="navbar">
   <div class="nav-inner">
-    <a href="index.html" class="nav-logo">
+    <button class="menu-btn" id="menuBtn" onclick="toggleDrawer()" aria-label="Menu">☰</button>
+    <a href="#" onclick="showPage('home')" class="nav-logo">
       <div class="logo-mark">M</div>
       <div>
         <div class="logo-name">Matrix Tires</div>
         <div class="logo-tagline">New &amp; Used · Best Prices</div>
       </div>
     </a>
-    <div class="nav-actions">
-      <button class="cart-btn" onclick="toggleCart()" aria-label="Shopping cart">
-        🛒 <span class="cart-badge" id="cartBadge">0</span>
-      </button>
-      <button class="menu-btn" id="menuBtn" onclick="toggleDrawer()" aria-label="Menu">☰</button>
+    <div class="nav-links">
+      <a class="nav-link" onclick="showPage('shop')">Shop Tires</a>
+      <a class="nav-link" onclick="showPage('brands')">Brands</a>
+      <a class="nav-link" onclick="showPage('services')">Services</a>
+      <a class="nav-link" onclick="showPage('contact')">Contact</a>
     </div>
+    <button class="cart-btn" onclick="toggleCart()" aria-label="Shopping cart">
+      🛒 <span class="cart-badge" id="cartBadge">0</span>
+    </button>
   </div>
 </nav>
 
