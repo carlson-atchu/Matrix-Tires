@@ -228,6 +228,16 @@ input, select, textarea, button { font-family: inherit; }
 .card-footer { display: flex; align-items: center; justify-content: space-between; padding: 12px 14px; border-top: 1px solid var(--border); background: var(--bg); }
 .card-price { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; color: var(--text); }
 .card-price-label { font-size: 10px; color: var(--muted2); font-weight: 500; margin-top: 1px; }
+.card-add-row { display: flex; align-items: center; gap: 6px; }
+.card-qty-input {
+  width: 52px; background: var(--bg); border: 1px solid var(--border);
+  border-radius: var(--radius-xs); padding: 7px 8px; color: var(--text);
+  font-size: 13px; font-weight: 600; text-align: center;
+  -moz-appearance: textfield;
+}
+.card-qty-input::-webkit-inner-spin-button,
+.card-qty-input::-webkit-outer-spin-button { opacity: 1; }
+.card-qty-input:focus { outline: none; border-color: var(--accent); }
 .card-add-btn {
   background: linear-gradient(135deg, var(--accent), var(--accent2));
   border: none; border-radius: 10px; padding: 9px 16px;
@@ -299,6 +309,22 @@ input, select, textarea, button { font-family: inherit; }
 }
 .submit-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(220,38,38,0.3); }
 .submit-btn:active { transform: scale(0.98); }
+.cart-quote-summary {
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); padding: 12px 14px;
+}
+.cart-quote-item {
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 13px;
+}
+.cart-quote-item:last-of-type { border-bottom: none; }
+.cqi-size { font-family: 'DM Mono', monospace; font-weight: 700; color: var(--text); flex-shrink: 0; }
+.cqi-detail { color: var(--muted2); flex: 1; }
+.cqi-qty { font-weight: 600; color: var(--text2); flex-shrink: 0; }
+.cqi-price { font-family: 'Syne', sans-serif; font-weight: 700; color: var(--text); flex-shrink: 0; }
+.cart-quote-total {
+  padding-top: 10px; text-align: right; font-size: 14px; color: var(--text2);
+}
 .form-success {
   margin-top: 14px; background: var(--green-bg); border: 1px solid rgba(22,163,74,0.3);
   border-radius: var(--radius-sm); padding: 12px 16px; font-size: 13px;

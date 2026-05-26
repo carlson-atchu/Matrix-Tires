@@ -180,9 +180,13 @@ function renderGrid(tires) {
           <div class="card-price">${price}</div>
           <div class="card-price-label">per tire</div>
         </div>
-        <button class="card-add-btn" onclick="addToCart(${idx})" ${outOfStock ? 'disabled' : ''}>
-          ${outOfStock ? 'Out of Stock' : '+ Add to Cart'}
-        </button>
+        ${outOfStock
+          ? `<button class="card-add-btn" disabled>Out of Stock</button>`
+          : `<div class="card-add-row">
+              <input type="number" class="card-qty-input" id="qty_${idx}" value="1" min="1" max="${tire.qty}" aria-label="Quantity"/>
+              <button class="card-add-btn" onclick="addToCart(${idx})">+ Add</button>
+             </div>`
+        }
       </div>
     </div>`;
   }).join('');
@@ -203,14 +207,16 @@ function showNoInventory() {
 function addToCart(idx) {
   const tire = window._currentTires[idx];
   if (!tire) return;
+  const qtyInput = document.getElementById(`qty_${idx}`);
+  const qty = qtyInput ? Math.min(Math.max(1, parseInt(qtyInput.value) || 1), tire.qty) : 1;
   const existing = cart.find(c => c.size === tire.size && c.brand === tire.brand && c.condition === tire.condition);
   if (existing) {
-    existing.qty = (existing.qty || 1) + 1;
+    existing.qty = (existing.qty || 1) + qty;
   } else {
-    cart.push({ size: tire.size, brand: tire.brand, condition: tire.condition, price: tire.sell, qty: 1 });
+    cart.push({ size: tire.size, brand: tire.brand, condition: tire.condition, price: tire.sell, qty });
   }
   saveCart();
-  showToast(`✓ ${tire.size} added to cart`);
+  showToast(`✓ ${qty}x ${tire.size} added to cart`);
 }
 
 function removeFromCart(idx) {
@@ -259,8 +265,34 @@ function toggleCart() {
 
 function checkoutCart() {
   if (!cart.length) return;
-  const items = cart.map(c => `${c.qty||1}x ${c.size} ${c.brand} (${c.condition})`).join(', ');
-  document.getElementById('qNotes').value = `Cart items: ${items}`;
+
+  // Populate the cart summary block in the quote form
+  const summaryField = document.getElementById('cartSummaryField');
+  const summaryDiv = document.getElementById('cartQuoteSummary');
+  if (summaryDiv) {
+    const estimatedTotal = cart.reduce((s, c) => s + ((c.price||0) * (c.qty||1)), 0);
+    summaryDiv.innerHTML = cart.map(c => `
+      <div class="cart-quote-item">
+        <span class="cqi-size">${c.size}</span>
+        <span class="cqi-detail">${c.brand} · ${c.condition}</span>
+        <span class="cqi-qty">Qty: ${c.qty||1}</span>
+        <span class="cqi-price">$${((c.price||0)*(c.qty||1)).toFixed(2)}</span>
+      </div>`).join('') +
+      `<div class="cart-quote-total">Estimated Total: <strong>$${estimatedTotal.toFixed(2)}</strong></div>`;
+    summaryField.style.display = 'block';
+  }
+
+  // Pre-fill size and qty fields
+  const totalQty = cart.reduce((s, c) => s + (c.qty||1), 0);
+  const sizes = [...new Set(cart.map(c => c.size))].join(', ');
+  document.getElementById('qSize').value = sizes;
+  const qtySelect = document.getElementById('qQty');
+  qtySelect.value = ['1','2','4'].includes(String(totalQty)) ? String(totalQty) : 'other';
+
+  // Pre-fill notes with a plain list (user can still edit)
+  const lines = cart.map(c => `${c.qty||1}x ${c.size} ${c.brand} (${c.condition})`).join('\n');
+  document.getElementById('qNotes').value = lines;
+
   toggleCart();
   document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
 }
