@@ -45,10 +45,15 @@ window.dispatchEvent(new Event('firebase-ready'));
       </div>
     </a>
     <div class="nav-links">
-      <a class="nav-link" onclick="showPage('shop')">Shop Tires</a>
-      <a class="nav-link" onclick="showPage('brands')">Brands</a>
-      <a class="nav-link" onclick="showPage('services')">Services</a>
-      <a class="nav-link" onclick="showPage('contact')">Contact</a>
+      <a class="nav-link" onclick="showPage('shop')" data-i18n="nav_shop">Shop Tires</a>
+      <a class="nav-link" onclick="showPage('brands')" data-i18n="nav_brands">Brands</a>
+      <a class="nav-link" onclick="showPage('services')" data-i18n="nav_services">Services</a>
+      <a class="nav-link" onclick="showPage('contact')" data-i18n="nav_contact">Contact</a>
+    </div>
+    <div class="lang-switcher">
+      <button class="lang-btn active" id="lang-en" onclick="setLanguage('en')">EN</button>
+      <span class="lang-div">|</span>
+      <button class="lang-btn" id="lang-es" onclick="setLanguage('es')">ES</button>
     </div>
     <button class="cart-btn" onclick="toggleCart()" aria-label="Shopping cart">
       🛒 <span class="cart-badge" id="cartBadge">0</span>
@@ -83,37 +88,37 @@ window.dispatchEvent(new Event('firebase-ready'));
 <section class="hero page-section" data-page="home">
   <div class="hero-bg-grid"></div>
   <div class="hero-content">
-    <div class="hero-badge">🔴 New &amp; Used Tires In Stock</div>
-    <h1 class="hero-title">Find Your<br/><span class="hero-accent">Perfect Tire</span></h1>
-    <p class="hero-sub">Search by size, brand, or category. New and used tires at unbeatable prices with expert installation.</p>
+    <div class="hero-badge" data-i18n-html="hero_badge">🔴 New &amp; Used Tires In Stock</div>
+    <h1 class="hero-title" data-i18n-html="hero_title">Find Your<br/><span class="hero-accent">Perfect Tire</span></h1>
+    <p class="hero-sub" data-i18n="hero_sub">Search by size, brand, or category. New and used tires at unbeatable prices with expert installation.</p>
     <div class="hero-search-box">
       <div class="search-tabs">
-        <button class="search-tab active" id="tab-size" onclick="switchSearchTab('size')">🔍 By Tire Size</button>
-        <button class="search-tab" id="tab-vehicle" onclick="switchSearchTab('vehicle')">🚗 By Vehicle</button>
+        <button class="search-tab active" id="tab-size" onclick="switchSearchTab('size')" data-i18n="tab_size">🔍 By Tire Size</button>
+        <button class="search-tab" id="tab-vehicle" onclick="switchSearchTab('vehicle')" data-i18n="tab_vehicle">🚗 By Vehicle</button>
       </div>
       <div id="panel-size" class="search-panel">
         <div class="search-row">
           <div class="search-field">
-            <label>Width</label>
+            <label data-i18n="lbl_width">Width</label>
             <select id="hWidth" onchange="onWidthChange()">
               <option value="">Any Width</option>
             </select>
           </div>
           <div class="search-sep">/</div>
           <div class="search-field">
-            <label>Aspect Ratio</label>
+            <label data-i18n="lbl_aspect">Aspect Ratio</label>
             <select id="hAspect" onchange="onAspectChange()">
               <option value="">Any Ratio</option>
             </select>
           </div>
           <div class="search-sep">R</div>
           <div class="search-field">
-            <label>Rim Size</label>
+            <label data-i18n="lbl_rim">Rim Size</label>
             <select id="hRim">
               <option value="">Any Rim</option>
             </select>
           </div>
-          <button class="hero-search-btn" onclick="heroSearch()">Search →</button>
+          <button class="hero-search-btn" onclick="heroSearch()" data-i18n="btn_search">Search →</button>
         </div>
 
         <!-- TIRE SIZE DIAGRAM -->
@@ -132,24 +137,24 @@ window.dispatchEvent(new Event('firebase-ready'));
       <div id="panel-vehicle" class="search-panel" style="display:none">
         <div class="search-row">
           <div class="search-field">
-            <label>Make</label>
+            <label data-i18n="lbl_make">Make</label>
             <select id="vMake" onchange="onVehicleMakeChange()">
               <option value="">Select Make</option>
             </select>
           </div>
           <div class="search-field">
-            <label>Model</label>
+            <label data-i18n="lbl_model">Model</label>
             <select id="vModel" onchange="onVehicleModelChange()">
               <option value="">Select Model</option>
             </select>
           </div>
           <div class="search-field">
-            <label>Year</label>
+            <label data-i18n="lbl_year">Year</label>
             <select id="vYear">
               <option value="">Any Year</option>
             </select>
           </div>
-          <button class="hero-search-btn" onclick="vehicleSearch()">Search →</button>
+          <button class="hero-search-btn" onclick="vehicleSearch()" data-i18n="btn_search">Search →</button>
         </div>
       </div>
     </div>
@@ -161,8 +166,8 @@ window.dispatchEvent(new Event('firebase-ready'));
       <div class="tire-ring t3"></div>
       <div class="tire-center">M</div>
       <div class="hero-visual-text">
-        <div class="hvt-headline">Shop New &amp; Used Tires<br>for Cars, Trucks &amp; SUVs</div>
-        <div class="hvt-body">Get the best tires for your vehicle at Matrix Tires. From all-season to performance, we have a wide selection of brands and sizes to fit your needs.</div>
+        <div class="hvt-headline" data-i18n-html="hvt_headline">Shop New &amp; Used Tires<br>for Cars, Trucks &amp; SUVs</div>
+        <div class="hvt-body" data-i18n="hvt_body">Get the best tires for your vehicle at Matrix Tires. From all-season to performance, we have a wide selection of brands and sizes to fit your needs.</div>
       </div>
     </div>
   </div>
@@ -170,26 +175,26 @@ window.dispatchEvent(new Event('firebase-ready'));
 
 <!-- TRUST STRIP -->
 <div class="trust-strip page-section" data-page="home">
-  <div class="trust-item">✅ Price Match Guarantee</div>
-  <div class="trust-item">🚗 Mobile Installation Available</div>
-  <div class="trust-item">⚡ Same-Day Service</div>
-  <div class="trust-item">🔒 Quality Guaranteed</div>
+  <div class="trust-item" data-i18n="trust_1">✅ Price Match Guarantee</div>
+  <div class="trust-item" data-i18n="trust_2">🚗 Mobile Installation Available</div>
+  <div class="trust-item" data-i18n="trust_3">⚡ Same-Day Service</div>
+  <div class="trust-item" data-i18n="trust_4">🔒 Quality Guaranteed</div>
 </div>
 
 <!-- PROMO BANNER -->
 <div class="promo-banner page-section" data-page="home">
   <div class="promo-inner">
-    <div class="promo-badge">LIMITED TIME OFFER</div>
+    <div class="promo-badge" data-i18n="promo_badge">LIMITED TIME OFFER</div>
     <div class="promo-main">
       <span class="promo-icon">🔥</span>
       <div class="promo-text">
-        <div class="promo-headline">Buy 4 Tires, Get <span class="promo-highlight">Free Installation</span></div>
-        <div class="promo-sub">Professional mounting & balancing included — no hidden fees</div>
+        <div class="promo-headline" data-i18n-html="promo_headline">Buy 4 Tires, Get <span class="promo-highlight">Free Installation</span></div>
+        <div class="promo-sub" data-i18n="promo_sub">Professional mounting & balancing included — no hidden fees</div>
       </div>
     </div>
     <div class="promo-footer">
-      <div class="promo-expires">Offer expires <strong>June 26, 2026</strong></div>
-      <button class="promo-cta" onclick="showPage('contact')">Claim Offer →</button>
+      <div class="promo-expires" data-i18n-html="promo_expires">Offer expires <strong>June 26, 2026</strong></div>
+      <button class="promo-cta" onclick="showPage('contact')" data-i18n="promo_cta">Claim Offer →</button>
     </div>
   </div>
 </div>

@@ -1,5 +1,66 @@
 /* ===== Matrix Tires — Store JS ===== */
 
+// ── Language / i18n ───────────────────────────────────────────────────────────
+const i18n = {
+  en: {
+    nav_shop: 'Shop Tires', nav_brands: 'Brands', nav_services: 'Services', nav_contact: 'Contact',
+    hero_badge: '🔴 New &amp; Used Tires In Stock',
+    hero_title: 'Find Your<br/><span class="hero-accent">Perfect Tire</span>',
+    hero_sub: 'Search by size, brand, or category. New and used tires at unbeatable prices with expert installation.',
+    tab_size: '🔍 By Tire Size', tab_vehicle: '🚗 By Vehicle',
+    lbl_width: 'Width', lbl_aspect: 'Aspect Ratio', lbl_rim: 'Rim Size',
+    lbl_make: 'Make', lbl_model: 'Model', lbl_year: 'Year',
+    btn_search: 'Search →',
+    hvt_headline: 'Shop New &amp; Used Tires<br>for Cars, Trucks &amp; SUVs',
+    hvt_body: 'Get the best tires for your vehicle at Matrix Tires. From all-season to performance, we have a wide selection of brands and sizes to fit your needs.',
+    trust_1: '✅ Price Match Guarantee', trust_2: '🚗 Mobile Installation Available',
+    trust_3: '⚡ Same-Day Service', trust_4: '🔒 Quality Guaranteed',
+    promo_badge: 'LIMITED TIME OFFER',
+    promo_headline: 'Buy 4 Tires, Get <span class="promo-highlight">Free Installation</span>',
+    promo_sub: 'Professional mounting & balancing included — no hidden fees',
+    promo_expires: 'Offer expires <strong>June 26, 2026</strong>',
+    promo_cta: 'Claim Offer →',
+  },
+  es: {
+    nav_shop: 'Comprar Llantas', nav_brands: 'Marcas', nav_services: 'Servicios', nav_contact: 'Contacto',
+    hero_badge: '🔴 Llantas Nuevas y Usadas en Stock',
+    hero_title: 'Encuentra Tu<br/><span class="hero-accent">Llanta Perfecta</span>',
+    hero_sub: 'Busca por tamaño, marca o categoría. Llantas nuevas y usadas a precios inmejorables con instalación experta.',
+    tab_size: '🔍 Por Tamaño', tab_vehicle: '🚗 Por Vehículo',
+    lbl_width: 'Ancho', lbl_aspect: 'Relación', lbl_rim: 'Aro',
+    lbl_make: 'Marca', lbl_model: 'Modelo', lbl_year: 'Año',
+    btn_search: 'Buscar →',
+    hvt_headline: 'Compra Llantas Nuevas y Usadas<br>para Autos, Camionetas y SUVs',
+    hvt_body: 'Obtén las mejores llantas para tu vehículo en Matrix Tires. Desde todo clima hasta alto rendimiento, tenemos una amplia selección de marcas y tamaños.',
+    trust_1: '✅ Garantía de Igualación de Precio', trust_2: '🚗 Instalación Móvil Disponible',
+    trust_3: '⚡ Servicio el Mismo Día', trust_4: '🔒 Calidad Garantizada',
+    promo_badge: 'OFERTA POR TIEMPO LIMITADO',
+    promo_headline: 'Compra 4 Llantas, Obtén <span class="promo-highlight">Instalación Gratis</span>',
+    promo_sub: 'Montaje y balanceo profesional incluido — sin cargos ocultos',
+    promo_expires: 'Oferta válida hasta el <strong>26 de junio de 2026</strong>',
+    promo_cta: 'Reclamar Oferta →',
+  }
+};
+
+let currentLang = localStorage.getItem('mt_lang') || 'en';
+
+function setLanguage(lang) {
+  currentLang = lang;
+  localStorage.setItem('mt_lang', lang);
+  const t = i18n[lang];
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    if (t[el.dataset.i18n] !== undefined) el.textContent = t[el.dataset.i18n];
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(el => {
+    if (t[el.dataset.i18nHtml] !== undefined) el.innerHTML = t[el.dataset.i18nHtml];
+  });
+  document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+  document.getElementById('lang-es').classList.toggle('active', lang === 'es');
+}
+
+// Apply saved language on load
+window.addEventListener('DOMContentLoaded', () => setLanguage(currentLang));
+
 let allInventory = [];
 let cart = JSON.parse(localStorage.getItem('mt_cart') || '[]');
 let selectedServices = [];

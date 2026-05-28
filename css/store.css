@@ -44,7 +44,7 @@ input, select, textarea, button { font-family: inherit; }
 }
 .navbar.scrolled { box-shadow: 0 2px 16px rgba(0,0,0,0.1); }
 .nav-inner {
-  max-width: 1280px; margin: 0 auto 0 5%; padding: 0 24px;
+  max-width: 1280px; margin: 0 auto 0 2%; padding: 0 24px;
   height: 100%; display: flex; align-items: center; gap: 16px;
 }
 .nav-logo { display: flex; align-items: center; gap: 12px; flex-shrink: 0; text-decoration: none; }
@@ -87,7 +87,7 @@ input, select, textarea, button { font-family: inherit; }
   min-height: 88vh; padding-top: var(--nav-h);
   display: grid; grid-template-columns: 1fr 2fr;
   align-items: stretch; gap: 0;
-  max-width: 1280px; margin: 0 auto 0 5%;
+  max-width: 1280px; margin: 0 auto 0 2%;
   padding-left: 24px; padding-right: 0;
   position: relative;
 }
@@ -214,7 +214,19 @@ input, select, textarea, button { font-family: inherit; }
 .trust-item:last-child { border-right: none; }
 
 /* ===== SECTIONS ===== */
-.section-inner { max-width: 1280px; margin: 0 auto 0 5%; padding: 80px 24px; }
+.section-inner { max-width: 1280px; margin: 0 auto 0 2%; padding: 80px 24px; }
+
+/* ===== LANGUAGE SWITCHER ===== */
+.lang-switcher { display: flex; align-items: center; gap: 4px; margin-right: 8px; }
+.lang-btn {
+  background: none; border: 1px solid var(--border); border-radius: 6px;
+  padding: 4px 9px; font-size: 11px; font-weight: 700; color: var(--muted2);
+  cursor: pointer; font-family: 'Manrope', sans-serif; transition: all .15s;
+  letter-spacing: .5px;
+}
+.lang-btn:hover { border-color: var(--accent); color: var(--accent); }
+.lang-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+.lang-div { font-size: 11px; color: var(--border); }
 .section-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
 .section-title { font-family: 'Syne', sans-serif; font-size: clamp(28px,4vw,42px); font-weight: 800; letter-spacing: -1px; margin-bottom: 40px; color: var(--text); }
 .section-header { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
