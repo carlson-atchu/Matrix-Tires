@@ -475,8 +475,11 @@ input, select, textarea, button { font-family: inherit; }
   font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
   color: rgba(255,255,255,0.45); margin-bottom: 10px; text-align: center;
 }
+.tsd-scroll {
+  overflow-x: auto; -webkit-overflow-scrolling: touch;
+}
 .tsd-svg {
-  width: 100%; height: auto; display: block;
+  width: 100%; min-width: 420px; height: auto; display: block;
 }
 
 /* ===== PAGE SECTIONS ===== */
