@@ -658,20 +658,26 @@ input, select, textarea, button { font-family: inherit; }
 
 /* ===== PROMO BANNER ===== */
 .promo-banner {
-  background: linear-gradient(135deg, #b91c1c 0%, #dc2626 40%, #ef4444 100%);
-  position: relative; overflow: hidden;
+  background: transparent;
+  padding: 20px 32px;
 }
-.promo-banner::before {
+.promo-inner {
+  position: relative; overflow: hidden;
+  max-width: 700px; margin: 0 auto;
+  padding: 28px 32px; display: flex; flex-direction: column; gap: 14px;
+  background: linear-gradient(135deg, #b91c1c 0%, #dc2626 40%, #ef4444 100%);
+  border-radius: 18px;
+  box-shadow: 0 8px 32px rgba(185,28,28,0.35);
+}
+.promo-inner::before {
   content: ''; position: absolute; inset: 0;
   background: repeating-linear-gradient(
     -45deg,
     transparent, transparent 20px,
     rgba(0,0,0,0.06) 20px, rgba(0,0,0,0.06) 40px
   );
-}
-.promo-inner {
-  position: relative; max-width: 1100px; margin: 0 auto;
-  padding: 28px 32px; display: flex; flex-direction: column; gap: 14px;
+  border-radius: 18px;
+  pointer-events: none;
 }
 .promo-badge {
   display: inline-block; width: fit-content;
