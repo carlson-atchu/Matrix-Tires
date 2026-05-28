@@ -119,86 +119,7 @@ window.dispatchEvent(new Event('firebase-ready'));
         <!-- TIRE SIZE DIAGRAM -->
         <div class="tire-size-diagram">
           <div class="tsd-title">How to read your tire size</div>
-          <div class="tsd-scroll">
-            <svg class="tsd-svg" viewBox="0 0 460 226" xmlns="http://www.w3.org/2000/svg" aria-label="Tire cross-section showing width, aspect ratio, and rim size labels">
-              <defs>
-                <clipPath id="topHalfClip">
-                  <rect x="0" y="0" width="460" height="226"/>
-                </clipPath>
-              </defs>
-
-              <!-- ── TOP-HALF TIRE (center at 230,268) clipped to visible area ── -->
-              <g clip-path="url(#topHalfClip)">
-                <!-- Outer tread band -->
-                <circle cx="230" cy="268" r="196" fill="#0c0c0c"/>
-                <!-- Tread grooves -->
-                <circle cx="230" cy="268" r="190" fill="none" stroke="#1e1e1e" stroke-width="7"/>
-                <circle cx="230" cy="268" r="181" fill="none" stroke="#252525" stroke-width="3"/>
-                <!-- Sidewall surface -->
-                <circle cx="230" cy="268" r="176" fill="#161616"/>
-                <!-- Rim bead ring -->
-                <circle cx="230" cy="268" r="112" fill="#263040"/>
-                <!-- Rim face -->
-                <circle cx="230" cy="268" r="100" fill="#38475a"/>
-                <!-- 5 spokes -->
-                <g transform="translate(230,268)">
-                  <rect x="-7" y="-100" width="14" height="70" rx="5" fill="#161616" transform="rotate(0)"/>
-                  <rect x="-7" y="-100" width="14" height="70" rx="5" fill="#161616" transform="rotate(72)"/>
-                  <rect x="-7" y="-100" width="14" height="70" rx="5" fill="#161616" transform="rotate(144)"/>
-                  <rect x="-7" y="-100" width="14" height="70" rx="5" fill="#161616" transform="rotate(216)"/>
-                  <rect x="-7" y="-100" width="14" height="70" rx="5" fill="#161616" transform="rotate(288)"/>
-                </g>
-                <!-- Center hub -->
-                <circle cx="230" cy="268" r="24" fill="#192030"/>
-                <circle cx="230" cy="268" r="10" fill="#263040"/>
-
-                <!-- ── TIRE SIZE TEXT ON SIDEWALL ── -->
-                <text y="128" font-family="'DM Mono',monospace" font-size="20" font-weight="700" letter-spacing="1.5">
-                  <tspan x="110" fill="rgba(255,255,255,0.3)">P</tspan>
-                  <tspan fill="#f87171"> 205</tspan>
-                  <tspan fill="rgba(255,255,255,0.3)"> /</tspan>
-                  <tspan fill="#fb923c"> 65</tspan>
-                  <tspan fill="rgba(255,255,255,0.3)"> R</tspan>
-                  <tspan fill="#4ade80"> 17</tspan>
-                </text>
-              </g>
-
-              <!-- ── ANNOTATION LINES (drawn on top of tire) ── -->
-              <!-- Width line down to "205" -->
-              <line x1="172" y1="52" x2="172" y2="116" stroke="#f87171" stroke-width="1.5"/>
-              <circle cx="172" cy="118" r="3.5" fill="#f87171"/>
-              <!-- Ratio line down to "65" -->
-              <line x1="264" y1="42" x2="264" y2="116" stroke="#fb923c" stroke-width="1.5"/>
-              <circle cx="264" cy="118" r="3.5" fill="#fb923c"/>
-              <!-- Diameter line down to "17" -->
-              <line x1="342" y1="52" x2="342" y2="116" stroke="#4ade80" stroke-width="1.5"/>
-              <circle cx="342" cy="118" r="3.5" fill="#4ade80"/>
-
-              <!-- ── LABELS ── -->
-              <text x="172" y="46" text-anchor="middle" font-family="'Manrope',sans-serif" font-size="14" font-weight="800" fill="#f87171">Width</text>
-              <text x="264" y="36" text-anchor="middle" font-family="'Manrope',sans-serif" font-size="14" font-weight="800" fill="#fb923c">Ratio</text>
-              <text x="342" y="46" text-anchor="middle" font-family="'Manrope',sans-serif" font-size="14" font-weight="800" fill="#4ade80">Diameter</text>
-            </svg>
-          </div>
-
-          <!-- Explanation cards below diagram -->
-          <div class="tsd-cards">
-            <div class="tsd-card" style="border-color:#f87171;background:rgba(248,113,113,0.08)">
-              <div class="tsd-card-num" style="color:#f87171">205</div>
-              <div class="tsd-card-name" style="color:#f87171">Width</div>
-              <div class="tsd-card-desc">How wide the tire is across the tread, in millimeters</div>
-            </div>
-            <div class="tsd-card" style="border-color:#fb923c;background:rgba(251,146,60,0.08)">
-              <div class="tsd-card-num" style="color:#fb923c">65</div>
-              <div class="tsd-card-name" style="color:#fb923c">Aspect Ratio</div>
-              <div class="tsd-card-desc">Sidewall height as a % of the width — bigger = taller sidewall</div>
-            </div>
-            <div class="tsd-card" style="border-color:#4ade80;background:rgba(74,222,128,0.08)">
-              <div class="tsd-card-num" style="color:#4ade80">17</div>
-              <div class="tsd-card-name" style="color:#4ade80">Rim Diameter</div>
-              <div class="tsd-card-desc">Size of the metal wheel the tire fits on, in inches</div>
-            </div>
-          </div>
+          <img src="images/tire-size-guide.png" alt="Tire size guide showing Width, Ratio and Diameter labeled on a real tire" class="tsd-img"/>
         </div>
       </div>
       <div id="panel-vehicle" class="search-panel" style="display:none">
@@ -358,6 +279,63 @@ window.dispatchEvent(new Event('firebase-ready'));
         <button class="cta-btn-primary" onclick="showPage('shop')">Shop Tires →</button>
         <button class="cta-btn-secondary" onclick="showPage('contact')">Get a Free Quote</button>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS SECTION -->
+<section class="reviews-section page-section" data-page="home">
+  <div class="section-inner">
+    <div class="section-eyebrow">What Customers Say</div>
+    <h2 class="section-title">Real Reviews</h2>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Fast service and great prices! They came to my house and had all four tires changed in under an hour. Will definitely be coming back."</p>
+        <div class="review-author">
+          <div class="review-avatar">JM</div>
+          <div>
+            <div class="review-name">James M.</div>
+            <div class="review-location">Manassas, VA</div>
+          </div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"I needed a tire last minute on a Sunday and they showed up same day. Super professional and affordable. Highly recommend Matrix Tires!"</p>
+        <div class="review-author">
+          <div class="review-avatar">TS</div>
+          <div>
+            <div class="review-name">Tamara S.</div>
+            <div class="review-location">Woodbridge, VA</div>
+          </div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Got a used tire for my SUV at a fraction of the cost. They inspected it right in front of me and explained everything. Honest and trustworthy."</p>
+        <div class="review-author">
+          <div class="review-avatar">RD</div>
+          <div>
+            <div class="review-name">Ricardo D.</div>
+            <div class="review-location">Dale City, VA</div>
+          </div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Best tire shop around! Price matched a competitor without me even asking. Quick install and the balancing made a huge difference in my ride."</p>
+        <div class="review-author">
+          <div class="review-avatar">KW</div>
+          <div>
+            <div class="review-name">Karen W.</div>
+            <div class="review-location">Gainesville, VA</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="reviews-cta">
+      <a class="reviews-leave-btn" href="https://www.facebook.com/MatrixMobileTiresServices" target="_blank" rel="noopener">Leave Us a Review on Facebook →</a>
     </div>
   </div>
 </section>
