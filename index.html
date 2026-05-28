@@ -119,52 +119,30 @@ window.dispatchEvent(new Event('firebase-ready'));
         <!-- TIRE SIZE DIAGRAM -->
         <div class="tire-size-diagram">
           <div class="tsd-title">How to read your tire size</div>
-          <div class="tsd-wrap">
-            <svg class="tsd-svg" viewBox="0 0 420 195" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <clipPath id="tireClip"><rect x="0" y="0" width="420" height="195"/></clipPath>
-              </defs>
-              <!-- background -->
-              <rect x="0" y="0" width="420" height="195" rx="12" fill="rgba(0,0,0,0.35)"/>
-              <!-- tire group clipped -->
-              <g clip-path="url(#tireClip)">
-                <circle cx="210" cy="248" r="196" fill="#111"/>
-                <circle cx="210" cy="248" r="188" fill="none" stroke="#222" stroke-width="8"/>
-                <circle cx="210" cy="248" r="178" fill="none" stroke="#1a1a1a" stroke-width="4"/>
-                <circle cx="210" cy="248" r="170" fill="#181818"/>
-                <circle cx="210" cy="248" r="105" fill="#2e3d50"/>
-                <circle cx="210" cy="248" r="93"  fill="#3d5068"/>
-                <g transform="translate(210,248)">
-                  <rect x="-6" y="-93" width="12" height="62" rx="4" fill="#181818" transform="rotate(0)"/>
-                  <rect x="-6" y="-93" width="12" height="62" rx="4" fill="#181818" transform="rotate(72)"/>
-                  <rect x="-6" y="-93" width="12" height="62" rx="4" fill="#181818" transform="rotate(144)"/>
-                  <rect x="-6" y="-93" width="12" height="62" rx="4" fill="#181818" transform="rotate(216)"/>
-                  <rect x="-6" y="-93" width="12" height="62" rx="4" fill="#181818" transform="rotate(288)"/>
-                </g>
-                <circle cx="210" cy="248" r="20" fill="#1a2535"/>
-                <circle cx="210" cy="248" r="8"  fill="#2e3d50"/>
-                <!-- size text on sidewall -->
-                <text font-family="'DM Mono',monospace" font-size="22" font-weight="700" letter-spacing="2" y="120">
-                  <tspan x="75"  fill="rgba(255,255,255,0.28)">P</tspan>
-                  <tspan fill="#f87171"> 205</tspan>
-                  <tspan fill="rgba(255,255,255,0.28)"> /</tspan>
-                  <tspan fill="#fbbf24"> 65</tspan>
-                  <tspan fill="rgba(255,255,255,0.28)"> R</tspan>
-                  <tspan fill="#34d399"> 15</tspan>
-                </text>
-              </g>
-              <!-- label lines -->
-              <line x1="156" y1="55"  x2="156" y2="108" stroke="#f87171" stroke-width="1.8"/>
-              <circle cx="156" cy="110" r="3.5" fill="#f87171"/>
-              <line x1="255" y1="44"  x2="255" y2="108" stroke="#fbbf24" stroke-width="1.8"/>
-              <circle cx="255" cy="110" r="3.5" fill="#fbbf24"/>
-              <line x1="332" y1="55"  x2="332" y2="108" stroke="#34d399" stroke-width="1.8"/>
-              <circle cx="332" cy="110" r="3.5" fill="#34d399"/>
-              <!-- labels -->
-              <text x="156" y="49" text-anchor="middle" font-family="'Manrope',sans-serif" font-size="14" font-weight="800" fill="#f87171">Width</text>
-              <text x="255" y="38" text-anchor="middle" font-family="'Manrope',sans-serif" font-size="14" font-weight="800" fill="#fbbf24">Ratio</text>
-              <text x="332" y="49" text-anchor="middle" font-family="'Manrope',sans-serif" font-size="14" font-weight="800" fill="#34d399">Diameter</text>
-            </svg>
+          <div class="tsd-photo-wrap">
+            <img
+              src="https://images.pexels.com/photos/16685597/pexels-photo-16685597.jpeg?auto=compress&cs=tinysrgb&w=600"
+              alt="Real tire sidewall showing size markings"
+              class="tsd-photo"
+            />
+            <div class="tsd-photo-caption">Look for the numbers printed on your tire's sidewall — they tell you the exact size you need.</div>
+          </div>
+          <div class="tsd-cards">
+            <div class="tsd-card" style="border-color:#f87171;background:rgba(248,113,113,0.08)">
+              <div class="tsd-card-num" style="color:#f87171">205</div>
+              <div class="tsd-card-name" style="color:#f87171">Width</div>
+              <div class="tsd-card-desc">How wide the tire is across the tread, in millimeters</div>
+            </div>
+            <div class="tsd-card" style="border-color:#fbbf24;background:rgba(251,191,36,0.08)">
+              <div class="tsd-card-num" style="color:#fbbf24">65</div>
+              <div class="tsd-card-name" style="color:#fbbf24">Aspect Ratio</div>
+              <div class="tsd-card-desc">Sidewall height as a % of the width — bigger = taller sidewall</div>
+            </div>
+            <div class="tsd-card" style="border-color:#34d399;background:rgba(52,211,153,0.08)">
+              <div class="tsd-card-num" style="color:#34d399">17</div>
+              <div class="tsd-card-name" style="color:#34d399">Rim Diameter</div>
+              <div class="tsd-card-desc">Size of the metal wheel the tire fits on, in inches</div>
+            </div>
           </div>
         </div>
       </div>
