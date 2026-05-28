@@ -497,6 +497,84 @@ input, select, textarea, button { font-family: inherit; }
   font-size: 11px; color: rgba(255,255,255,0.5); line-height: 1.5;
 }
 
+/* ===== FAQ SECTION ===== */
+.faq-section { background: var(--surface); border-top: 1px solid var(--border); }
+.faq-inner { max-width: 800px; }
+.faq-header { margin-bottom: 40px; }
+.faq-sub { font-size: 15px; color: var(--muted2); margin-top: 8px; }
+.faq-phone { color: var(--accent); font-weight: 700; text-decoration: none; }
+.faq-phone:hover { text-decoration: underline; }
+.faq-list { display: flex; flex-direction: column; gap: 12px; }
+.faq-item {
+  border: 1px solid var(--border); border-radius: var(--radius);
+  background: var(--bg); overflow: hidden;
+  transition: border-color .2s;
+}
+.faq-item[open] { border-color: var(--accent); }
+.faq-question {
+  padding: 18px 24px; font-size: 15px; font-weight: 700; color: var(--text);
+  cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center;
+  user-select: none;
+}
+.faq-question::-webkit-details-marker { display: none; }
+.faq-question::after {
+  content: '+'; font-size: 22px; font-weight: 400; color: var(--accent);
+  flex-shrink: 0; margin-left: 16px; transition: transform .2s;
+}
+.faq-item[open] .faq-question::after { transform: rotate(45deg); }
+.faq-answer {
+  padding: 0 24px 18px; font-size: 14px; color: var(--text2); line-height: 1.7;
+}
+
+/* ===== SOCIAL SECTION ===== */
+.social-section {
+  background: linear-gradient(135deg, #0f172a 0%, #1a0a0a 100%);
+  padding: 80px 24px;
+}
+.social-inner { max-width: 700px; margin: 0 auto; text-align: center; }
+.social-heading {
+  font-family: 'Syne', sans-serif; font-size: clamp(28px,4vw,40px);
+  font-weight: 900; color: #fff; letter-spacing: -1px; margin-bottom: 12px;
+}
+.social-sub { font-size: 16px; color: rgba(255,255,255,0.55); margin-bottom: 40px; }
+.social-cards { display: flex; flex-direction: column; gap: 16px; }
+.social-card {
+  display: flex; align-items: center; gap: 20px; padding: 22px 28px;
+  border-radius: var(--radius); border: 1px solid rgba(255,255,255,0.1);
+  text-decoration: none; transition: transform .18s, border-color .18s, background .18s;
+  background: rgba(255,255,255,0.04);
+}
+.social-card:hover { transform: translateY(-3px); background: rgba(255,255,255,0.08); }
+.social-fb:hover { border-color: #1877f2; }
+.social-ig:hover { border-color: #e1306c; }
+.social-icon { width: 52px; height: 52px; border-radius: 14px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.social-fb .social-icon { background: #1877f2; color: #fff; }
+.social-ig .social-icon { background: linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888); color: #fff; }
+.social-info { flex: 1; text-align: left; }
+.social-name { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 17px; color: #fff; margin-bottom: 4px; }
+.social-handle { font-size: 13px; color: rgba(255,255,255,0.5); }
+.social-arrow { font-size: 20px; color: rgba(255,255,255,0.3); }
+.social-call {
+  margin-top: 36px; font-size: 15px; color: rgba(255,255,255,0.5);
+  display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap;
+}
+.social-phone {
+  font-family: 'DM Mono', monospace; font-size: 18px; font-weight: 700;
+  color: var(--accent); text-decoration: none;
+}
+.social-phone:hover { text-decoration: underline; }
+
+/* Footer social */
+.footer-social { display: flex; gap: 10px; margin-bottom: 14px; }
+.footer-social-btn {
+  width: 36px; height: 36px; border-radius: 10px;
+  background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);
+  display: flex; align-items: center; justify-content: center;
+  color: rgba(255,255,255,0.6); transition: background .15s, color .15s;
+  text-decoration: none;
+}
+.footer-social-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+
 /* ===== PAGE SECTIONS ===== */
 .page-section { display: none; }
 .page-section.active { display: block; }
@@ -504,7 +582,9 @@ input, select, textarea, button { font-family: inherit; }
 .trust-strip.active { display: flex; }
 .about-section.active,
 .why-section.active,
-.home-cta-section.active { display: block; }
+.home-cta-section.active,
+.faq-section.active,
+.social-section.active { display: block; }
 
 /* ===== ABOUT SECTION ===== */
 .about-section {
