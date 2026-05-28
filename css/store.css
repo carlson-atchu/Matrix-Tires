@@ -191,15 +191,15 @@ input, select, textarea, button { font-family: inherit; }
   gap: 20px;
 }
 .hvt-headline {
-  font-family: 'Syne', sans-serif; font-size: clamp(48px, 5.5vw, 78px); font-weight: 900;
-  color: var(--text); line-height: 1.0; text-transform: uppercase;
-  letter-spacing: -1.5px;
-  text-shadow: 0 0 60px var(--bg), 0 0 120px var(--bg);
+  font-family: 'Syne', sans-serif; font-size: clamp(28px, 3.5vw, 46px); font-weight: 900;
+  color: var(--text); line-height: 1.1; text-transform: uppercase;
+  letter-spacing: -0.5px;
+  text-shadow: 0 0 40px var(--bg), 0 0 80px var(--bg);
 }
 .hvt-body {
-  font-size: clamp(16px, 1.5vw, 20px); color: var(--text2); line-height: 1.7; font-weight: 500;
-  text-shadow: 0 0 30px var(--bg), 0 0 60px var(--bg);
-  max-width: 560px;
+  font-size: clamp(14px, 1.3vw, 18px); color: var(--text2); line-height: 1.65; font-weight: 500;
+  text-shadow: 0 0 24px var(--bg), 0 0 48px var(--bg);
+  max-width: 480px;
 }
 
 /* ===== TRUST STRIP ===== */
