@@ -465,6 +465,20 @@ input, select, textarea, button { font-family: inherit; }
 .drawer-link.active { background: var(--red-bg); color: var(--accent); }
 .drawer-admin { margin-top: auto; color: var(--accent) !important; }
 
+/* ===== TIRE SIZE DIAGRAM ===== */
+.tire-size-diagram {
+  margin-top: 18px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding-top: 16px;
+}
+.tsd-title {
+  font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+  color: rgba(255,255,255,0.45); margin-bottom: 10px; text-align: center;
+}
+.tsd-svg {
+  width: 100%; height: auto; display: block;
+}
+
 /* ===== PAGE SECTIONS ===== */
 .page-section { display: none; }
 .page-section.active { display: block; }
