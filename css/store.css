@@ -475,10 +475,27 @@ input, select, textarea, button { font-family: inherit; }
   font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
   color: rgba(255,255,255,0.45); margin-bottom: 10px; text-align: center;
 }
-.tsd-img {
-  width: 100%; border-radius: 10px; display: block;
-  object-fit: contain; max-height: 260px;
+.tsd-wrap { border-radius: 12px; overflow: hidden; }
+.tsd-svg { width: 100%; height: auto; display: block; }
+
+/* ===== TIRE SHOWCASE ===== */
+.showcase-section { background: var(--bg); }
+.showcase-section.active { display: block; }
+.showcase-grid {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px;
 }
+.showcase-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 28px 16px 20px;
+  text-align: center; cursor: pointer;
+  transition: transform .2s, box-shadow .2s, border-color .2s;
+}
+.showcase-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: var(--accent); }
+.showcase-tire { width: 100px; height: 100px; margin: 0 auto 16px; }
+.showcase-tire svg { width: 100%; height: 100%; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4)); }
+.showcase-card:hover .showcase-tire svg { filter: drop-shadow(0 6px 20px rgba(220,38,38,0.3)); }
+.showcase-label { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 15px; color: var(--text); margin-bottom: 6px; }
+.showcase-desc { font-size: 12px; color: var(--muted2); line-height: 1.5; }
 
 /* ===== REVIEWS SECTION ===== */
 .reviews-section { background: var(--bg); }
@@ -598,6 +615,7 @@ input, select, textarea, button { font-family: inherit; }
 .about-section.active,
 .why-section.active,
 .home-cta-section.active,
+.showcase-section.active,
 .reviews-section.active,
 .faq-section.active,
 .social-section.active { display: block; }
@@ -750,6 +768,7 @@ input, select, textarea, button { font-family: inherit; }
   .why-grid { grid-template-columns: repeat(2, 1fr); }
   .why-section { clip-path: polygon(0 3%, 100% 0, 100% 97%, 0 100%); }
   .reviews-grid { grid-template-columns: 1fr; }
+  .showcase-grid { grid-template-columns: repeat(3, 1fr); }
 }
 @media (max-width: 600px) {
   .trust-strip { flex-direction: column; }
@@ -760,4 +779,5 @@ input, select, textarea, button { font-family: inherit; }
   .about-stats-panel { grid-template-columns: 1fr 1fr; }
   .why-grid { grid-template-columns: 1fr; }
   .cta-ring.r2, .cta-ring.r3 { display: none; }
+  .showcase-grid { grid-template-columns: repeat(2, 1fr); }
 }

@@ -119,7 +119,53 @@ window.dispatchEvent(new Event('firebase-ready'));
         <!-- TIRE SIZE DIAGRAM -->
         <div class="tire-size-diagram">
           <div class="tsd-title">How to read your tire size</div>
-          <img src="images/tire-size-guide.png" alt="Tire size guide showing Width, Ratio and Diameter labeled on a real tire" class="tsd-img"/>
+          <div class="tsd-wrap">
+            <svg class="tsd-svg" viewBox="0 0 420 195" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <clipPath id="tireClip"><rect x="0" y="0" width="420" height="195"/></clipPath>
+              </defs>
+              <!-- background -->
+              <rect x="0" y="0" width="420" height="195" rx="12" fill="rgba(0,0,0,0.35)"/>
+              <!-- tire group clipped -->
+              <g clip-path="url(#tireClip)">
+                <circle cx="210" cy="248" r="196" fill="#111"/>
+                <circle cx="210" cy="248" r="188" fill="none" stroke="#222" stroke-width="8"/>
+                <circle cx="210" cy="248" r="178" fill="none" stroke="#1a1a1a" stroke-width="4"/>
+                <circle cx="210" cy="248" r="170" fill="#181818"/>
+                <circle cx="210" cy="248" r="105" fill="#2e3d50"/>
+                <circle cx="210" cy="248" r="93"  fill="#3d5068"/>
+                <g transform="translate(210,248)">
+                  <rect x="-6" y="-93" width="12" height="62" rx="4" fill="#181818" transform="rotate(0)"/>
+                  <rect x="-6" y="-93" width="12" height="62" rx="4" fill="#181818" transform="rotate(72)"/>
+                  <rect x="-6" y="-93" width="12" height="62" rx="4" fill="#181818" transform="rotate(144)"/>
+                  <rect x="-6" y="-93" width="12" height="62" rx="4" fill="#181818" transform="rotate(216)"/>
+                  <rect x="-6" y="-93" width="12" height="62" rx="4" fill="#181818" transform="rotate(288)"/>
+                </g>
+                <circle cx="210" cy="248" r="20" fill="#1a2535"/>
+                <circle cx="210" cy="248" r="8"  fill="#2e3d50"/>
+                <!-- size text on sidewall -->
+                <text font-family="'DM Mono',monospace" font-size="22" font-weight="700" letter-spacing="2" y="120">
+                  <tspan x="75"  fill="rgba(255,255,255,0.28)">P</tspan>
+                  <tspan fill="#f87171"> 205</tspan>
+                  <tspan fill="rgba(255,255,255,0.28)"> /</tspan>
+                  <tspan fill="#fbbf24"> 65</tspan>
+                  <tspan fill="rgba(255,255,255,0.28)"> R</tspan>
+                  <tspan fill="#34d399"> 15</tspan>
+                </text>
+              </g>
+              <!-- label lines -->
+              <line x1="156" y1="55"  x2="156" y2="108" stroke="#f87171" stroke-width="1.8"/>
+              <circle cx="156" cy="110" r="3.5" fill="#f87171"/>
+              <line x1="255" y1="44"  x2="255" y2="108" stroke="#fbbf24" stroke-width="1.8"/>
+              <circle cx="255" cy="110" r="3.5" fill="#fbbf24"/>
+              <line x1="332" y1="55"  x2="332" y2="108" stroke="#34d399" stroke-width="1.8"/>
+              <circle cx="332" cy="110" r="3.5" fill="#34d399"/>
+              <!-- labels -->
+              <text x="156" y="49" text-anchor="middle" font-family="'Manrope',sans-serif" font-size="14" font-weight="800" fill="#f87171">Width</text>
+              <text x="255" y="38" text-anchor="middle" font-family="'Manrope',sans-serif" font-size="14" font-weight="800" fill="#fbbf24">Ratio</text>
+              <text x="332" y="49" text-anchor="middle" font-family="'Manrope',sans-serif" font-size="14" font-weight="800" fill="#34d399">Diameter</text>
+            </svg>
+          </div>
         </div>
       </div>
       <div id="panel-vehicle" class="search-panel" style="display:none">
@@ -169,6 +215,128 @@ window.dispatchEvent(new Event('firebase-ready'));
   <div class="trust-item">⚡ Same-Day Service</div>
   <div class="trust-item">🔒 Quality Guaranteed</div>
 </div>
+
+<!-- TIRE SHOWCASE SECTION -->
+<section class="showcase-section page-section" data-page="home">
+  <div class="section-inner">
+    <div class="section-eyebrow">What We Carry</div>
+    <h2 class="section-title">Shop by Tire Type</h2>
+    <div class="showcase-grid">
+
+      <div class="showcase-card" onclick="showPage('shop')">
+        <div class="showcase-tire">
+          <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="60" cy="60" r="56" fill="#111"/>
+            <circle cx="60" cy="60" r="50" fill="none" stroke="#1e1e1e" stroke-width="8"/>
+            <circle cx="60" cy="60" r="44" fill="#191919"/>
+            <circle cx="60" cy="60" r="29" fill="#2e3d50"/>
+            <circle cx="60" cy="60" r="23" fill="#3d5068"/>
+            <rect x="57" y="23" width="6" height="20" rx="3" fill="#191919"/>
+            <rect x="57" y="23" width="6" height="20" rx="3" fill="#191919" transform="rotate(72,60,60)"/>
+            <rect x="57" y="23" width="6" height="20" rx="3" fill="#191919" transform="rotate(144,60,60)"/>
+            <rect x="57" y="23" width="6" height="20" rx="3" fill="#191919" transform="rotate(216,60,60)"/>
+            <rect x="57" y="23" width="6" height="20" rx="3" fill="#191919" transform="rotate(288,60,60)"/>
+            <circle cx="60" cy="60" r="8" fill="#1e2a3a"/>
+            <!-- all-season tread marks -->
+            <circle cx="60" cy="60" r="47" fill="none" stroke="#252525" stroke-width="2" stroke-dasharray="6 4"/>
+          </svg>
+        </div>
+        <div class="showcase-label">All-Season</div>
+        <div class="showcase-desc">Year-round grip for everyday driving</div>
+      </div>
+
+      <div class="showcase-card" onclick="showPage('shop')">
+        <div class="showcase-tire showcase-tire-winter">
+          <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="60" cy="60" r="56" fill="#0d1b2e"/>
+            <circle cx="60" cy="60" r="50" fill="none" stroke="#142240" stroke-width="8"/>
+            <circle cx="60" cy="60" r="44" fill="#0f1e30"/>
+            <circle cx="60" cy="60" r="29" fill="#1e3a5a"/>
+            <circle cx="60" cy="60" r="23" fill="#264e7a"/>
+            <rect x="57" y="23" width="6" height="20" rx="3" fill="#0f1e30"/>
+            <rect x="57" y="23" width="6" height="20" rx="3" fill="#0f1e30" transform="rotate(72,60,60)"/>
+            <rect x="57" y="23" width="6" height="20" rx="3" fill="#0f1e30" transform="rotate(144,60,60)"/>
+            <rect x="57" y="23" width="6" height="20" rx="3" fill="#0f1e30" transform="rotate(216,60,60)"/>
+            <rect x="57" y="23" width="6" height="20" rx="3" fill="#0f1e30" transform="rotate(288,60,60)"/>
+            <circle cx="60" cy="60" r="8" fill="#122035"/>
+            <!-- snowflake hint -->
+            <text x="60" y="64" text-anchor="middle" font-size="10" fill="rgba(150,200,255,0.5)">❄</text>
+            <circle cx="60" cy="60" r="47" fill="none" stroke="#1a3050" stroke-width="2" stroke-dasharray="3 3"/>
+          </svg>
+        </div>
+        <div class="showcase-label">Winter / Snow</div>
+        <div class="showcase-desc">Maximum traction in ice and snow</div>
+      </div>
+
+      <div class="showcase-card" onclick="showPage('shop')">
+        <div class="showcase-tire showcase-tire-perf">
+          <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="60" cy="60" r="56" fill="#1a0505"/>
+            <circle cx="60" cy="60" r="50" fill="none" stroke="#2d0a0a" stroke-width="8"/>
+            <circle cx="60" cy="60" r="44" fill="#1a0808"/>
+            <circle cx="60" cy="60" r="29" fill="#3d1a1a"/>
+            <circle cx="60" cy="60" r="23" fill="#5a2020"/>
+            <rect x="57" y="23" width="6" height="20" rx="3" fill="#1a0808"/>
+            <rect x="57" y="23" width="6" height="20" rx="3" fill="#1a0808" transform="rotate(72,60,60)"/>
+            <rect x="57" y="23" width="6" height="20" rx="3" fill="#1a0808" transform="rotate(144,60,60)"/>
+            <rect x="57" y="23" width="6" height="20" rx="3" fill="#1a0808" transform="rotate(216,60,60)"/>
+            <rect x="57" y="23" width="6" height="20" rx="3" fill="#1a0808" transform="rotate(288,60,60)"/>
+            <circle cx="60" cy="60" r="8" fill="#2a0f0f"/>
+            <circle cx="60" cy="60" r="47" fill="none" stroke="#3d1010" stroke-width="3" stroke-dasharray="8 2"/>
+          </svg>
+        </div>
+        <div class="showcase-label">Performance</div>
+        <div class="showcase-desc">High-speed handling and precision</div>
+      </div>
+
+      <div class="showcase-card" onclick="showPage('shop')">
+        <div class="showcase-tire showcase-tire-truck">
+          <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="60" cy="60" r="56" fill="#0a0a0a"/>
+            <circle cx="60" cy="60" r="50" fill="none" stroke="#1a1a0a" stroke-width="10"/>
+            <circle cx="60" cy="60" r="42" fill="#0f0f0a"/>
+            <circle cx="60" cy="60" r="27" fill="#2e3020"/>
+            <circle cx="60" cy="60" r="21" fill="#3d4028"/>
+            <rect x="57" y="23" width="6" height="19" rx="2" fill="#0f0f0a"/>
+            <rect x="57" y="23" width="6" height="19" rx="2" fill="#0f0f0a" transform="rotate(72,60,60)"/>
+            <rect x="57" y="23" width="6" height="19" rx="2" fill="#0f0f0a" transform="rotate(144,60,60)"/>
+            <rect x="57" y="23" width="6" height="19" rx="2" fill="#0f0f0a" transform="rotate(216,60,60)"/>
+            <rect x="57" y="23" width="6" height="19" rx="2" fill="#0f0f0a" transform="rotate(288,60,60)"/>
+            <circle cx="60" cy="60" r="8" fill="#1e200e"/>
+            <!-- aggressive tread -->
+            <circle cx="60" cy="60" r="46" fill="none" stroke="#1a1a0a" stroke-width="4" stroke-dasharray="5 3"/>
+            <circle cx="60" cy="60" r="38" fill="none" stroke="#161608" stroke-width="2" stroke-dasharray="4 4"/>
+          </svg>
+        </div>
+        <div class="showcase-label">Truck / SUV</div>
+        <div class="showcase-desc">Heavy-duty tires for trucks and SUVs</div>
+      </div>
+
+      <div class="showcase-card" onclick="showPage('shop')">
+        <div class="showcase-tire showcase-tire-used">
+          <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="60" cy="60" r="56" fill="#1a1208"/>
+            <circle cx="60" cy="60" r="50" fill="none" stroke="#2a1e0a" stroke-width="8"/>
+            <circle cx="60" cy="60" r="44" fill="#181005"/>
+            <circle cx="60" cy="60" r="29" fill="#3d3020"/>
+            <circle cx="60" cy="60" r="23" fill="#504030"/>
+            <rect x="57" y="23" width="6" height="20" rx="3" fill="#181005"/>
+            <rect x="57" y="23" width="6" height="20" rx="3" fill="#181005" transform="rotate(72,60,60)"/>
+            <rect x="57" y="23" width="6" height="20" rx="3" fill="#181005" transform="rotate(144,60,60)"/>
+            <rect x="57" y="23" width="6" height="20" rx="3" fill="#181005" transform="rotate(216,60,60)"/>
+            <rect x="57" y="23" width="6" height="20" rx="3" fill="#181005" transform="rotate(288,60,60)"/>
+            <circle cx="60" cy="60" r="8" fill="#251a0a"/>
+            <text x="60" y="64" text-anchor="middle" font-size="11" fill="rgba(255,200,50,0.6)" font-weight="bold">✓</text>
+            <circle cx="60" cy="60" r="47" fill="none" stroke="#2a2010" stroke-width="2" stroke-dasharray="7 3"/>
+          </svg>
+        </div>
+        <div class="showcase-label">Used Tires</div>
+        <div class="showcase-desc">Quality-inspected, budget-friendly options</div>
+      </div>
+
+    </div>
+  </div>
+</section>
 
 <!-- ABOUT SECTION -->
 <section class="about-section page-section" data-page="home">
