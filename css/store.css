@@ -476,7 +476,7 @@ input, select, textarea, button { font-family: inherit; }
   color: rgba(255,255,255,0.45); margin-bottom: 7px; text-align: center;
 }
 .tsd-photo-wrap { border-radius: 8px; overflow: hidden; margin-bottom: 6px; }
-.tsd-photo { width: 100%; height: auto; object-fit: contain; display: block; border-radius: 8px; }
+.tsd-photo { width: 33%; height: auto; object-fit: contain; display: block; border-radius: 8px; margin: 0 auto; }
 .tsd-photo-caption { font-size: 11px; color: rgba(255,255,255,0.45); text-align: center; padding: 7px 0 2px; font-style: italic; }
 .tsd-cards {
   display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin-top: 6px;
