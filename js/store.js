@@ -675,7 +675,7 @@ function submitQuote(e) {
   if (window._db && window._firestoreDoc && window._setDoc) {
     try {
       const docRef = window._firestoreDoc(window._db, 'quotes', `quote_${Date.now()}`);
-      window._setDoc(docRef, { ...templateParams, cartItems: cart, services: [...selectedServices] });
+      window._setDoc(docRef, { ...templateParams, cartItems: cart, services: [...selectedServices], status: 'pending', createdAt: Date.now() });
     } catch(err) { console.log('Firestore save:', err); }
   }
 

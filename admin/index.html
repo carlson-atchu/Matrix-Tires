@@ -10,7 +10,7 @@
 <!-- Firebase -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getFirestore, doc, setDoc, onSnapshot, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { getFirestore, doc, setDoc, onSnapshot, getDoc, collection, getDocs, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
 
 const firebaseConfig = {
@@ -32,6 +32,10 @@ window._docRef = DOC_REF;
 window._setDoc = setDoc;
 window._onSnapshot = onSnapshot;
 window._getDoc = getDoc;
+window._doc = doc;
+window._collection = collection;
+window._getDocs = getDocs;
+window._updateDoc = updateDoc;
 const storage = getStorage(app);
 window._storage = storage;
 window._storageRef = storageRef;
@@ -460,6 +464,13 @@ select option{background:var(--surface);}
       </div>
       <button class="btn btn-red" onclick="exportPDF()" style="margin-top:4px">⬇ Download Balance Sheet PDF</button>
     </div>
+
+    <!-- QUOTES -->
+    <div id="tab-quotes" style="display:none">
+      <div class="section-head">Quote Requests</div>
+      <div id="quotes-list"><div style="color:var(--muted);font-size:13px;padding:24px 0;text-align:center">Loading quotes…</div></div>
+    </div>
+
   </div>
 
   <nav class="bottom-nav">
@@ -469,6 +480,7 @@ select option{background:var(--surface);}
     <button class="nav-item" id="nav-expenses" onclick="switchTab('expenses')"><span class="nav-icon">🧾</span>Expenses</button>
     <button class="nav-item" id="nav-capital" onclick="switchTab('capital')"><span class="nav-icon">🏦</span>Capital</button>
     <button class="nav-item" id="nav-pl" onclick="switchTab('pl')"><span class="nav-icon">📊</span>P&L</button>
+    <button class="nav-item" id="nav-quotes" onclick="switchTab('quotes')"><span class="nav-icon">📋</span>Quotes</button>
   </nav>
 </div>
 
@@ -693,7 +705,7 @@ function highlightText(text, query) {
 // ── TABS ───────────────────────────────────────────────────────
 let currentTab = 'dashboard';
 function switchTab(tab) {
-  ['dashboard','inventory','sales','expenses','capital','pl'].forEach(t => {
+  ['dashboard','inventory','sales','expenses','capital','pl','quotes'].forEach(t => {
     document.getElementById('tab-'+t).style.display = t === tab ? 'block' : 'none';
     document.getElementById('nav-'+t).classList.toggle('active', t === tab);
   });
@@ -701,6 +713,7 @@ function switchTab(tab) {
   currentTab = tab;
   if (tab === 'sales') populateInvSelect();
   if (tab === 'capital') loadCapitalInputs();
+  if (tab === 'quotes') loadQuotes();
   render();
 }
 
@@ -1756,6 +1769,139 @@ function exportPDF(){
   for(let i=1;i<=pages;i++){doc.setPage(i);doc.setFillColor(8,12,20);doc.rect(0,287,W,10,'F');doc.setFont('helvetica','normal');doc.setFontSize(7.5);doc.setTextColor(60,80,100);doc.text(`Matrix Mobile Tires — Confidential · Page ${i} of ${pages}`,W/2,293,{align:'center'});}
   doc.save(`MatrixMobileTires_${new Date().toISOString().split('T')[0]}.pdf`);
   showToast('✓ PDF downloaded!');
+}
+
+// ── QUOTES ──────────────────────────────────────────────────────
+let quotesCache = [];
+
+async function loadQuotes() {
+  const listEl = document.getElementById('quotes-list');
+  if (!window._getDocs || !window._collection || !window._db) {
+    listEl.innerHTML = '<div style="color:var(--muted);font-size:13px;padding:24px 0;text-align:center">Firebase not ready yet.</div>';
+    return;
+  }
+  listEl.innerHTML = '<div style="color:var(--muted);font-size:13px;padding:24px 0;text-align:center">Loading…</div>';
+  try {
+    const snap = await window._getDocs(window._collection(window._db, 'quotes'));
+    quotesCache = [];
+    snap.forEach(d => quotesCache.push({ _id: d.id, ...d.data() }));
+    quotesCache.sort((a, b) => b._id.localeCompare(a._id));
+    renderQuotes();
+  } catch(e) {
+    listEl.innerHTML = '<div style="color:var(--accent);font-size:13px;padding:24px 0;text-align:center">Error loading quotes.</div>';
+  }
+}
+
+function renderQuotes() {
+  const listEl = document.getElementById('quotes-list');
+  if (!quotesCache.length) {
+    listEl.innerHTML = '<div style="color:var(--muted);font-size:13px;padding:24px 0;text-align:center">No quotes yet — they will appear here when customers submit the form.</div>';
+    return;
+  }
+  const statusColor = { pending:'var(--yellow)', deposit_requested:'var(--blue)', deposit_received:'var(--green)', completed:'var(--muted)' };
+  const statusLabel = { pending:'Pending', deposit_requested:'Deposit Sent', deposit_received:'Deposit Received ✓', completed:'Completed' };
+  listEl.innerHTML = quotesCache.map(q => {
+    const st = q.status || 'pending';
+    const safeId = CSS.escape(q._id);
+    return `
+    <div class="card" style="margin-bottom:12px">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+        <div style="font-weight:700;font-size:14px">${q.from_name || 'Unknown'}</div>
+        <span class="tag" style="background:rgba(255,255,255,0.07);color:${statusColor[st]||'var(--yellow)'};flex-shrink:0;margin-left:8px">${statusLabel[st]||'Pending'}</span>
+      </div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:3px">📞 ${q.phone||'—'} &nbsp;·&nbsp; 📧 ${q.reply_to||'—'}</div>
+      <div style="font-size:12px;color:var(--text2);margin-bottom:3px">Tire: <b>${q.size||'—'}</b> &nbsp;·&nbsp; Qty: ${q.qty||'—'} &nbsp;·&nbsp; ${q.condition||'—'}</div>
+      ${q.services && q.services !== 'None' ? `<div style="font-size:11px;color:var(--muted);margin-bottom:3px">Services: ${q.services}</div>` : ''}
+      ${q.notes && q.notes !== 'None' ? `<div style="font-size:11px;color:var(--muted);margin-bottom:3px">Notes: ${q.notes}</div>` : ''}
+      <div style="font-size:11px;color:var(--muted);margin-bottom:10px">${q.timestamp||''}</div>
+      ${st === 'pending' ? `
+        <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px">
+          <div style="position:relative;flex:1">
+            <span style="position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:13px;pointer-events:none">$</span>
+            <input type="number" id="dep-${q._id}" placeholder="Deposit amount" min="1" style="padding-left:24px;font-size:13px;width:100%"/>
+          </div>
+        </div>
+        <button class="btn btn-blue" style="margin-top:0;font-size:13px;padding:10px" onclick="sendDepositRequest('${q._id}')">📨 Send Deposit Request</button>
+      ` : ''}
+      ${st === 'deposit_requested' ? `
+        <div style="font-size:12px;color:var(--blue);margin-bottom:8px">Deposit request sent for $${q.depositAmount||'—'}</div>
+        <button class="btn btn-green" style="margin-top:0;font-size:13px;padding:10px" onclick="markDepositReceived('${q._id}')">✓ Mark Deposit Received</button>
+      ` : ''}
+      ${st === 'deposit_received' ? `
+        <div style="font-size:12px;color:var(--green);margin-bottom:8px">Deposit of $${q.depositAmount||'—'} received</div>
+        <button class="btn" style="margin-top:0;font-size:13px;padding:10px;background:var(--surface);border:1px solid var(--border);color:var(--muted);cursor:pointer" onclick="markCompleted('${q._id}')">Mark as Completed</button>
+      ` : ''}
+      ${st === 'completed' ? `<div style="font-size:12px;color:var(--muted)">Job completed</div>` : ''}
+    </div>`;
+  }).join('');
+}
+
+function sendDepositRequest(quoteId) {
+  const q = quotesCache.find(x => x._id === quoteId);
+  if (!q) return;
+  const depInput = document.getElementById('dep-' + quoteId);
+  const amount = parseFloat(depInput && depInput.value);
+  if (!amount || amount < 1) { showToast('⚠ Enter a deposit amount', '#FF4D6D'); return; }
+  const customerEmail = (q.reply_to && q.reply_to !== 'Not provided') ? q.reply_to : '';
+  const subject = encodeURIComponent('Your Matrix Tires Quote Has Been Accepted — Deposit Required');
+  const body = encodeURIComponent(
+`Hi ${q.from_name || 'there'},
+
+Great news — your tire quote has been accepted!
+
+To confirm your appointment, please send a deposit of $${amount.toFixed(2)} using one of the options below:
+
+💚 Zelle: matrixtireaervices@gmail.com
+💵 Cash App: $MatrixTires
+
+Please include your name in the payment note so we can match it to your booking.
+
+Quote Details:
+- Tire Size: ${q.size || '—'}
+- Quantity: ${q.qty || '—'}
+- Condition: ${q.condition || '—'}
+- Services: ${q.services || 'Standard Installation'}
+
+Once we confirm your deposit, we will reach out to schedule your appointment.
+
+Questions? Reply to this email or call us directly.
+
+Thank you for choosing Matrix Tires!`
+  );
+  window.open(`mailto:${customerEmail}?subject=${subject}&body=${body}`, '_blank');
+  const docRef = window._doc(window._db, 'quotes', quoteId);
+  window._updateDoc(docRef, { status: 'deposit_requested', depositAmount: amount })
+    .then(() => {
+      const idx = quotesCache.findIndex(x => x._id === quoteId);
+      if (idx !== -1) { quotesCache[idx].status = 'deposit_requested'; quotesCache[idx].depositAmount = amount; }
+      renderQuotes();
+      showToast('✓ Email opened & quote updated');
+    })
+    .catch(() => showToast('Email opened — refresh quotes to see update', '#FFD166'));
+}
+
+function markDepositReceived(quoteId) {
+  const docRef = window._doc(window._db, 'quotes', quoteId);
+  window._updateDoc(docRef, { status: 'deposit_received' })
+    .then(() => {
+      const idx = quotesCache.findIndex(x => x._id === quoteId);
+      if (idx !== -1) quotesCache[idx].status = 'deposit_received';
+      renderQuotes();
+      showToast('✓ Deposit marked as received!');
+    })
+    .catch(() => showToast('⚠ Update failed', '#FF4D6D'));
+}
+
+function markCompleted(quoteId) {
+  const docRef = window._doc(window._db, 'quotes', quoteId);
+  window._updateDoc(docRef, { status: 'completed' })
+    .then(() => {
+      const idx = quotesCache.findIndex(x => x._id === quoteId);
+      if (idx !== -1) quotesCache[idx].status = 'completed';
+      renderQuotes();
+      showToast('✓ Quote marked as completed');
+    })
+    .catch(() => showToast('⚠ Update failed', '#FF4D6D'));
 }
 </script>
 </body>
