@@ -159,8 +159,8 @@ input, select, textarea, button { font-family: inherit; }
 .stat-label { font-size: 11px; color: var(--muted2); font-weight: 500; margin-top: 2px; }
 
 /* TIRE GRAPHIC */
-.hero-visual { display: flex; align-items: center; justify-content: center; }
-.tire-graphic { position: relative; width: 340px; height: 340px; display: flex; align-items: center; justify-content: center; }
+.hero-visual { display: flex; align-items: center; justify-content: center; min-height: 400px; }
+.tire-graphic { position: relative; width: 100%; height: 100%; min-height: 340px; display: flex; align-items: center; justify-content: center; }
 .tire-ring {
   position: absolute; border-radius: 50%; border: 3px solid transparent;
   animation: spinRing linear infinite;
@@ -180,19 +180,18 @@ input, select, textarea, button { font-family: inherit; }
 .hero-visual-text {
   position: absolute; inset: 0;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
-  padding: 24px; text-align: center; z-index: 3;
-  gap: 14px;
+  padding: 20px; text-align: center; z-index: 3;
+  gap: 16px;
 }
 .hvt-headline {
-  font-family: 'Syne', sans-serif; font-size: clamp(18px, 2.2vw, 26px); font-weight: 900;
-  color: var(--text); line-height: 1.2; text-transform: uppercase;
-  letter-spacing: 0.5px;
-  text-shadow: 0 0 30px var(--bg), 0 0 60px var(--bg), 0 2px 4px var(--bg);
+  font-family: 'Syne', sans-serif; font-size: clamp(28px, 3.5vw, 46px); font-weight: 900;
+  color: var(--text); line-height: 1.1; text-transform: uppercase;
+  letter-spacing: -0.5px;
+  text-shadow: 0 0 40px var(--bg), 0 0 80px var(--bg), 0 2px 6px rgba(0,0,0,0.15);
 }
 .hvt-body {
-  font-size: clamp(12px, 1.1vw, 15px); color: var(--text2); line-height: 1.7; font-weight: 500;
-  text-shadow: 0 0 20px var(--bg), 0 0 40px var(--bg), 0 1px 3px var(--bg);
-  max-width: 290px;
+  font-size: clamp(14px, 1.3vw, 18px); color: var(--text2); line-height: 1.65; font-weight: 500;
+  text-shadow: 0 0 24px var(--bg), 0 0 48px var(--bg);
 }
 
 /* ===== TRUST STRIP ===== */
