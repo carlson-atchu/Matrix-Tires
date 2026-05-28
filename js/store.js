@@ -497,10 +497,8 @@ function renderGrid(tires) {
 
   grid.innerHTML = tires.map((tire, idx) => {
     const isNew = tire.condition === 'New';
-    const stockStatus = tire.qty === 0 ? 'out' : tire.qty <= (tire.lowAt||2) ? 'low' : 'ok';
-    const stockLabel = stockStatus === 'out' ? 'Out of Stock' : stockStatus === 'low' ? `Low Stock (${tire.qty} left)` : `In Stock (${tire.qty})`;
-    const price = tire.sell ? `$${Number(tire.sell).toFixed(2)}` : 'Call for Price';
     const outOfStock = tire.qty === 0;
+    const price = tire.sell ? `$${Number(tire.sell).toFixed(2)}` : 'Call for Price';
 
     const imgHtml = tire.imgUrl
       ? `<div class="card-img"><img src="${tire.imgUrl}" alt="${tire.size}" loading="lazy"/></div>`
@@ -510,7 +508,7 @@ function renderGrid(tires) {
       ${imgHtml}
       <div class="card-badge-row">
         <span class="cond-badge ${isNew ? 'cond-new' : 'cond-used'}">${isNew ? '🟢 New' : '🟡 Used'}</span>
-        <span class="stock-badge stock-${stockStatus}">${stockLabel}</span>
+        ${outOfStock ? '<span class="stock-badge stock-out">Out of Stock</span>' : ''}
       </div>
       <div class="card-body">
         <div class="card-size">${tire.size || '—'}</div>
