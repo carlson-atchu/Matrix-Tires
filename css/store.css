@@ -28,7 +28,7 @@
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 html { scroll-behavior: smooth; }
-body { background: var(--bg); color: var(--text); font-family: 'Manrope', sans-serif; overflow-x: hidden; line-height: 1.6; }
+body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; overflow-x: hidden; line-height: 1.6; }
 a { text-decoration: none; color: inherit; }
 img { display: block; max-width: 100%; }
 input, select, textarea, button { font-family: inherit; }
@@ -52,10 +52,10 @@ input, select, textarea, button { font-family: inherit; }
   width: 40px; height: 40px; border-radius: 12px;
   background: linear-gradient(135deg, var(--accent), var(--accent2));
   display: flex; align-items: center; justify-content: center;
-  font-family: 'Syne', sans-serif; font-weight: 900; font-size: 20px; color: #fff;
+  font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 20px; color: #fff;
   box-shadow: 0 4px 12px rgba(220,38,38,0.3);
 }
-.logo-name { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 16px; letter-spacing: -0.3px; color: var(--text); }
+.logo-name { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 16px; letter-spacing: -0.3px; color: var(--text); }
 .logo-tagline { font-size: 10px; color: var(--muted2); font-weight: 500; }
 .nav-links { display: flex; align-items: center; gap: 4px; flex: 1; justify-content: flex-end; }
 .nav-link {
@@ -102,7 +102,7 @@ input, select, textarea, button { font-family: inherit; }
   border-radius: 99px; margin-bottom: 24px; letter-spacing: .3px;
 }
 .hero-title {
-  font-family: 'Syne', sans-serif; font-size: clamp(44px, 5.5vw, 76px);
+  font-family: 'Montserrat', sans-serif; font-size: clamp(44px, 5.5vw, 76px);
   font-weight: 900; line-height: 1.05; letter-spacing: -2px;
   margin-bottom: 20px; color: var(--text);
 }
@@ -155,7 +155,7 @@ input, select, textarea, button { font-family: inherit; }
 .hero-search-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(220,38,38,0.35); }
 .hero-stats { display: flex; gap: 32px; }
 .hero-stat { display: flex; flex-direction: column; }
-.stat-num { font-family: 'Syne', sans-serif; font-size: 28px; font-weight: 800; color: var(--text); }
+.stat-num { font-family: 'Montserrat', sans-serif; font-size: 28px; font-weight: 800; color: var(--text); }
 .stat-label { font-size: 11px; color: var(--muted2); font-weight: 500; margin-top: 2px; }
 
 /* TIRE GRAPHIC */
@@ -180,7 +180,7 @@ input, select, textarea, button { font-family: inherit; }
   width: 160px; height: 160px; border-radius: 50%;
   background: linear-gradient(135deg, var(--accent), var(--accent2));
   display: flex; align-items: center; justify-content: center;
-  font-family: 'Syne', sans-serif; font-size: 70px; font-weight: 900; color: #fff;
+  font-family: 'Montserrat', sans-serif; font-size: 70px; font-weight: 900; color: #fff;
   box-shadow: 0 0 80px rgba(220,38,38,0.2);
   z-index: 1; opacity: 0.1;
 }
@@ -191,7 +191,7 @@ input, select, textarea, button { font-family: inherit; }
   gap: 20px;
 }
 .hvt-headline {
-  font-family: 'Syne', sans-serif; font-size: clamp(28px, 3.5vw, 46px); font-weight: 900;
+  font-family: 'Montserrat', sans-serif; font-size: clamp(28px, 3.5vw, 46px); font-weight: 900;
   color: var(--text); line-height: 1.1; text-transform: uppercase;
   letter-spacing: -0.5px;
   text-shadow: 0 0 40px var(--bg), 0 0 80px var(--bg);
@@ -221,14 +221,14 @@ input, select, textarea, button { font-family: inherit; }
 .lang-btn {
   background: none; border: 1px solid var(--border); border-radius: 6px;
   padding: 4px 9px; font-size: 11px; font-weight: 700; color: var(--muted2);
-  cursor: pointer; font-family: 'Manrope', sans-serif; transition: all .15s;
+  cursor: pointer; font-family: 'Inter', sans-serif; transition: all .15s;
   letter-spacing: .5px;
 }
 .lang-btn:hover { border-color: var(--accent); color: var(--accent); }
 .lang-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
 .lang-div { font-size: 11px; color: var(--border); }
 .section-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
-.section-title { font-family: 'Syne', sans-serif; font-size: clamp(28px,4vw,42px); font-weight: 800; letter-spacing: -1px; margin-bottom: 40px; color: var(--text); }
+.section-title { font-family: 'Montserrat', sans-serif; font-size: clamp(28px,4vw,42px); font-weight: 800; letter-spacing: -1px; margin-bottom: 40px; color: var(--text); }
 .section-header { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 .result-count { font-size: 13px; color: var(--muted2); font-weight: 500; padding-bottom: 40px; }
 
@@ -283,7 +283,7 @@ input, select, textarea, button { font-family: inherit; }
 .card-brand { font-size: 13px; color: var(--muted2); font-weight: 600; margin-bottom: 2px; }
 .card-type { font-size: 11px; color: var(--muted); font-weight: 500; }
 .card-footer { display: flex; align-items: center; justify-content: space-between; padding: 12px 14px; border-top: 1px solid var(--border); background: var(--bg); }
-.card-price { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; color: var(--text); }
+.card-price { font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight: 800; color: var(--text); }
 .card-price-label { font-size: 10px; color: var(--muted2); font-weight: 500; margin-top: 1px; }
 .card-add-row { display: flex; align-items: center; gap: 6px; }
 .card-qty-input {
@@ -313,7 +313,7 @@ input, select, textarea, button { font-family: inherit; }
 @keyframes spin { to { transform: rotate(360deg); } }
 .empty-state { text-align: center; padding: 80px 20px; color: var(--muted2); display: none; }
 .empty-icon { font-size: 48px; margin-bottom: 16px; }
-.empty-state h3 { font-family: 'Syne', sans-serif; font-size: 22px; margin-bottom: 8px; color: var(--text); }
+.empty-state h3 { font-family: 'Montserrat', sans-serif; font-size: 22px; margin-bottom: 8px; color: var(--text); }
 .link-btn { background: none; border: none; color: var(--accent); cursor: pointer; font-size: inherit; text-decoration: underline; }
 
 /* ===== BRANDS ===== */
@@ -330,7 +330,7 @@ input, select, textarea, button { font-family: inherit; }
   padding: 16px;
 }
 .brand-card-wordmark {
-  font-family: 'Syne', sans-serif; font-size: clamp(16px, 2vw, 22px); font-weight: 900;
+  font-family: 'Montserrat', sans-serif; font-size: clamp(16px, 2vw, 22px); font-weight: 900;
   letter-spacing: -0.5px; text-align: center; line-height: 1.1;
 }
 .brand-card-footer {
@@ -349,7 +349,7 @@ input, select, textarea, button { font-family: inherit; }
 .service-card:hover { border-color: var(--accent); box-shadow: var(--shadow-lg); transform: translateY(-2px); }
 .service-card.selected { border-color: var(--accent); background: var(--red-bg); }
 .service-icon { font-size: 36px; margin-bottom: 16px; }
-.service-card h3 { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 700; margin-bottom: 10px; color: var(--text); }
+.service-card h3 { font-family: 'Montserrat', sans-serif; font-size: 18px; font-weight: 700; margin-bottom: 10px; color: var(--text); }
 .service-card p { font-size: 14px; color: var(--muted2); line-height: 1.7; margin-bottom: 16px; }
 .service-add-btn {
   margin-top: auto; background: transparent; border: 1px solid var(--border2);
@@ -387,7 +387,7 @@ input, select, textarea, button { font-family: inherit; }
   background: var(--surface); border: 1px solid var(--border);
   border-radius: var(--radius); padding: 32px; box-shadow: var(--shadow-lg);
 }
-.form-title { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800; margin-bottom: 24px; color: var(--text); }
+.form-title { font-family: 'Montserrat', sans-serif; font-size: 20px; font-weight: 800; margin-bottom: 24px; color: var(--text); }
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 .form-field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
 .form-field label { font-size: 11px; font-weight: 700; color: var(--muted2); letter-spacing: .4px; text-transform: uppercase; }
@@ -400,7 +400,7 @@ input, select, textarea, button { font-family: inherit; }
 .submit-btn {
   width: 100%; background: linear-gradient(135deg, var(--accent), var(--accent2));
   border: none; border-radius: 12px; padding: 14px;
-  color: #fff; font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700;
+  color: #fff; font-family: 'Montserrat', sans-serif; font-size: 15px; font-weight: 700;
   cursor: pointer; margin-top: 4px; transition: transform .15s, box-shadow .15s;
 }
 .submit-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(220,38,38,0.3); }
@@ -417,7 +417,7 @@ input, select, textarea, button { font-family: inherit; }
 .cqi-size { font-family: 'DM Mono', monospace; font-weight: 700; color: var(--text); flex-shrink: 0; }
 .cqi-detail { color: var(--muted2); flex: 1; }
 .cqi-qty { font-weight: 600; color: var(--text2); flex-shrink: 0; }
-.cqi-price { font-family: 'Syne', sans-serif; font-weight: 700; color: var(--text); flex-shrink: 0; }
+.cqi-price { font-family: 'Montserrat', sans-serif; font-weight: 700; color: var(--text); flex-shrink: 0; }
 .cart-quote-total {
   padding-top: 10px; text-align: right; font-size: 14px; color: var(--text2);
 }
@@ -461,7 +461,7 @@ input, select, textarea, button { font-family: inherit; }
   display: flex; align-items: center; justify-content: space-between;
   padding: 20px 24px; border-bottom: 1px solid var(--border);
 }
-.cart-header h3 { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 800; color: var(--text); }
+.cart-header h3 { font-family: 'Montserrat', sans-serif; font-size: 18px; font-weight: 800; color: var(--text); }
 .cart-close { background: none; border: none; font-size: 18px; cursor: pointer; color: var(--muted2); }
 .cart-body { flex: 1; overflow-y: auto; padding: 16px 24px; }
 .cart-empty { text-align: center; color: var(--muted2); font-size: 14px; padding: 40px 0; }
@@ -469,7 +469,7 @@ input, select, textarea, button { font-family: inherit; }
 .cart-item-info { flex: 1; }
 .cart-item-size { font-family: 'DM Mono', monospace; font-size: 16px; font-weight: 700; color: var(--text); }
 .cart-item-detail { font-size: 12px; color: var(--muted2); margin-top: 2px; }
-.cart-item-price { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 700; color: var(--text); }
+.cart-item-price { font-family: 'Montserrat', sans-serif; font-size: 16px; font-weight: 700; color: var(--text); }
 .cart-item-remove { background: none; border: none; cursor: pointer; color: var(--muted); font-size: 16px; }
 .cart-footer { padding: 20px 24px; border-top: 1px solid var(--border); background: var(--bg); }
 .cart-total { display: flex; justify-content: space-between; font-size: 15px; margin-bottom: 16px; color: var(--text); }
@@ -579,7 +579,7 @@ input, select, textarea, button { font-family: inherit; }
 .showcase-card:hover .showcase-overlay { background: rgba(220,38,38,0.55); }
 .showcase-card:hover .showcase-overlay span { opacity: 1; transform: translateY(0); }
 .showcase-label {
-  font-family: 'Syne', sans-serif; font-weight: 800; font-size: 15px;
+  font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 15px;
   color: var(--text); padding: 14px 16px 4px;
 }
 .showcase-desc { font-size: 12px; color: var(--muted2); line-height: 1.5; padding: 0 16px 16px; }
@@ -652,7 +652,7 @@ input, select, textarea, button { font-family: inherit; }
 }
 .social-inner { max-width: 500px; margin: 0 0 0 8%; text-align: left; padding: 40px 0; }
 .social-heading {
-  font-family: 'Syne', sans-serif; font-size: clamp(28px,4vw,40px);
+  font-family: 'Montserrat', sans-serif; font-size: clamp(28px,4vw,40px);
   font-weight: 900; color: #fff; letter-spacing: -1px; margin-bottom: 12px;
 }
 .social-sub { font-size: 16px; color: rgba(255,255,255,0.55); margin-bottom: 40px; }
@@ -670,7 +670,7 @@ input, select, textarea, button { font-family: inherit; }
 .social-fb .social-icon { background: #1877f2; color: #fff; }
 .social-ig .social-icon { background: linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888); color: #fff; }
 .social-info { flex: 1; text-align: left; }
-.social-name { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 17px; color: #fff; margin-bottom: 4px; }
+.social-name { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 17px; color: #fff; margin-bottom: 4px; }
 .social-handle { font-size: 13px; color: rgba(255,255,255,0.5); }
 .social-arrow { font-size: 20px; color: rgba(255,255,255,0.3); }
 .social-call {
@@ -744,7 +744,7 @@ input, select, textarea, button { font-family: inherit; }
 .promo-icon { font-size: 36px; flex-shrink: 0; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.3)); }
 .promo-text { display: flex; flex-direction: column; gap: 4px; }
 .promo-headline {
-  font-family: 'Syne', sans-serif; font-size: clamp(20px, 4vw, 30px);
+  font-family: 'Montserrat', sans-serif; font-size: clamp(20px, 4vw, 30px);
   font-weight: 800; color: #fff; line-height: 1.15;
   text-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }
@@ -767,7 +767,7 @@ input, select, textarea, button { font-family: inherit; }
 .promo-cta {
   background: #fff; color: #b91c1c;
   border: none; border-radius: 10px; padding: 10px 24px;
-  font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 800;
+  font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 800;
   cursor: pointer; transition: transform .15s, box-shadow .15s;
   box-shadow: 0 4px 16px rgba(0,0,0,0.2); white-space: nowrap;
 }
@@ -794,7 +794,7 @@ input, select, textarea, button { font-family: inherit; }
 }
 .about-pillar:hover { border-color: var(--accent); box-shadow: 0 4px 20px rgba(220,38,38,0.08); }
 .pillar-icon { font-size: 26px; flex-shrink: 0; margin-top: 2px; }
-.pillar-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 15px; color: var(--text); margin-bottom: 4px; }
+.pillar-title { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 15px; color: var(--text); margin-bottom: 4px; }
 .pillar-text { font-size: 13px; color: var(--muted2); line-height: 1.6; }
 
 /* About stats panel */
@@ -814,7 +814,7 @@ input, select, textarea, button { font-family: inherit; }
 .about-stat-card.accent-card .about-stat-num,
 .about-stat-card.accent-card .about-stat-label { color: #fff; }
 .about-stat-num {
-  font-family: 'Syne', sans-serif; font-size: 36px; font-weight: 900;
+  font-family: 'Montserrat', sans-serif; font-size: 36px; font-weight: 900;
   color: var(--accent); line-height: 1; margin-bottom: 8px;
 }
 .about-stat-label { font-size: 12px; font-weight: 600; color: var(--muted2); text-transform: uppercase; letter-spacing: .8px; }
@@ -851,7 +851,7 @@ input, select, textarea, button { font-family: inherit; }
   transform: translateY(-6px);
 }
 .why-icon { font-size: 36px; margin-bottom: 16px; }
-.why-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 17px; color: #fff; margin-bottom: 10px; }
+.why-title { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 17px; color: #fff; margin-bottom: 10px; }
 .why-body { font-size: 14px; color: rgba(255,255,255,0.65); line-height: 1.7; }
 
 /* ===== HOME CTA SECTION ===== */
@@ -879,7 +879,7 @@ input, select, textarea, button { font-family: inherit; }
 @keyframes spin-slow { to { transform: translate(-50%,-50%) rotate(360deg); } }
 .cta-content { position: relative; z-index: 2; }
 .cta-heading {
-  font-family: 'Syne', sans-serif; font-size: clamp(36px, 5vw, 56px);
+  font-family: 'Montserrat', sans-serif; font-size: clamp(36px, 5vw, 56px);
   font-weight: 900; letter-spacing: -2px; color: var(--text); margin-bottom: 16px;
 }
 .cta-sub { font-size: 17px; color: var(--muted2); margin-bottom: 36px; line-height: 1.6; }
