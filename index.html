@@ -587,6 +587,39 @@ window.dispatchEvent(new Event('firebase-ready'));
     <div class="services-cta" id="servicesCta" style="display:none">
       <button class="submit-btn services-quote-btn" onclick="scrollToServicesQuote()" data-i18n="svc_request_quote">Request Quote for Selected Services →</button>
     </div>
+
+    <!-- MOBILE INSTALLATION QUOTE CALCULATOR -->
+    <div class="mobile-calc-wrap">
+      <div class="mobile-calc-card">
+        <div class="mobile-calc-header">
+          <div class="mobile-calc-icon">🚐</div>
+          <div>
+            <h3 class="mobile-calc-title">Mobile Installation Quote</h3>
+            <p class="mobile-calc-sub">Enter your location to see your installation cost — tire price not included</p>
+          </div>
+        </div>
+        <div class="mobile-calc-body">
+          <div class="mobile-calc-input-row">
+            <input type="text" id="mqcAddress" class="mobile-calc-input" placeholder="Enter address or ZIP code…" onkeydown="if(event.key==='Enter')calcMobileQuote()"/>
+            <button class="mobile-calc-btn" onclick="calcMobileQuote()">Get Quote</button>
+            <button class="mobile-calc-gps" onclick="getMobileQuoteGPS()" title="Use my location">📍 Use My Location</button>
+          </div>
+          <div id="mqcResult" class="mobile-calc-result" style="display:none"></div>
+          <div class="mobile-calc-tiers">
+            <div class="mct-title">Installation Pricing by Distance</div>
+            <div class="mct-grid">
+              <div class="mct-row"><span>0 – 5 miles</span><span class="mct-price">$30</span></div>
+              <div class="mct-row"><span>5 – 10 miles</span><span class="mct-price">$45</span></div>
+              <div class="mct-row"><span>10 – 20 miles</span><span class="mct-price">$60</span></div>
+              <div class="mct-row"><span>20 – 30 miles</span><span class="mct-price">$80</span></div>
+              <div class="mct-row"><span>30 – 50 miles</span><span class="mct-price">$100</span></div>
+              <div class="mct-row"><span>50+ miles</span><span class="mct-price">Call Us</span></div>
+            </div>
+            <p class="mct-note">* Per vehicle · Includes mounting &amp; balancing · Tire cost billed separately</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 

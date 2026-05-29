@@ -1130,6 +1130,72 @@ function scrollToServicesQuote() {
   showPage('contact');
 }
 
+// ── Mobile Installation Quote Calculator ─────────────────────────────────────
+const SHOP_LAT = 38.7506;
+const SHOP_LNG = -77.4753;
+
+const MOBILE_TIERS = [
+  { maxMiles: 5,        price: 30  },
+  { maxMiles: 10,       price: 45  },
+  { maxMiles: 20,       price: 60  },
+  { maxMiles: 30,       price: 80  },
+  { maxMiles: 50,       price: 100 },
+  { maxMiles: Infinity, price: null },
+];
+
+function haversine(lat1, lon1, lat2, lon2) {
+  const R = 3958.8;
+  const toRad = d => d * Math.PI / 180;
+  const dLat = toRad(lat2 - lat1), dLon = toRad(lon2 - lon1);
+  const a = Math.sin(dLat/2)**2 + Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon/2)**2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+}
+
+function showMobileQuoteResult(miles) {
+  const tier = MOBILE_TIERS.find(t => miles <= t.maxMiles);
+  const el = document.getElementById('mqcResult');
+  el.style.display = 'block';
+  if (!tier || tier.price === null) {
+    el.innerHTML = `
+      <div class="mqr-distance">📍 ${miles.toFixed(1)} miles from our location</div>
+      <div class="mqr-call">Your location is over 50 miles away. Please call us for a custom installation quote.</div>
+      <a href="tel:5715550199" class="mqr-phone-btn">📞 Call for Custom Quote</a>`;
+  } else {
+    el.innerHTML = `
+      <div class="mqr-distance">📍 ${miles.toFixed(1)} miles from our location</div>
+      <div class="mqr-price-row">
+        <span class="mqr-label">Mobile Installation</span>
+        <span class="mqr-price">$${tier.price}</span>
+      </div>
+      <p class="mqr-note">Per vehicle · Includes mounting &amp; balancing · Tire cost billed separately</p>
+      <button class="mqr-cta" onclick="scrollToServicesQuote()">Request This Service →</button>`;
+  }
+}
+
+async function calcMobileQuote() {
+  const address = document.getElementById('mqcAddress').value.trim();
+  if (!address) { showToast('⚠ Please enter your address or ZIP code'); return; }
+  showToast('📍 Looking up address…');
+  try {
+    const res = await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(address)}&format=json&limit=1&countrycodes=us`, { headers: { 'Accept-Language': 'en' } });
+    const data = await res.json();
+    if (!data.length) { showToast('⚠ Address not found — try a more specific address or ZIP'); return; }
+    const miles = haversine(SHOP_LAT, SHOP_LNG, parseFloat(data[0].lat), parseFloat(data[0].lon));
+    showMobileQuoteResult(miles);
+  } catch(e) {
+    showToast('⚠ Could not look up address. Check your connection and try again.');
+  }
+}
+
+function getMobileQuoteGPS() {
+  if (!navigator.geolocation) { showToast('⚠ Location not supported by your browser'); return; }
+  showToast('📍 Getting your location…');
+  navigator.geolocation.getCurrentPosition(
+    pos => showMobileQuoteResult(haversine(SHOP_LAT, SHOP_LNG, pos.coords.latitude, pos.coords.longitude)),
+    () => showToast('⚠ Could not access location — please enter your address instead.')
+  );
+}
+
 // ── Toast ─────────────────────────────────────────────────────────────────────
 function showToast(msg) {
   const t = document.getElementById('toast');

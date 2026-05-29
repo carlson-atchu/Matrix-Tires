@@ -374,6 +374,94 @@ input, select, textarea, button { font-family: inherit; }
   font-size: 11px; padding: 0; line-height: 1;
 }
 
+/* ===== MOBILE INSTALL CALCULATOR ===== */
+.mobile-calc-wrap { margin-top: 48px; }
+.mobile-calc-card {
+  background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+  border-radius: var(--radius); padding: 36px 40px;
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: var(--shadow-lg);
+}
+.mobile-calc-header {
+  display: flex; align-items: center; gap: 20px; margin-bottom: 28px;
+}
+.mobile-calc-icon { font-size: 40px; flex-shrink: 0; }
+.mobile-calc-title {
+  font-family: 'Plus Jakarta Sans', sans-serif; font-size: 22px;
+  font-weight: 800; color: #fff; margin-bottom: 4px;
+}
+.mobile-calc-sub { font-size: 14px; color: rgba(255,255,255,0.55); }
+.mobile-calc-input-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; }
+.mobile-calc-input {
+  flex: 1; min-width: 200px; background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15); border-radius: var(--radius-sm);
+  padding: 11px 16px; color: #fff; font-size: 14px; font-family: inherit;
+}
+.mobile-calc-input::placeholder { color: rgba(255,255,255,0.35); }
+.mobile-calc-input:focus { outline: none; border-color: var(--accent); }
+.mobile-calc-btn {
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  border: none; border-radius: var(--radius-sm); padding: 11px 22px;
+  color: #fff; font-weight: 700; font-size: 14px; cursor: pointer;
+  font-family: inherit; white-space: nowrap; transition: transform .15s;
+}
+.mobile-calc-btn:hover { transform: translateY(-1px); }
+.mobile-calc-gps {
+  background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
+  border-radius: var(--radius-sm); padding: 11px 16px;
+  color: rgba(255,255,255,0.75); font-size: 13px; font-weight: 600;
+  cursor: pointer; font-family: inherit; white-space: nowrap; transition: all .15s;
+}
+.mobile-calc-gps:hover { background: rgba(255,255,255,0.14); color: #fff; }
+
+/* Result box */
+.mobile-calc-result {
+  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
+  border-radius: var(--radius-sm); padding: 20px 24px; margin-bottom: 20px;
+}
+.mqr-distance { font-size: 13px; color: rgba(255,255,255,0.55); margin-bottom: 14px; }
+.mqr-price-row {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 10px;
+}
+.mqr-label { font-size: 16px; font-weight: 600; color: #fff; }
+.mqr-price {
+  font-family: 'Plus Jakarta Sans', sans-serif; font-size: 36px;
+  font-weight: 900; color: var(--accent);
+}
+.mqr-note { font-size: 12px; color: rgba(255,255,255,0.4); margin-bottom: 16px; }
+.mqr-cta {
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  border: none; border-radius: 10px; padding: 12px 28px;
+  color: #fff; font-weight: 700; font-size: 14px; cursor: pointer;
+  font-family: inherit; transition: transform .15s;
+}
+.mqr-cta:hover { transform: translateY(-1px); }
+.mqr-call { font-size: 14px; color: rgba(255,255,255,0.7); margin-bottom: 14px; line-height: 1.6; }
+.mqr-phone-btn {
+  display: inline-block; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 10px; padding: 10px 22px; color: #fff; font-weight: 700; font-size: 14px;
+  text-decoration: none; transition: background .15s;
+}
+.mqr-phone-btn:hover { background: rgba(255,255,255,0.18); }
+
+/* Tiers reference */
+.mobile-calc-tiers { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; }
+.mct-title { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 12px; }
+.mct-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 12px; }
+.mct-row {
+  display: flex; justify-content: space-between; align-items: center;
+  background: rgba(255,255,255,0.05); border-radius: 8px;
+  padding: 8px 12px; font-size: 13px; color: rgba(255,255,255,0.6);
+}
+.mct-price { font-weight: 800; color: #fff; }
+.mct-note { font-size: 11px; color: rgba(255,255,255,0.3); }
+
+@media (max-width: 700px) {
+  .mct-grid { grid-template-columns: repeat(2, 1fr); }
+  .mobile-calc-card { padding: 24px 20px; }
+}
+
 /* ===== CONTACT / QUOTE ===== */
 .contact-section { background: var(--bg); border-top: 1px solid var(--border); }
 .contact-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
