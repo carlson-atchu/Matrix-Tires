@@ -693,6 +693,10 @@ input, select, textarea, button { font-family: inherit; }
   text-decoration: none;
 }
 .footer-social-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+.footer-social-fb { background: #1877f2; border-color: #1877f2; color: #fff; }
+.footer-social-fb:hover { background: #1565d8; border-color: #1565d8; }
+.footer-social-ig { background: linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888); border-color: #e1306c; color: #fff; }
+.footer-social-ig:hover { opacity: 0.85; }
 
 /* ===== PAGE SECTIONS ===== */
 .page-section { display: none; }
