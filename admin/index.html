@@ -813,9 +813,16 @@ async function uploadTireImage(file, tireId) {
   try {
     const ref = window._storageRef(window._storage, `tires/${tireId}`);
     await window._uploadBytes(ref, file);
-    return await window._getDownloadURL(ref);
+    const url = await window._getDownloadURL(ref);
+    showToast('✓ Photo uploaded!', '#16a34a');
+    return url;
   } catch(e) {
     console.error('Image upload failed:', e);
+    if (e.code === 'storage/unauthorized') {
+      showToast('⚠ Photo upload blocked — Firebase Storage rules need to be updated. See instructions in admin.', '#FF4D6D');
+    } else {
+      showToast(`⚠ Photo upload failed: ${e.code || e.message}`, '#FF4D6D');
+    }
     return null;
   }
 }
