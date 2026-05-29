@@ -691,14 +691,14 @@ window.dispatchEvent(new Event('firebase-ready'));
     <div class="footer-links">
       <div class="footer-col">
         <div class="footer-col-title">Shop</div>
-        <a href="#shop" onclick="scrollToShop()">New Tires</a>
-        <a href="#shop" onclick="scrollToShop()">Used Tires</a>
-        <a href="#brands">Brands</a>
+        <a href="#" onclick="showPage('shop');setShopFilter('New');return false;">New Tires</a>
+        <a href="#" onclick="showPage('shop');setShopFilter('Used');return false;">Used Tires</a>
+        <a href="#" onclick="showPage('brands');return false;">Brands</a>
       </div>
       <div class="footer-col">
         <div class="footer-col-title">Company</div>
-        <a href="#services">Services</a>
-        <a href="#contact">Contact</a>
+        <a href="#" onclick="showPage('services');return false;">Services</a>
+        <a href="#" onclick="showPage('contact');setTimeout(()=>{const el=document.getElementById('contactPhone');if(el)el.scrollIntoView({behavior:'smooth'});},200);return false;">Contact</a>
         <a href="admin/index.html">Staff Login</a>
       </div>
     </div>

@@ -84,6 +84,12 @@ function closeDrawer() {
   document.getElementById('drawerOverlay').classList.remove('open');
 }
 
+function setShopFilter(condition) {
+  showPage('shop');
+  const el = document.getElementById('filterCond');
+  if (el) { el.value = condition; applyFilters(); }
+}
+
 function showPage(name) {
   currentPage = name;
   document.querySelectorAll('.page-section').forEach(el => {
