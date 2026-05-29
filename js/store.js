@@ -3,7 +3,12 @@
 // ── Language / i18n ───────────────────────────────────────────────────────────
 const i18n = {
   en: {
+    // Nav
     nav_shop: 'Shop Tires', nav_brands: 'Brands', nav_services: 'Services', nav_contact: 'Contact',
+    // Drawer
+    drawer_home: '🏠 Home', drawer_shop: '🛞 Shop Tires', drawer_brands: '🏷️ Brands',
+    drawer_services: '🔧 Services', drawer_quote: '📋 Get a Quote',
+    // Hero
     hero_badge: '🔴 New &amp; Used Tires In Stock',
     hero_title: 'Find Your<br/><span class="hero-accent">Perfect Tire</span>',
     hero_sub: 'Search by size, brand, or category. New and used tires at unbeatable prices with expert installation.',
@@ -13,16 +18,125 @@ const i18n = {
     btn_search: 'Search →',
     hvt_headline: 'Shop New &amp; Used Tires<br>for Cars, Trucks &amp; SUVs',
     hvt_body: 'Get the best tires for your vehicle at Matrix Tires. From all-season to performance, we have a wide selection of brands and sizes to fit your needs.',
+    // Tire diagram
+    tsd_title: 'How to read your tire size',
+    tsd_caption: "Look for the numbers printed on your tire's sidewall — they tell you the exact size you need.",
+    // Trust strip
     trust_1: '✅ Price Match Guarantee', trust_2: '🚗 Mobile Installation Available',
     trust_3: '⚡ Same-Day Service', trust_4: '🔒 Quality Guaranteed',
+    // Promo
     promo_badge: 'LIMITED TIME OFFER',
     promo_headline: 'Buy 4 Tires, Get <span class="promo-highlight">Free Installation</span>',
     promo_sub: 'Professional mounting & balancing included — no hidden fees',
     promo_expires: 'Offer expires <strong>June 26, 2026</strong>',
     promo_cta: 'Claim Offer →',
+    // Showcase
+    showcase_eyebrow: 'What We Carry', showcase_title: 'Shop by Tire Type', showcase_shop_now: 'Shop Now →',
+    sc_allseason_label: 'All-Season', sc_allseason_desc: 'Year-round grip for everyday driving',
+    sc_winter_label: 'Winter / Snow', sc_winter_desc: 'Maximum traction in ice and snow',
+    sc_perf_label: 'Performance', sc_perf_desc: 'High-speed handling and precision',
+    sc_truck_label: 'Truck / SUV', sc_truck_desc: 'Heavy-duty tires for trucks and SUVs',
+    sc_used_label: 'Used Tires', sc_used_desc: 'Quality-inspected, budget-friendly options',
+    // About
+    about_eyebrow: 'Our Story',
+    about_title: 'Built on Roads,<br/><span style="color:var(--accent)">Driven by Trust</span>',
+    about_body1: 'Matrix Tires was born from a simple idea: every driver deserves quality tires at a fair price, with service that actually comes to <em>them</em>. What started as a mobile tire operation out of a single van has grown into a full-service tire business serving Manassas, VA and the surrounding communities.',
+    about_body2: "Over the years we've mounted, balanced, and repaired thousands of tires — from everyday commuters to heavy-duty trucks. We carry both new and used tires because we believe getting safe on the road shouldn't cost a fortune.",
+    pillar1_title: 'Community First', pillar1_text: 'Local, family-run, and proud of it. We treat every customer like a neighbor.',
+    pillar2_title: 'Honest Pricing', pillar2_text: 'No hidden fees. No upsells. Just the best price we can offer, every time.',
+    pillar3_title: 'Fast Turnaround', pillar3_text: 'Same-day service available. We know your time matters.',
+    stat1_label: 'Years in Business', stat2_label: 'Tires Installed', stat3_label: 'Happy Customers', stat4_label: 'Days a Week',
+    // Why
+    why_eyebrow: 'Why Matrix Tires',
+    why_title: 'The Difference Is<br/>In the Details',
+    why1_title: 'New &amp; Used Options', why1_body: 'We stock both new and quality-checked used tires so every budget can drive away safely.',
+    why2_title: 'Mobile Service', why2_body: "Can't come to us? We bring the shop right to your driveway, workplace, or roadside.",
+    why3_title: 'Price Match', why3_body: "Found it cheaper elsewhere? Show us and we'll beat or match the price — guaranteed.",
+    why4_title: 'Quality Inspected', why4_body: 'Every used tire is hand-inspected for tread depth, sidewall integrity, and safety before it hits our shelves.',
+    why5_title: 'Flexible Scheduling', why5_body: 'Open Monday through Sunday. Book same-day or plan ahead — we work around your schedule.',
+    why6_title: 'Real Support', why6_body: "Talk to a real person, not a chatbot. Call or text us and we'll answer your questions directly.",
+    // CTA
+    cta_heading: 'Ready to Roll?',
+    cta_sub: 'Browse our live inventory or get a free quote in minutes. Same-day service available.',
+    cta_btn_primary: 'Shop Tires →', cta_btn_secondary: 'Get a Free Quote',
+    // Reviews
+    reviews_eyebrow: 'What Customers Say', reviews_title: 'Real Reviews',
+    review1_text: '"Fast service and great prices! They came to my house and had all four tires changed in under an hour. Will definitely be coming back."',
+    review2_text: '"I needed a tire last minute on a Sunday and they showed up same day. Super professional and affordable. Highly recommend Matrix Tires!"',
+    review3_text: '"Got a used tire for my SUV at a fraction of the cost. They inspected it right in front of me and explained everything. Honest and trustworthy."',
+    review4_text: '"Best tire shop around! Price matched a competitor without me even asking. Quick install and the balancing made a huge difference in my ride."',
+    reviews_leave_btn: 'Leave Us a Review on Facebook →',
+    // FAQ
+    faq_eyebrow: 'Got Questions?', faq_title: 'Frequently Asked Questions',
+    faq_sub_html: 'Still have questions? Call us directly at <a class="faq-phone" href="tel:5715550199">(571) 555-0199</a>',
+    faq1_q: 'What tire sizes do you carry?',
+    faq1_a: "We carry a wide range of sizes for cars, SUVs, trucks, and vans — both new and used. Use the search on our home page to see what's currently in stock, or call us and we'll check for you.",
+    faq2_q: 'Do you offer mobile tire installation?',
+    faq2_a: "Yes! We bring the shop to you — whether you're at home, work, or stuck on the side of the road. Mobile service is available 7 days a week throughout Manassas, VA and surrounding areas.",
+    faq3_q: "What's the difference between new and used tires?",
+    faq3_a: "New tires have full tread depth and come with a manufacturer warranty. Used tires are hand-inspected for safety and offer significant savings — great if you're on a budget or need a temporary fix. We only sell used tires that pass our quality check.",
+    faq4_q: 'How do I know what size tire I need?',
+    faq4_a: 'Your tire size is printed on the sidewall of your current tires (e.g. 205/65R17) and also in your vehicle\'s owner manual or on the sticker inside the driver\'s door. You can also use our "By Vehicle" search to look up your car\'s OEM tire size.',
+    faq5_q: 'Do you offer a price match guarantee?',
+    faq5_a: "Absolutely. If you find the same tire for a lower price elsewhere, show us and we'll beat or match it. We're committed to giving you the best deal possible.",
+    faq6_q: 'How long does tire installation take?',
+    faq6_a: "Most standard installs take 30–60 minutes depending on the number of tires and vehicle type. We'll give you an accurate time estimate when you book your appointment.",
+    faq7_q: 'How do I get a quote?',
+    faq7_a: 'You can request a free quote right here on our website — browse our inventory, add tires to your cart, and hit "Request Quote." Or call us at <a class="faq-phone" href="tel:5715550199">(571) 555-0199</a> and we\'ll take care of you directly.',
+    // Shop
+    shop_eyebrow: 'Browse Inventory', shop_title: 'Shop All Tires',
+    filter_search_placeholder: '🔍 Search size, brand, type…',
+    filter_all_cond: 'All Conditions', filter_new: '🟢 New', filter_used: '🟡 Used',
+    filter_all_brands: 'All Brands',
+    filter_all_types: 'All Types', filter_allseason: 'All-Season', filter_summer: 'Summer',
+    filter_winter: 'Winter', filter_performance: 'Performance', filter_truck_suv: 'Truck/SUV', filter_runflat: 'Run-Flat',
+    sort_price_asc: 'Price: Low → High', sort_price_desc: 'Price: High → Low', sort_brand: 'Brand A–Z', sort_newest: 'Newest First',
+    cond_new_badge: '🟢 New', cond_used_badge: '🟡 Used',
+    out_of_stock: 'Out of Stock', add_to_cart: '+ Add', per_tire: 'per tire', call_for_price: 'Call for Price',
+    result_singular: 'tire found', result_plural: 'tires found',
+    // Brands
+    brands_eyebrow: 'Top Brands We Carry', brands_title: 'Trusted Manufacturers', brand_shop_now: 'Shop Now →',
+    // Services
+    services_eyebrow: 'What We Offer', services_title: 'Our Services',
+    svc1_title: 'Tire Installation', svc1_body: 'Professional mounting and balancing for all vehicle types. We come to you or you come to us.',
+    svc2_title: 'Tire Rotation', svc2_body: 'Extend the life of your tires with regular rotation service. Quick and affordable.',
+    svc3_title: 'Flat Repair', svc3_body: 'Puncture repairs and emergency flat tire service. Get back on the road fast.',
+    svc4_title: 'Mobile Service', svc4_body: 'We bring the shop to you — driveway, parking lot, or roadside. Available 7 days a week.',
+    svc5_title: 'Tire Balancing', svc5_body: 'Eliminate vibrations and uneven wear with precision wheel balancing for a smoother, safer ride.',
+    svc_btn_add: '+ Add to Quote', svc_btn_added: '✓ Added',
+    svc_request_quote: 'Request Quote for Selected Services →',
+    // Contact
+    contact_eyebrow: 'Get In Touch', contact_title: 'Request a Quote',
+    contact_body: "Tell us what you're looking for and we'll get back to you with the best price and availability.",
+    contact_hours: 'Mon–Sat 8am–7pm · Sun 10am–5pm',
+    form_title: 'Get Your Free Quote',
+    form_firstname: 'First Name *', form_lastname: 'Last Name *',
+    form_phone: 'Phone Number *', form_email: 'Email Address',
+    form_tiresize: 'Tire Size (e.g. 225/45R17)', form_qty_label: 'Quantity Needed',
+    form_cond_label: 'Condition Preference',
+    form_cart_label: 'Selected Tires from Cart', form_services_label: 'Requested Services',
+    form_notes_label: 'Additional Notes',
+    notes_placeholder: 'Vehicle year/make/model, brand preferences, or anything else…',
+    qty_1: '1 tire', qty_2: '2 tires', qty_4: '4 tires (full set)', qty_other: 'Other',
+    cond_any: 'Any (Best Price)', cond_new_only: 'New Only', cond_used_only: 'Used Only',
+    form_submit: 'Send Quote Request →', sending: 'Sending…',
+    form_success: "✅ Quote request sent! We'll contact you within 2 hours during business hours.",
+    // Footer
+    footer_shop_col: 'Shop', footer_company_col: 'Company',
+    footer_new: 'New Tires', footer_used: 'Used Tires', footer_brands_link: 'Brands',
+    footer_services_link: 'Services', footer_contact_link: 'Contact', footer_staff: 'Staff Login',
+    footer_copy: '© 2025 Matrix Tires. All rights reserved.',
+    // Cart
+    cart_title: 'Your Cart', cart_empty: 'Your cart is empty.<br/>Add tires from the shop!',
+    cart_total_label: 'Total:', cart_checkout: 'Request Quote for Cart →',
   },
   es: {
+    // Nav
     nav_shop: 'Comprar Llantas', nav_brands: 'Marcas', nav_services: 'Servicios', nav_contact: 'Contacto',
+    // Drawer
+    drawer_home: '🏠 Inicio', drawer_shop: '🛞 Comprar Llantas', drawer_brands: '🏷️ Marcas',
+    drawer_services: '🔧 Servicios', drawer_quote: '📋 Solicitar Cotización',
+    // Hero
     hero_badge: '🔴 Llantas Nuevas y Usadas en Stock',
     hero_title: 'Encuentra Tu<br/><span class="hero-accent">Llanta Perfecta</span>',
     hero_sub: 'Busca por tamaño, marca o categoría. Llantas nuevas y usadas a precios inmejorables con instalación experta.',
@@ -32,13 +146,117 @@ const i18n = {
     btn_search: 'Buscar →',
     hvt_headline: 'Compra Llantas Nuevas y Usadas<br>para Autos, Camionetas y SUVs',
     hvt_body: 'Obtén las mejores llantas para tu vehículo en Matrix Tires. Desde todo clima hasta alto rendimiento, tenemos una amplia selección de marcas y tamaños.',
+    // Tire diagram
+    tsd_title: 'Cómo leer el tamaño de tu llanta',
+    tsd_caption: 'Busca los números impresos en el flanco de tu llanta — te indican exactamente el tamaño que necesitas.',
+    // Trust strip
     trust_1: '✅ Garantía de Igualación de Precio', trust_2: '🚗 Instalación Móvil Disponible',
     trust_3: '⚡ Servicio el Mismo Día', trust_4: '🔒 Calidad Garantizada',
+    // Promo
     promo_badge: 'OFERTA POR TIEMPO LIMITADO',
     promo_headline: 'Compra 4 Llantas, Obtén <span class="promo-highlight">Instalación Gratis</span>',
     promo_sub: 'Montaje y balanceo profesional incluido — sin cargos ocultos',
     promo_expires: 'Oferta válida hasta el <strong>26 de junio de 2026</strong>',
     promo_cta: 'Reclamar Oferta →',
+    // Showcase
+    showcase_eyebrow: 'Lo Que Tenemos', showcase_title: 'Compra por Tipo de Llanta', showcase_shop_now: 'Comprar →',
+    sc_allseason_label: 'Todo Clima', sc_allseason_desc: 'Tracción todo el año para el manejo diario',
+    sc_winter_label: 'Invierno / Nieve', sc_winter_desc: 'Tracción máxima en hielo y nieve',
+    sc_perf_label: 'Alto Rendimiento', sc_perf_desc: 'Manejo a alta velocidad y precisión',
+    sc_truck_label: 'Camioneta / SUV', sc_truck_desc: 'Llantas resistentes para camionetas y SUVs',
+    sc_used_label: 'Llantas Usadas', sc_used_desc: 'Opciones inspeccionadas y económicas',
+    // About
+    about_eyebrow: 'Nuestra Historia',
+    about_title: 'Construidos en las Calles,<br/><span style="color:var(--accent)">Impulsados por la Confianza</span>',
+    about_body1: 'Matrix Tires nació de una idea simple: todo conductor merece llantas de calidad a un precio justo, con un servicio que va hasta <em>ellos</em>. Lo que comenzó como una operación móvil con una sola camioneta se ha convertido en un negocio de servicio completo que atiende a Manassas, VA y las comunidades cercanas.',
+    about_body2: 'Con los años hemos montado, balanceado y reparado miles de llantas — desde autos cotidianos hasta camiones de trabajo. Ofrecemos llantas nuevas y usadas porque creemos que mantenerse seguro en la carretera no debería costar una fortuna.',
+    pillar1_title: 'La Comunidad Primero', pillar1_text: 'Local, familiar y orgullosos de ello. Tratamos a cada cliente como un vecino.',
+    pillar2_title: 'Precios Honestos', pillar2_text: 'Sin cargos ocultos. Sin ventas adicionales. Solo el mejor precio que podemos ofrecer, siempre.',
+    pillar3_title: 'Servicio Rápido', pillar3_text: 'Servicio el mismo día disponible. Sabemos que tu tiempo es valioso.',
+    stat1_label: 'Años en el Negocio', stat2_label: 'Llantas Instaladas', stat3_label: 'Clientes Satisfechos', stat4_label: 'Días a la Semana',
+    // Why
+    why_eyebrow: 'Por Qué Matrix Tires',
+    why_title: 'La Diferencia Está<br/>En los Detalles',
+    why1_title: 'Opciones Nuevas y Usadas', why1_body: 'Tenemos llantas nuevas y usadas de calidad inspeccionada para que todos los presupuestos puedan ir seguros.',
+    why2_title: 'Servicio Móvil', why2_body: '¿No puedes venir? Llevamos el taller directo a tu casa, trabajo o al lado de la carretera.',
+    why3_title: 'Igualación de Precio', why3_body: '¿Lo encontraste más barato? Muéstranos y lo igualamos o lo superamos — garantizado.',
+    why4_title: 'Inspección de Calidad', why4_body: 'Cada llanta usada es inspeccionada a mano en profundidad de rodadura, integridad y seguridad antes de ofrecerse.',
+    why5_title: 'Horario Flexible', why5_body: 'Abiertos de lunes a domingo. Reserva el mismo día o con anticipación — nos adaptamos a tu horario.',
+    why6_title: 'Soporte Real', why6_body: 'Habla con una persona real, no un chatbot. Llámanos o escríbenos y respondemos directamente.',
+    // CTA
+    cta_heading: '¿Listo para Rodar?',
+    cta_sub: 'Explora nuestro inventario en vivo u obtén una cotización gratis en minutos. Servicio el mismo día disponible.',
+    cta_btn_primary: 'Comprar Llantas →', cta_btn_secondary: 'Obtener Cotización Gratis',
+    // Reviews
+    reviews_eyebrow: 'Lo Que Dicen los Clientes', reviews_title: 'Reseñas Reales',
+    review1_text: '"¡Servicio rápido y excelentes precios! Vinieron a mi casa y cambiaron las cuatro llantas en menos de una hora. Definitivamente regresaré."',
+    review2_text: '"Necesitaba una llanta de última hora un domingo y aparecieron el mismo día. Muy profesionales y económicos. ¡Recomiendo mucho Matrix Tires!"',
+    review3_text: '"Conseguí una llanta usada para mi SUV a una fracción del costo. La inspeccionaron frente a mí y explicaron todo. Honestos y confiables."',
+    review4_text: '"¡La mejor tienda de llantas! Igualaron el precio de un competidor sin que yo lo pidiera. Instalación rápida y el balanceo hizo una gran diferencia."',
+    reviews_leave_btn: 'Déjanos una Reseña en Facebook →',
+    // FAQ
+    faq_eyebrow: '¿Tienes Preguntas?', faq_title: 'Preguntas Frecuentes',
+    faq_sub_html: '¿Aún tienes preguntas? Llámanos directamente al <a class="faq-phone" href="tel:5715550199">(571) 555-0199</a>',
+    faq1_q: '¿Qué tamaños de llantas manejan?',
+    faq1_a: 'Manejamos una amplia variedad de tamaños para autos, SUVs, camiones y camionetas — nuevas y usadas. Usa el buscador en nuestra página para ver lo que hay en stock, o llámanos y verificamos por ti.',
+    faq2_q: '¿Ofrecen instalación móvil de llantas?',
+    faq2_a: '¡Sí! Llevamos el taller hasta ti — ya sea en casa, en el trabajo o en la carretera. El servicio móvil está disponible los 7 días de la semana en Manassas, VA y áreas cercanas.',
+    faq3_q: '¿Cuál es la diferencia entre llantas nuevas y usadas?',
+    faq3_a: 'Las llantas nuevas tienen profundidad de rodadura completa y garantía del fabricante. Las usadas son inspeccionadas para garantizar seguridad y ofrecen un ahorro significativo. Solo vendemos llantas usadas que pasan nuestro control de calidad.',
+    faq4_q: '¿Cómo sé qué tamaño de llanta necesito?',
+    faq4_a: 'El tamaño está impreso en el flanco de tus llantas actuales (ej. 205/65R17) y también en el manual del propietario o en la etiqueta dentro de la puerta del conductor. También puedes usar nuestra búsqueda "Por Vehículo".',
+    faq5_q: '¿Ofrecen garantía de igualación de precio?',
+    faq5_a: 'Absolutamente. Si encuentras la misma llanta a un precio menor, muéstranos y lo igualamos o lo superamos. Estamos comprometidos a darte el mejor trato posible.',
+    faq6_q: '¿Cuánto tarda la instalación de una llanta?',
+    faq6_a: 'La mayoría de las instalaciones estándar toman entre 30 y 60 minutos dependiendo del número de llantas y el tipo de vehículo.',
+    faq7_q: '¿Cómo obtengo una cotización?',
+    faq7_a: 'Solicita una cotización gratis directamente en nuestro sitio — explora el inventario, agrega llantas al carrito y presiona "Solicitar Cotización." O llámanos al <a class="faq-phone" href="tel:5715550199">(571) 555-0199</a>.',
+    // Shop
+    shop_eyebrow: 'Explorar Inventario', shop_title: 'Ver Todas las Llantas',
+    filter_search_placeholder: '🔍 Busca tamaño, marca, tipo…',
+    filter_all_cond: 'Todas las Condiciones', filter_new: '🟢 Nueva', filter_used: '🟡 Usada',
+    filter_all_brands: 'Todas las Marcas',
+    filter_all_types: 'Todos los Tipos', filter_allseason: 'Todo Clima', filter_summer: 'Verano',
+    filter_winter: 'Invierno', filter_performance: 'Alto Rendimiento', filter_truck_suv: 'Camioneta/SUV', filter_runflat: 'Run-Flat',
+    sort_price_asc: 'Precio: Bajo → Alto', sort_price_desc: 'Precio: Alto → Bajo', sort_brand: 'Marca A–Z', sort_newest: 'Más Reciente',
+    cond_new_badge: '🟢 Nueva', cond_used_badge: '🟡 Usada',
+    out_of_stock: 'Sin Stock', add_to_cart: '+ Agregar', per_tire: 'por llanta', call_for_price: 'Llama por Precio',
+    result_singular: 'llanta encontrada', result_plural: 'llantas encontradas',
+    // Brands
+    brands_eyebrow: 'Mejores Marcas que Manejamos', brands_title: 'Fabricantes de Confianza', brand_shop_now: 'Comprar →',
+    // Services
+    services_eyebrow: 'Lo Que Ofrecemos', services_title: 'Nuestros Servicios',
+    svc1_title: 'Instalación de Llantas', svc1_body: 'Montaje y balanceo profesional para todo tipo de vehículos. Vamos a ti o tú vienes a nosotros.',
+    svc2_title: 'Rotación de Llantas', svc2_body: 'Extiende la vida de tus llantas con rotación regular. Rápido y económico.',
+    svc3_title: 'Reparación de Pinchazos', svc3_body: 'Reparaciones de punturas y servicio de emergencia. Regresa al camino rápido.',
+    svc4_title: 'Servicio Móvil', svc4_body: 'Llevamos el taller hasta ti — entrada, estacionamiento o carretera. Disponible 7 días a la semana.',
+    svc5_title: 'Balanceo de Llantas', svc5_body: 'Elimina vibraciones y desgaste desigual con balanceo de precisión para un manejo más suave y seguro.',
+    svc_btn_add: '+ Agregar a Cotización', svc_btn_added: '✓ Agregado',
+    svc_request_quote: 'Solicitar Cotización para Servicios Seleccionados →',
+    // Contact
+    contact_eyebrow: 'Contáctanos', contact_title: 'Solicitar una Cotización',
+    contact_body: 'Cuéntanos qué buscas y te responderemos con el mejor precio y disponibilidad.',
+    contact_hours: 'Lun–Sáb 8am–7pm · Dom 10am–5pm',
+    form_title: 'Obtén Tu Cotización Gratis',
+    form_firstname: 'Nombre *', form_lastname: 'Apellido *',
+    form_phone: 'Número de Teléfono *', form_email: 'Correo Electrónico',
+    form_tiresize: 'Tamaño de Llanta (ej. 225/45R17)', form_qty_label: 'Cantidad Necesaria',
+    form_cond_label: 'Preferencia de Condición',
+    form_cart_label: 'Llantas Seleccionadas del Carrito', form_services_label: 'Servicios Solicitados',
+    form_notes_label: 'Notas Adicionales',
+    notes_placeholder: 'Año/marca/modelo del vehículo, marcas preferidas u otra información…',
+    qty_1: '1 llanta', qty_2: '2 llantas', qty_4: '4 llantas (juego completo)', qty_other: 'Otro',
+    cond_any: 'Cualquiera (Mejor Precio)', cond_new_only: 'Solo Nueva', cond_used_only: 'Solo Usada',
+    form_submit: 'Enviar Solicitud de Cotización →', sending: 'Enviando…',
+    form_success: '✅ ¡Solicitud enviada! Te contactaremos dentro de 2 horas durante el horario de atención.',
+    // Footer
+    footer_shop_col: 'Tienda', footer_company_col: 'Empresa',
+    footer_new: 'Llantas Nuevas', footer_used: 'Llantas Usadas', footer_brands_link: 'Marcas',
+    footer_services_link: 'Servicios', footer_contact_link: 'Contacto', footer_staff: 'Acceso del Personal',
+    footer_copy: '© 2025 Matrix Tires. Todos los derechos reservados.',
+    // Cart
+    cart_title: 'Tu Carrito', cart_empty: 'Tu carrito está vacío.<br/>¡Agrega llantas desde la tienda!',
+    cart_total_label: 'Total:', cart_checkout: 'Solicitar Cotización del Carrito →',
   }
 };
 
@@ -48,12 +266,62 @@ function setLanguage(lang) {
   currentLang = lang;
   localStorage.setItem('mt_lang', lang);
   const t = i18n[lang];
+
+  // Text content
   document.querySelectorAll('[data-i18n]').forEach(el => {
     if (t[el.dataset.i18n] !== undefined) el.textContent = t[el.dataset.i18n];
   });
+  // HTML content
   document.querySelectorAll('[data-i18n-html]').forEach(el => {
     if (t[el.dataset.i18nHtml] !== undefined) el.innerHTML = t[el.dataset.i18nHtml];
   });
+  // Placeholders
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.dataset.i18nPlaceholder;
+    if (t[key] !== undefined) el.placeholder = t[key];
+  });
+
+  // Select option translations
+  const selectDefs = {
+    filterCond: [
+      { value: '', key: 'filter_all_cond' }, { value: 'New', key: 'filter_new' }, { value: 'Used', key: 'filter_used' },
+    ],
+    filterType: [
+      { value: '', key: 'filter_all_types' }, { value: 'All-Season', key: 'filter_allseason' },
+      { value: 'Summer', key: 'filter_summer' }, { value: 'Winter', key: 'filter_winter' },
+      { value: 'Performance', key: 'filter_performance' }, { value: 'Truck/SUV', key: 'filter_truck_suv' },
+      { value: 'Run-Flat', key: 'filter_runflat' },
+    ],
+    filterSort: [
+      { value: 'price-asc', key: 'sort_price_asc' }, { value: 'price-desc', key: 'sort_price_desc' },
+      { value: 'brand', key: 'sort_brand' }, { value: 'newest', key: 'sort_newest' },
+    ],
+    qQty: [
+      { value: '1', key: 'qty_1' }, { value: '2', key: 'qty_2' },
+      { value: '4', key: 'qty_4' }, { value: 'other', key: 'qty_other' },
+    ],
+    qCond: [
+      { value: 'any', key: 'cond_any' }, { value: 'New', key: 'cond_new_only' }, { value: 'Used', key: 'cond_used_only' },
+    ],
+  };
+  Object.entries(selectDefs).forEach(([id, opts]) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const cur = el.value;
+    el.innerHTML = opts.map(o => `<option value="${o.value}"${o.value === cur ? ' selected' : ''}>${t[o.key] || o.key}</option>`).join('');
+  });
+
+  // Update "All Brands" first option
+  const brandSel = document.getElementById('filterBrand');
+  if (brandSel && brandSel.options.length > 0) brandSel.options[0].textContent = t.filter_all_brands;
+
+  // Update brand card footers
+  document.querySelectorAll('.brand-card-footer').forEach(el => { el.textContent = t.brand_shop_now; });
+
+  // Re-render grid and cart with new language
+  if (allInventory.length) applyFilters();
+  renderCart();
+
   document.getElementById('lang-en').classList.toggle('active', lang === 'en');
   document.getElementById('lang-es').classList.toggle('active', lang === 'es');
 }
@@ -558,8 +826,9 @@ function applyFilters() {
 
   renderGrid(results);
   const count = results.length;
+  const t = i18n[currentLang];
   document.getElementById('resultCount').textContent =
-    `${count} tire${count !== 1 ? 's' : ''} found`;
+    `${count} ${count !== 1 ? (t.result_plural||'tires found') : (t.result_singular||'tire found')}`;
 
   document.getElementById('emptyState').style.display = results.length ? 'none' : 'block';
 }
@@ -595,9 +864,10 @@ function renderGrid(tires) {
   }
 
   grid.innerHTML = tires.map((tire, idx) => {
+    const t = i18n[currentLang];
     const isNew = tire.condition === 'New';
     const outOfStock = tire.qty === 0;
-    const price = tire.sell ? `$${Number(tire.sell).toFixed(2)}` : 'Call for Price';
+    const price = tire.sell ? `$${Number(tire.sell).toFixed(2)}` : (t.call_for_price || 'Call for Price');
 
     const imgHtml = tire.imgUrl
       ? `<div class="card-img"><img src="${tire.imgUrl}" alt="${tire.size}" loading="lazy"/></div>`
@@ -606,8 +876,8 @@ function renderGrid(tires) {
     <div class="tire-card" style="animation-delay:${idx * 0.04}s">
       ${imgHtml}
       <div class="card-badge-row">
-        <span class="cond-badge ${isNew ? 'cond-new' : 'cond-used'}">${isNew ? '🟢 New' : '🟡 Used'}</span>
-        ${outOfStock ? '<span class="stock-badge stock-out">Out of Stock</span>' : ''}
+        <span class="cond-badge ${isNew ? 'cond-new' : 'cond-used'}">${isNew ? (t.cond_new_badge||'🟢 New') : (t.cond_used_badge||'🟡 Used')}</span>
+        ${outOfStock ? `<span class="stock-badge stock-out">${t.out_of_stock||'Out of Stock'}</span>` : ''}
       </div>
       <div class="card-body">
         <div class="card-size">${tire.size || '—'}</div>
@@ -617,13 +887,13 @@ function renderGrid(tires) {
       <div class="card-footer">
         <div>
           <div class="card-price">${price}</div>
-          <div class="card-price-label">per tire</div>
+          <div class="card-price-label">${t.per_tire||'per tire'}</div>
         </div>
         ${outOfStock
-          ? `<button class="card-add-btn" disabled>Out of Stock</button>`
+          ? `<button class="card-add-btn" disabled>${t.out_of_stock||'Out of Stock'}</button>`
           : `<div class="card-add-row">
               <input type="number" class="card-qty-input" id="qty_${idx}" value="1" min="1" max="${tire.qty}" aria-label="Quantity"/>
-              <button class="card-add-btn" onclick="addToCart(${idx})">+ Add</button>
+              <button class="card-add-btn" onclick="addToCart(${idx})">${t.add_to_cart||'+ Add'}</button>
              </div>`
         }
       </div>
@@ -678,7 +948,8 @@ function renderCart() {
   const body = document.getElementById('cartBody');
   const footer = document.getElementById('cartFooter');
   if (!cart.length) {
-    body.innerHTML = '<div class="cart-empty">Your cart is empty.<br/>Add tires from the shop!</div>';
+    const t = i18n[currentLang];
+    body.innerHTML = `<div class="cart-empty">${t.cart_empty||'Your cart is empty.<br/>Add tires from the shop!'}</div>`;
     footer.style.display = 'none';
     return;
   }
@@ -740,7 +1011,7 @@ function checkoutCart() {
 function submitQuote(e) {
   e.preventDefault();
   const btn = document.getElementById('submitBtn');
-  btn.textContent = 'Sending…';
+  btn.textContent = i18n[currentLang].sending || 'Sending…';
   btn.disabled = true;
 
   const firstName = document.getElementById('qFirstName').value;
@@ -781,9 +1052,11 @@ function submitQuote(e) {
   // Send email via EmailJS
   emailjs.send('service_wtb1gzm', 'template_a9y4bpc', templateParams)
     .then(() => {
-      btn.textContent = 'Send Quote Request →';
+      btn.textContent = i18n[currentLang].form_submit || 'Send Quote Request →';
       btn.disabled = false;
-      document.getElementById('formSuccess').style.display = 'block';
+      const fsEl = document.getElementById('formSuccess');
+      fsEl.textContent = i18n[currentLang].form_success || "✅ Quote request sent!";
+      fsEl.style.display = 'block';
       document.getElementById('quoteForm').reset();
       cart = [];
       saveCart();
@@ -791,7 +1064,7 @@ function submitQuote(e) {
       document.querySelectorAll('.service-card').forEach(sc => {
         sc.classList.remove('selected');
         const sb = sc.querySelector('.service-add-btn');
-        if (sb) { sb.textContent = '+ Add to Quote'; sb.classList.remove('selected'); }
+        if (sb) { sb.textContent = i18n[currentLang].svc_btn_add || '+ Add to Quote'; sb.classList.remove('selected'); }
       });
       const cta = document.getElementById('servicesCta');
       if (cta) cta.style.display = 'none';
@@ -799,7 +1072,7 @@ function submitQuote(e) {
       setTimeout(() => document.getElementById('formSuccess').style.display = 'none', 6000);
     })
     .catch(() => {
-      btn.textContent = 'Send Quote Request →';
+      btn.textContent = i18n[currentLang].form_submit || 'Send Quote Request →';
       btn.disabled = false;
       showToast('⚠ Failed to send — please call us directly');
     });
@@ -808,14 +1081,15 @@ function submitQuote(e) {
 // ── Services ──────────────────────────────────────────────────────────────────
 function toggleService(name, btn) {
   const idx = selectedServices.indexOf(name);
+  const t = i18n[currentLang];
   if (idx === -1) {
     selectedServices.push(name);
-    btn.textContent = '✓ Added';
+    btn.textContent = t.svc_btn_added || '✓ Added';
     btn.classList.add('selected');
     btn.closest('.service-card').classList.add('selected');
   } else {
     selectedServices.splice(idx, 1);
-    btn.textContent = '+ Add to Quote';
+    btn.textContent = t.svc_btn_add || '+ Add to Quote';
     btn.classList.remove('selected');
     btn.closest('.service-card').classList.remove('selected');
   }
@@ -831,7 +1105,7 @@ function removeService(name) {
     const h3 = card.querySelector('h3');
     if (h3 && h3.textContent.trim() === name) {
       const btn = card.querySelector('.service-add-btn');
-      if (btn) { btn.textContent = '+ Add to Quote'; btn.classList.remove('selected'); }
+      if (btn) { btn.textContent = i18n[currentLang].svc_btn_add || '+ Add to Quote'; btn.classList.remove('selected'); }
       card.classList.remove('selected');
     }
   });

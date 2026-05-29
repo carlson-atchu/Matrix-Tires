@@ -75,11 +75,11 @@ window.dispatchEvent(new Event('firebase-ready'));
     <button class="drawer-close" onclick="closeDrawer()">✕</button>
   </div>
   <nav class="drawer-nav">
-    <a class="drawer-link active" data-page="home" onclick="showPage('home')">🏠 Home</a>
-    <a class="drawer-link" data-page="shop" onclick="showPage('shop')">🛞 Shop Tires</a>
-    <a class="drawer-link" data-page="brands" onclick="showPage('brands')">🏷️ Brands</a>
-    <a class="drawer-link" data-page="services" onclick="showPage('services')">🔧 Services</a>
-    <a class="drawer-link" data-page="contact" onclick="showPage('contact')">📋 Get a Quote</a>
+    <a class="drawer-link active" data-page="home" onclick="showPage('home')" data-i18n="drawer_home">🏠 Home</a>
+    <a class="drawer-link" data-page="shop" onclick="showPage('shop')" data-i18n="drawer_shop">🛞 Shop Tires</a>
+    <a class="drawer-link" data-page="brands" onclick="showPage('brands')" data-i18n="drawer_brands">🏷️ Brands</a>
+    <a class="drawer-link" data-page="services" onclick="showPage('services')" data-i18n="drawer_services">🔧 Services</a>
+    <a class="drawer-link" data-page="contact" onclick="showPage('contact')" data-i18n="drawer_quote">📋 Get a Quote</a>
     <a class="drawer-link drawer-admin" href="admin/index.html">⚙️ Admin ↗</a>
   </nav>
 </div>
@@ -123,14 +123,14 @@ window.dispatchEvent(new Event('firebase-ready'));
 
         <!-- TIRE SIZE DIAGRAM -->
         <div class="tire-size-diagram">
-          <div class="tsd-title">How to read your tire size</div>
+          <div class="tsd-title" data-i18n="tsd_title">How to read your tire size</div>
           <div class="tsd-photo-wrap">
             <img
               src="images/tire-size-guide.png"
               alt="Tire size diagram showing 205/40R17 with labeled sections"
               class="tsd-photo"
             />
-            <div class="tsd-photo-caption">Look for the numbers printed on your tire's sidewall — they tell you the exact size you need.</div>
+            <div class="tsd-photo-caption" data-i18n="tsd_caption">Look for the numbers printed on your tire's sidewall — they tell you the exact size you need.</div>
           </div>
         </div>
       </div>
@@ -202,53 +202,53 @@ window.dispatchEvent(new Event('firebase-ready'));
 <!-- TIRE SHOWCASE SECTION -->
 <section class="showcase-section page-section" data-page="home">
   <div class="section-inner">
-    <div class="section-eyebrow">What We Carry</div>
-    <h2 class="section-title">Shop by Tire Type</h2>
+    <div class="section-eyebrow" data-i18n="showcase_eyebrow">What We Carry</div>
+    <h2 class="section-title" data-i18n="showcase_title">Shop by Tire Type</h2>
     <div class="showcase-grid">
 
       <div class="showcase-card" onclick="showPage('shop')">
         <div class="showcase-img-wrap">
           <img src="https://images.pexels.com/photos/6870331/pexels-photo-6870331.jpeg?auto=compress&cs=tinysrgb&w=400" alt="All-Season tire closeup" class="showcase-img"/>
-          <div class="showcase-overlay"><span>Shop Now →</span></div>
+          <div class="showcase-overlay"><span data-i18n="showcase_shop_now">Shop Now →</span></div>
         </div>
-        <div class="showcase-label">All-Season</div>
-        <div class="showcase-desc">Year-round grip for everyday driving</div>
+        <div class="showcase-label" data-i18n="sc_allseason_label">All-Season</div>
+        <div class="showcase-desc" data-i18n="sc_allseason_desc">Year-round grip for everyday driving</div>
       </div>
 
       <div class="showcase-card" onclick="showPage('shop')">
         <div class="showcase-img-wrap">
           <img src="https://images.pexels.com/photos/5578887/pexels-photo-5578887.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Winter snow tire" class="showcase-img"/>
-          <div class="showcase-overlay"><span>Shop Now →</span></div>
+          <div class="showcase-overlay"><span data-i18n="showcase_shop_now">Shop Now →</span></div>
         </div>
-        <div class="showcase-label">Winter / Snow</div>
-        <div class="showcase-desc">Maximum traction in ice and snow</div>
+        <div class="showcase-label" data-i18n="sc_winter_label">Winter / Snow</div>
+        <div class="showcase-desc" data-i18n="sc_winter_desc">Maximum traction in ice and snow</div>
       </div>
 
       <div class="showcase-card" onclick="showPage('shop')">
         <div class="showcase-img-wrap">
           <img src="https://images.pexels.com/photos/6261324/pexels-photo-6261324.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Performance tire" class="showcase-img"/>
-          <div class="showcase-overlay"><span>Shop Now →</span></div>
+          <div class="showcase-overlay"><span data-i18n="showcase_shop_now">Shop Now →</span></div>
         </div>
-        <div class="showcase-label">Performance</div>
-        <div class="showcase-desc">High-speed handling and precision</div>
+        <div class="showcase-label" data-i18n="sc_perf_label">Performance</div>
+        <div class="showcase-desc" data-i18n="sc_perf_desc">High-speed handling and precision</div>
       </div>
 
       <div class="showcase-card" onclick="showPage('shop')">
         <div class="showcase-img-wrap">
           <img src="https://images.pexels.com/photos/7019607/pexels-photo-7019607.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Truck SUV tire" class="showcase-img"/>
-          <div class="showcase-overlay"><span>Shop Now →</span></div>
+          <div class="showcase-overlay"><span data-i18n="showcase_shop_now">Shop Now →</span></div>
         </div>
-        <div class="showcase-label">Truck / SUV</div>
-        <div class="showcase-desc">Heavy-duty tires for trucks and SUVs</div>
+        <div class="showcase-label" data-i18n="sc_truck_label">Truck / SUV</div>
+        <div class="showcase-desc" data-i18n="sc_truck_desc">Heavy-duty tires for trucks and SUVs</div>
       </div>
 
       <div class="showcase-card" onclick="showPage('shop')">
         <div class="showcase-img-wrap">
           <img src="https://images.pexels.com/photos/16002206/pexels-photo-16002206.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Used tires stack" class="showcase-img"/>
-          <div class="showcase-overlay"><span>Shop Now →</span></div>
+          <div class="showcase-overlay"><span data-i18n="showcase_shop_now">Shop Now →</span></div>
         </div>
-        <div class="showcase-label">Used Tires</div>
-        <div class="showcase-desc">Quality-inspected, budget-friendly options</div>
+        <div class="showcase-label" data-i18n="sc_used_label">Used Tires</div>
+        <div class="showcase-desc" data-i18n="sc_used_desc">Quality-inspected, budget-friendly options</div>
       </div>
 
     </div>
@@ -260,30 +260,30 @@ window.dispatchEvent(new Event('firebase-ready'));
 <section class="about-section page-section" data-page="home">
   <div class="about-inner">
     <div class="about-text">
-      <div class="section-eyebrow">Our Story</div>
-      <h2 class="section-title" style="margin-bottom:20px">Built on Roads,<br/><span style="color:var(--accent)">Driven by Trust</span></h2>
-      <p class="about-body">Matrix Tires was born from a simple idea: every driver deserves quality tires at a fair price, with service that actually comes to <em>them</em>. What started as a mobile tire operation out of a single van has grown into a full-service tire business serving Manassas, VA and the surrounding communities.</p>
-      <p class="about-body">Over the years we've mounted, balanced, and repaired thousands of tires — from everyday commuters to heavy-duty trucks. We carry both new and used tires because we believe getting safe on the road shouldn't cost a fortune.</p>
+      <div class="section-eyebrow" data-i18n="about_eyebrow">Our Story</div>
+      <h2 class="section-title" style="margin-bottom:20px" data-i18n-html="about_title">Built on Roads,<br/><span style="color:var(--accent)">Driven by Trust</span></h2>
+      <p class="about-body" data-i18n-html="about_body1">Matrix Tires was born from a simple idea: every driver deserves quality tires at a fair price, with service that actually comes to <em>them</em>. What started as a mobile tire operation out of a single van has grown into a full-service tire business serving Manassas, VA and the surrounding communities.</p>
+      <p class="about-body" data-i18n="about_body2">Over the years we've mounted, balanced, and repaired thousands of tires — from everyday commuters to heavy-duty trucks. We carry both new and used tires because we believe getting safe on the road shouldn't cost a fortune.</p>
       <div class="about-pillars">
         <div class="about-pillar">
           <div class="pillar-icon">🤝</div>
           <div>
-            <div class="pillar-title">Community First</div>
-            <div class="pillar-text">Local, family-run, and proud of it. We treat every customer like a neighbor.</div>
+            <div class="pillar-title" data-i18n="pillar1_title">Community First</div>
+            <div class="pillar-text" data-i18n="pillar1_text">Local, family-run, and proud of it. We treat every customer like a neighbor.</div>
           </div>
         </div>
         <div class="about-pillar">
           <div class="pillar-icon">🔍</div>
           <div>
-            <div class="pillar-title">Honest Pricing</div>
-            <div class="pillar-text">No hidden fees. No upsells. Just the best price we can offer, every time.</div>
+            <div class="pillar-title" data-i18n="pillar2_title">Honest Pricing</div>
+            <div class="pillar-text" data-i18n="pillar2_text">No hidden fees. No upsells. Just the best price we can offer, every time.</div>
           </div>
         </div>
         <div class="about-pillar">
           <div class="pillar-icon">⚡</div>
           <div>
-            <div class="pillar-title">Fast Turnaround</div>
-            <div class="pillar-text">Same-day service available. We know your time matters.</div>
+            <div class="pillar-title" data-i18n="pillar3_title">Fast Turnaround</div>
+            <div class="pillar-text" data-i18n="pillar3_text">Same-day service available. We know your time matters.</div>
           </div>
         </div>
       </div>
@@ -291,19 +291,19 @@ window.dispatchEvent(new Event('firebase-ready'));
     <div class="about-stats-panel">
       <div class="about-stat-card">
         <div class="about-stat-num">5+</div>
-        <div class="about-stat-label">Years in Business</div>
+        <div class="about-stat-label" data-i18n="stat1_label">Years in Business</div>
       </div>
       <div class="about-stat-card">
         <div class="about-stat-num">2,000+</div>
-        <div class="about-stat-label">Tires Installed</div>
+        <div class="about-stat-label" data-i18n="stat2_label">Tires Installed</div>
       </div>
       <div class="about-stat-card">
         <div class="about-stat-num">500+</div>
-        <div class="about-stat-label">Happy Customers</div>
+        <div class="about-stat-label" data-i18n="stat3_label">Happy Customers</div>
       </div>
       <div class="about-stat-card accent-card">
         <div class="about-stat-num">7</div>
-        <div class="about-stat-label">Days a Week</div>
+        <div class="about-stat-label" data-i18n="stat4_label">Days a Week</div>
       </div>
     </div>
   </div>
@@ -313,38 +313,38 @@ window.dispatchEvent(new Event('firebase-ready'));
 <section class="why-section page-section" data-page="home">
   <div class="why-bg-accent"></div>
   <div class="section-inner why-inner">
-    <div class="section-eyebrow" style="color:#fff;opacity:.7">Why Matrix Tires</div>
-    <h2 class="section-title" style="color:#fff;margin-bottom:48px">The Difference Is<br/>In the Details</h2>
+    <div class="section-eyebrow" style="color:#fff;opacity:.7" data-i18n="why_eyebrow">Why Matrix Tires</div>
+    <h2 class="section-title" style="color:#fff;margin-bottom:48px" data-i18n-html="why_title">The Difference Is<br/>In the Details</h2>
     <div class="why-grid">
       <div class="why-card">
         <div class="why-icon">🛞</div>
-        <h3 class="why-title">New &amp; Used Options</h3>
-        <p class="why-body">We stock both new and quality-checked used tires so every budget can drive away safely.</p>
+        <h3 class="why-title" data-i18n-html="why1_title">New &amp; Used Options</h3>
+        <p class="why-body" data-i18n="why1_body">We stock both new and quality-checked used tires so every budget can drive away safely.</p>
       </div>
       <div class="why-card">
         <div class="why-icon">🚐</div>
-        <h3 class="why-title">Mobile Service</h3>
-        <p class="why-body">Can't come to us? We bring the shop right to your driveway, workplace, or roadside.</p>
+        <h3 class="why-title" data-i18n="why2_title">Mobile Service</h3>
+        <p class="why-body" data-i18n="why2_body">Can't come to us? We bring the shop right to your driveway, workplace, or roadside.</p>
       </div>
       <div class="why-card">
         <div class="why-icon">🏷️</div>
-        <h3 class="why-title">Price Match</h3>
-        <p class="why-body">Found it cheaper elsewhere? Show us and we'll beat or match the price — guaranteed.</p>
+        <h3 class="why-title" data-i18n="why3_title">Price Match</h3>
+        <p class="why-body" data-i18n="why3_body">Found it cheaper elsewhere? Show us and we'll beat or match the price — guaranteed.</p>
       </div>
       <div class="why-card">
         <div class="why-icon">🔬</div>
-        <h3 class="why-title">Quality Inspected</h3>
-        <p class="why-body">Every used tire is hand-inspected for tread depth, sidewall integrity, and safety before it hits our shelves.</p>
+        <h3 class="why-title" data-i18n="why4_title">Quality Inspected</h3>
+        <p class="why-body" data-i18n="why4_body">Every used tire is hand-inspected for tread depth, sidewall integrity, and safety before it hits our shelves.</p>
       </div>
       <div class="why-card">
         <div class="why-icon">📅</div>
-        <h3 class="why-title">Flexible Scheduling</h3>
-        <p class="why-body">Open Monday through Sunday. Book same-day or plan ahead — we work around your schedule.</p>
+        <h3 class="why-title" data-i18n="why5_title">Flexible Scheduling</h3>
+        <p class="why-body" data-i18n="why5_body">Open Monday through Sunday. Book same-day or plan ahead — we work around your schedule.</p>
       </div>
       <div class="why-card">
         <div class="why-icon">💬</div>
-        <h3 class="why-title">Real Support</h3>
-        <p class="why-body">Talk to a real person, not a chatbot. Call or text us and we'll answer your questions directly.</p>
+        <h3 class="why-title" data-i18n="why6_title">Real Support</h3>
+        <p class="why-body" data-i18n="why6_body">Talk to a real person, not a chatbot. Call or text us and we'll answer your questions directly.</p>
       </div>
     </div>
   </div>
@@ -359,11 +359,11 @@ window.dispatchEvent(new Event('firebase-ready'));
       <div class="cta-ring r3"></div>
     </div>
     <div class="cta-content">
-      <h2 class="cta-heading">Ready to Roll?</h2>
-      <p class="cta-sub">Browse our live inventory or get a free quote in minutes. Same-day service available.</p>
+      <h2 class="cta-heading" data-i18n="cta_heading">Ready to Roll?</h2>
+      <p class="cta-sub" data-i18n="cta_sub">Browse our live inventory or get a free quote in minutes. Same-day service available.</p>
       <div class="cta-btns">
-        <button class="cta-btn-primary" onclick="showPage('shop')">Shop Tires →</button>
-        <button class="cta-btn-secondary" onclick="showPage('contact')">Get a Free Quote</button>
+        <button class="cta-btn-primary" onclick="showPage('shop')" data-i18n="cta_btn_primary">Shop Tires →</button>
+        <button class="cta-btn-secondary" onclick="showPage('contact')" data-i18n="cta_btn_secondary">Get a Free Quote</button>
       </div>
     </div>
   </div>
@@ -372,12 +372,12 @@ window.dispatchEvent(new Event('firebase-ready'));
 <!-- REVIEWS SECTION -->
 <section class="reviews-section page-section" data-page="home">
   <div class="section-inner">
-    <div class="section-eyebrow">What Customers Say</div>
-    <h2 class="section-title">Real Reviews</h2>
+    <div class="section-eyebrow" data-i18n="reviews_eyebrow">What Customers Say</div>
+    <h2 class="section-title" data-i18n="reviews_title">Real Reviews</h2>
     <div class="reviews-grid">
       <div class="review-card">
         <div class="review-stars">★★★★★</div>
-        <p class="review-text">"Fast service and great prices! They came to my house and had all four tires changed in under an hour. Will definitely be coming back."</p>
+        <p class="review-text" data-i18n="review1_text">"Fast service and great prices! They came to my house and had all four tires changed in under an hour. Will definitely be coming back."</p>
         <div class="review-author">
           <div class="review-avatar">JM</div>
           <div>
@@ -388,7 +388,7 @@ window.dispatchEvent(new Event('firebase-ready'));
       </div>
       <div class="review-card">
         <div class="review-stars">★★★★★</div>
-        <p class="review-text">"I needed a tire last minute on a Sunday and they showed up same day. Super professional and affordable. Highly recommend Matrix Tires!"</p>
+        <p class="review-text" data-i18n="review2_text">"I needed a tire last minute on a Sunday and they showed up same day. Super professional and affordable. Highly recommend Matrix Tires!"</p>
         <div class="review-author">
           <div class="review-avatar">TS</div>
           <div>
@@ -399,7 +399,7 @@ window.dispatchEvent(new Event('firebase-ready'));
       </div>
       <div class="review-card">
         <div class="review-stars">★★★★★</div>
-        <p class="review-text">"Got a used tire for my SUV at a fraction of the cost. They inspected it right in front of me and explained everything. Honest and trustworthy."</p>
+        <p class="review-text" data-i18n="review3_text">"Got a used tire for my SUV at a fraction of the cost. They inspected it right in front of me and explained everything. Honest and trustworthy."</p>
         <div class="review-author">
           <div class="review-avatar">RD</div>
           <div>
@@ -410,7 +410,7 @@ window.dispatchEvent(new Event('firebase-ready'));
       </div>
       <div class="review-card">
         <div class="review-stars">★★★★★</div>
-        <p class="review-text">"Best tire shop around! Price matched a competitor without me even asking. Quick install and the balancing made a huge difference in my ride."</p>
+        <p class="review-text" data-i18n="review4_text">"Best tire shop around! Price matched a competitor without me even asking. Quick install and the balancing made a huge difference in my ride."</p>
         <div class="review-author">
           <div class="review-avatar">KW</div>
           <div>
@@ -421,7 +421,7 @@ window.dispatchEvent(new Event('firebase-ready'));
       </div>
     </div>
     <div class="reviews-cta">
-      <a class="reviews-leave-btn" href="https://www.facebook.com/MatrixMobileTiresServices" target="_blank" rel="noopener">Leave Us a Review on Facebook →</a>
+      <a class="reviews-leave-btn" href="https://www.facebook.com/MatrixMobileTiresServices" target="_blank" rel="noopener" data-i18n="reviews_leave_btn">Leave Us a Review on Facebook →</a>
     </div>
   </div>
 </section>
@@ -430,38 +430,38 @@ window.dispatchEvent(new Event('firebase-ready'));
 <section class="faq-section page-section" data-page="home">
   <div class="section-inner faq-inner">
     <div class="faq-header">
-      <div class="section-eyebrow">Got Questions?</div>
-      <h2 class="section-title" style="margin-bottom:8px">Frequently Asked Questions</h2>
-      <p class="faq-sub">Still have questions? Call us directly at <a class="faq-phone" href="tel:5715550199">(571) 555-0199</a></p>
+      <div class="section-eyebrow" data-i18n="faq_eyebrow">Got Questions?</div>
+      <h2 class="section-title" style="margin-bottom:8px" data-i18n="faq_title">Frequently Asked Questions</h2>
+      <p class="faq-sub" data-i18n-html="faq_sub_html">Still have questions? Call us directly at <a class="faq-phone" href="tel:5715550199">(571) 555-0199</a></p>
     </div>
     <div class="faq-list">
       <details class="faq-item">
-        <summary class="faq-question">What tire sizes do you carry?</summary>
-        <div class="faq-answer">We carry a wide range of sizes for cars, SUVs, trucks, and vans — both new and used. Use the search on our home page to see what's currently in stock, or call us and we'll check for you.</div>
+        <summary class="faq-question" data-i18n="faq1_q">What tire sizes do you carry?</summary>
+        <div class="faq-answer" data-i18n="faq1_a">We carry a wide range of sizes for cars, SUVs, trucks, and vans — both new and used. Use the search on our home page to see what's currently in stock, or call us and we'll check for you.</div>
       </details>
       <details class="faq-item">
-        <summary class="faq-question">Do you offer mobile tire installation?</summary>
-        <div class="faq-answer">Yes! We bring the shop to you — whether you're at home, work, or stuck on the side of the road. Mobile service is available 7 days a week throughout Manassas, VA and surrounding areas.</div>
+        <summary class="faq-question" data-i18n="faq2_q">Do you offer mobile tire installation?</summary>
+        <div class="faq-answer" data-i18n="faq2_a">Yes! We bring the shop to you — whether you're at home, work, or stuck on the side of the road. Mobile service is available 7 days a week throughout Manassas, VA and surrounding areas.</div>
       </details>
       <details class="faq-item">
-        <summary class="faq-question">What's the difference between new and used tires?</summary>
-        <div class="faq-answer">New tires have full tread depth and come with a manufacturer warranty. Used tires are hand-inspected for safety and offer significant savings — great if you're on a budget or need a temporary fix. We only sell used tires that pass our quality check.</div>
+        <summary class="faq-question" data-i18n="faq3_q">What's the difference between new and used tires?</summary>
+        <div class="faq-answer" data-i18n="faq3_a">New tires have full tread depth and come with a manufacturer warranty. Used tires are hand-inspected for safety and offer significant savings — great if you're on a budget or need a temporary fix. We only sell used tires that pass our quality check.</div>
       </details>
       <details class="faq-item">
-        <summary class="faq-question">How do I know what size tire I need?</summary>
-        <div class="faq-answer">Your tire size is printed on the sidewall of your current tires (e.g. 205/65R17) and also in your vehicle's owner manual or on the sticker inside the driver's door. You can also use our "By Vehicle" search to look up your car's OEM tire size.</div>
+        <summary class="faq-question" data-i18n="faq4_q">How do I know what size tire I need?</summary>
+        <div class="faq-answer" data-i18n="faq4_a">Your tire size is printed on the sidewall of your current tires (e.g. 205/65R17) and also in your vehicle's owner manual or on the sticker inside the driver's door. You can also use our "By Vehicle" search to look up your car's OEM tire size.</div>
       </details>
       <details class="faq-item">
-        <summary class="faq-question">Do you offer a price match guarantee?</summary>
-        <div class="faq-answer">Absolutely. If you find the same tire for a lower price elsewhere, show us and we'll beat or match it. We're committed to giving you the best deal possible.</div>
+        <summary class="faq-question" data-i18n="faq5_q">Do you offer a price match guarantee?</summary>
+        <div class="faq-answer" data-i18n="faq5_a">Absolutely. If you find the same tire for a lower price elsewhere, show us and we'll beat or match it. We're committed to giving you the best deal possible.</div>
       </details>
       <details class="faq-item">
-        <summary class="faq-question">How long does tire installation take?</summary>
-        <div class="faq-answer">Most standard installs take 30–60 minutes depending on the number of tires and vehicle type. We'll give you an accurate time estimate when you book your appointment.</div>
+        <summary class="faq-question" data-i18n="faq6_q">How long does tire installation take?</summary>
+        <div class="faq-answer" data-i18n="faq6_a">Most standard installs take 30–60 minutes depending on the number of tires and vehicle type. We'll give you an accurate time estimate when you book your appointment.</div>
       </details>
       <details class="faq-item">
-        <summary class="faq-question">How do I get a quote?</summary>
-        <div class="faq-answer">You can request a free quote right here on our website — browse our inventory, add tires to your cart, and hit "Request Quote." Or call us at <a class="faq-phone" href="tel:5715550199">(571) 555-0199</a> and we'll take care of you directly.</div>
+        <summary class="faq-question" data-i18n="faq7_q">How do I get a quote?</summary>
+        <div class="faq-answer" data-i18n-html="faq7_a">You can request a free quote right here on our website — browse our inventory, add tires to your cart, and hit "Request Quote." Or call us at <a class="faq-phone" href="tel:5715550199">(571) 555-0199</a> and we'll take care of you directly.</div>
       </details>
     </div>
   </div>
@@ -472,8 +472,8 @@ window.dispatchEvent(new Event('firebase-ready'));
   <div class="section-inner">
     <div class="section-header">
       <div>
-        <div class="section-eyebrow">Browse Inventory</div>
-        <h2 class="section-title">Shop All Tires</h2>
+        <div class="section-eyebrow" data-i18n="shop_eyebrow">Browse Inventory</div>
+        <h2 class="section-title" data-i18n="shop_title">Shop All Tires</h2>
       </div>
       <div class="result-count" id="resultCount">Loading inventory…</div>
     </div>
@@ -481,7 +481,7 @@ window.dispatchEvent(new Event('firebase-ready'));
     <!-- FILTERS -->
     <div class="filter-bar">
       <div class="filter-group">
-        <input type="text" class="filter-input search-input" id="searchInput" placeholder="🔍 Search size, brand, type…" oninput="applyFilters()"/>
+        <input type="text" class="filter-input search-input" id="searchInput" placeholder="🔍 Search size, brand, type…" oninput="applyFilters()" data-i18n-placeholder="filter_search_placeholder"/>
       </div>
       <div class="filter-group">
         <select class="filter-select" id="filterCond" onchange="applyFilters()">
@@ -541,8 +541,8 @@ window.dispatchEvent(new Event('firebase-ready'));
 <!-- BRANDS SECTION -->
 <section class="brands-section page-section" data-page="brands" id="brands">
   <div class="section-inner">
-    <div class="section-eyebrow">Top Brands We Carry</div>
-    <h2 class="section-title">Trusted Manufacturers</h2>
+    <div class="section-eyebrow" data-i18n="brands_eyebrow">Top Brands We Carry</div>
+    <h2 class="section-title" data-i18n="brands_title">Trusted Manufacturers</h2>
     <div class="brands-grid" id="brandsGrid"></div>
   </div>
 </section>
@@ -550,42 +550,42 @@ window.dispatchEvent(new Event('firebase-ready'));
 <!-- SERVICES SECTION -->
 <section class="services-section page-section" data-page="services" id="services">
   <div class="section-inner">
-    <div class="section-eyebrow">What We Offer</div>
-    <h2 class="section-title">Our Services</h2>
+    <div class="section-eyebrow" data-i18n="services_eyebrow">What We Offer</div>
+    <h2 class="section-title" data-i18n="services_title">Our Services</h2>
     <div class="services-grid">
       <div class="service-card">
         <div class="service-icon">🔧</div>
-        <h3>Tire Installation</h3>
-        <p>Professional mounting and balancing for all vehicle types. We come to you or you come to us.</p>
-        <button class="service-add-btn" onclick="toggleService('Tire Installation', this)">+ Add to Quote</button>
+        <h3 data-i18n="svc1_title">Tire Installation</h3>
+        <p data-i18n="svc1_body">Professional mounting and balancing for all vehicle types. We come to you or you come to us.</p>
+        <button class="service-add-btn" onclick="toggleService('Tire Installation', this)" data-i18n="svc_btn_add">+ Add to Quote</button>
       </div>
       <div class="service-card">
         <div class="service-icon">🔄</div>
-        <h3>Tire Rotation</h3>
-        <p>Extend the life of your tires with regular rotation service. Quick and affordable.</p>
-        <button class="service-add-btn" onclick="toggleService('Tire Rotation', this)">+ Add to Quote</button>
+        <h3 data-i18n="svc2_title">Tire Rotation</h3>
+        <p data-i18n="svc2_body">Extend the life of your tires with regular rotation service. Quick and affordable.</p>
+        <button class="service-add-btn" onclick="toggleService('Tire Rotation', this)" data-i18n="svc_btn_add">+ Add to Quote</button>
       </div>
       <div class="service-card">
         <div class="service-icon">🛞</div>
-        <h3>Flat Repair</h3>
-        <p>Puncture repairs and emergency flat tire service. Get back on the road fast.</p>
-        <button class="service-add-btn" onclick="toggleService('Flat Repair', this)">+ Add to Quote</button>
+        <h3 data-i18n="svc3_title">Flat Repair</h3>
+        <p data-i18n="svc3_body">Puncture repairs and emergency flat tire service. Get back on the road fast.</p>
+        <button class="service-add-btn" onclick="toggleService('Flat Repair', this)" data-i18n="svc_btn_add">+ Add to Quote</button>
       </div>
       <div class="service-card">
         <div class="service-icon">🚗</div>
-        <h3>Mobile Service</h3>
-        <p>We bring the shop to you — driveway, parking lot, or roadside. Available 7 days a week.</p>
-        <button class="service-add-btn" onclick="toggleService('Mobile Service', this)">+ Add to Quote</button>
+        <h3 data-i18n="svc4_title">Mobile Service</h3>
+        <p data-i18n="svc4_body">We bring the shop to you — driveway, parking lot, or roadside. Available 7 days a week.</p>
+        <button class="service-add-btn" onclick="toggleService('Mobile Service', this)" data-i18n="svc_btn_add">+ Add to Quote</button>
       </div>
       <div class="service-card">
         <div class="service-icon">⚖️</div>
-        <h3>Tire Balancing</h3>
-        <p>Eliminate vibrations and uneven wear with precision wheel balancing for a smoother, safer ride.</p>
-        <button class="service-add-btn" onclick="toggleService('Tire Balancing', this)">+ Add to Quote</button>
+        <h3 data-i18n="svc5_title">Tire Balancing</h3>
+        <p data-i18n="svc5_body">Eliminate vibrations and uneven wear with precision wheel balancing for a smoother, safer ride.</p>
+        <button class="service-add-btn" onclick="toggleService('Tire Balancing', this)" data-i18n="svc_btn_add">+ Add to Quote</button>
       </div>
     </div>
     <div class="services-cta" id="servicesCta" style="display:none">
-      <button class="submit-btn services-quote-btn" onclick="scrollToServicesQuote()">Request Quote for Selected Services →</button>
+      <button class="submit-btn services-quote-btn" onclick="scrollToServicesQuote()" data-i18n="svc_request_quote">Request Quote for Selected Services →</button>
     </div>
   </div>
 </section>
@@ -594,43 +594,43 @@ window.dispatchEvent(new Event('firebase-ready'));
 <section class="contact-section page-section" data-page="contact" id="contact">
   <div class="section-inner contact-inner">
     <div class="contact-info">
-      <div class="section-eyebrow">Get In Touch</div>
-      <h2 class="section-title">Request a Quote</h2>
-      <p class="contact-body">Tell us what you're looking for and we'll get back to you with the best price and availability.</p>
+      <div class="section-eyebrow" data-i18n="contact_eyebrow">Get In Touch</div>
+      <h2 class="section-title" data-i18n="contact_title">Request a Quote</h2>
+      <p class="contact-body" data-i18n="contact_body">Tell us what you're looking for and we'll get back to you with the best price and availability.</p>
       <div class="contact-details">
         <div class="contact-item contact-phone-highlight">📞 <a href="tel:5715550199" id="contactPhone">(571) 555-0199</a></div>
         <div class="contact-item">📧 <span>matrixtireservices@gmail.com</span></div>
         <div class="contact-item">📍 <span>Manassas, VA &amp; Surrounding Areas</span></div>
-        <div class="contact-item">🕐 <span>Mon–Sat 8am–7pm · Sun 10am–5pm</span></div>
+        <div class="contact-item">🕐 <span data-i18n="contact_hours">Mon–Sat 8am–7pm · Sun 10am–5pm</span></div>
       </div>
     </div>
     <form class="quote-form" id="quoteForm" onsubmit="submitQuote(event)">
-      <h3 class="form-title">Get Your Free Quote</h3>
+      <h3 class="form-title" data-i18n="form_title">Get Your Free Quote</h3>
       <div class="form-row">
         <div class="form-field">
-          <label>First Name *</label>
+          <label data-i18n="form_firstname">First Name *</label>
           <input type="text" id="qFirstName" required placeholder="John"/>
         </div>
         <div class="form-field">
-          <label>Last Name *</label>
+          <label data-i18n="form_lastname">Last Name *</label>
           <input type="text" id="qLastName" required placeholder="Smith"/>
         </div>
       </div>
       <div class="form-field">
-        <label>Phone Number *</label>
+        <label data-i18n="form_phone">Phone Number *</label>
         <input type="tel" id="qPhone" required placeholder="(555) 000-0000"/>
       </div>
       <div class="form-field">
-        <label>Email Address</label>
+        <label data-i18n="form_email">Email Address</label>
         <input type="email" id="qEmail" placeholder="john@example.com"/>
       </div>
       <div class="form-row">
         <div class="form-field">
-          <label>Tire Size (e.g. 225/45R17)</label>
+          <label data-i18n="form_tiresize">Tire Size (e.g. 225/45R17)</label>
           <input type="text" id="qSize" placeholder="225/45R17"/>
         </div>
         <div class="form-field">
-          <label>Quantity Needed</label>
+          <label data-i18n="form_qty_label">Quantity Needed</label>
           <select id="qQty">
             <option value="1">1 tire</option>
             <option value="2">2 tires</option>
@@ -640,7 +640,7 @@ window.dispatchEvent(new Event('firebase-ready'));
         </div>
       </div>
       <div class="form-field">
-        <label>Condition Preference</label>
+        <label data-i18n="form_cond_label">Condition Preference</label>
         <select id="qCond">
           <option value="any">Any (Best Price)</option>
           <option value="New">New Only</option>
@@ -648,18 +648,18 @@ window.dispatchEvent(new Event('firebase-ready'));
         </select>
       </div>
       <div class="form-field" id="cartSummaryField" style="display:none">
-        <label>Selected Tires from Cart</label>
+        <label data-i18n="form_cart_label">Selected Tires from Cart</label>
         <div class="cart-quote-summary" id="cartQuoteSummary"></div>
       </div>
       <div class="form-field" id="servicesSummaryField" style="display:none">
-        <label>Requested Services</label>
+        <label data-i18n="form_services_label">Requested Services</label>
         <div class="services-tags" id="servicesSummary"></div>
       </div>
       <div class="form-field">
-        <label>Additional Notes</label>
-        <textarea id="qNotes" rows="3" placeholder="Vehicle year/make/model, brand preferences, or anything else…"></textarea>
+        <label data-i18n="form_notes_label">Additional Notes</label>
+        <textarea id="qNotes" rows="3" placeholder="Vehicle year/make/model, brand preferences, or anything else…" data-i18n-placeholder="notes_placeholder"></textarea>
       </div>
-      <button type="submit" class="submit-btn" id="submitBtn">Send Quote Request →</button>
+      <button type="submit" class="submit-btn" id="submitBtn" data-i18n="form_submit">Send Quote Request →</button>
       <div class="form-success" id="formSuccess" style="display:none">
         ✅ Quote request sent! We'll contact you within 2 hours during business hours.
       </div>
@@ -686,20 +686,20 @@ window.dispatchEvent(new Event('firebase-ready'));
           <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
         </a>
       </div>
-      <p class="footer-copy">© 2025 Matrix Tires. All rights reserved.</p>
+      <p class="footer-copy" data-i18n="footer_copy">© 2025 Matrix Tires. All rights reserved.</p>
     </div>
     <div class="footer-links">
       <div class="footer-col">
-        <div class="footer-col-title">Shop</div>
-        <a href="#" onclick="showPage('shop');setShopFilter('New');return false;">New Tires</a>
-        <a href="#" onclick="showPage('shop');setShopFilter('Used');return false;">Used Tires</a>
-        <a href="#" onclick="showPage('brands');return false;">Brands</a>
+        <div class="footer-col-title" data-i18n="footer_shop_col">Shop</div>
+        <a href="#" onclick="showPage('shop');setShopFilter('New');return false;" data-i18n="footer_new">New Tires</a>
+        <a href="#" onclick="showPage('shop');setShopFilter('Used');return false;" data-i18n="footer_used">Used Tires</a>
+        <a href="#" onclick="showPage('brands');return false;" data-i18n="footer_brands_link">Brands</a>
       </div>
       <div class="footer-col">
-        <div class="footer-col-title">Company</div>
-        <a href="#" onclick="showPage('services');return false;">Services</a>
-        <a href="#" onclick="showPage('contact');setTimeout(()=>{const el=document.getElementById('contactPhone');if(el)el.scrollIntoView({behavior:'smooth'});},200);return false;">Contact</a>
-        <a href="admin/index.html">Staff Login</a>
+        <div class="footer-col-title" data-i18n="footer_company_col">Company</div>
+        <a href="#" onclick="showPage('services');return false;" data-i18n="footer_services_link">Services</a>
+        <a href="#" onclick="showPage('contact');setTimeout(()=>{const el=document.getElementById('contactPhone');if(el)el.scrollIntoView({behavior:'smooth'});},200);return false;" data-i18n="footer_contact_link">Contact</a>
+        <a href="admin/index.html" data-i18n="footer_staff">Staff Login</a>
       </div>
     </div>
   </div>
@@ -709,15 +709,15 @@ window.dispatchEvent(new Event('firebase-ready'));
 <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
 <div class="cart-sidebar" id="cartSidebar">
   <div class="cart-header">
-    <h3>Your Cart</h3>
+    <h3 data-i18n="cart_title">Your Cart</h3>
     <button onclick="toggleCart()" class="cart-close">✕</button>
   </div>
   <div class="cart-body" id="cartBody">
     <div class="cart-empty">Your cart is empty.<br/>Add tires from the shop!</div>
   </div>
   <div class="cart-footer" id="cartFooter" style="display:none">
-    <div class="cart-total">Total: <strong id="cartTotal">$0.00</strong></div>
-    <button class="submit-btn" onclick="checkoutCart()">Request Quote for Cart →</button>
+    <div class="cart-total"><span data-i18n="cart_total_label">Total:</span> <strong id="cartTotal">$0.00</strong></div>
+    <button class="submit-btn" onclick="checkoutCart()" data-i18n="cart_checkout">Request Quote for Cart →</button>
   </div>
 </div>
 
