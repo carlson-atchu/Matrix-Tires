@@ -871,7 +871,7 @@ function renderGrid(tires) {
 
     const imgHtml = tire.imgUrl
       ? `<div class="card-img"><img src="${tire.imgUrl}" alt="${tire.size}" loading="lazy"/></div>`
-      : '';
+      : `<div class="card-img card-img-placeholder"><div class="card-img-no-photo">📷<br/>No photo available</div></div>`;
     return `
     <div class="tire-card" style="animation-delay:${idx * 0.04}s">
       ${imgHtml}
