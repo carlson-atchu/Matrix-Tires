@@ -135,7 +135,9 @@ window.addEventListener('load', () => {
 
 // ── Populate filter dropdowns ─────────────────────────────────────────────────
 function populateFilters() {
-  const brands = [...new Set(allInventory.map(i => i.brand).filter(Boolean))].sort();
+  // Normalize brand names (trim + title case) then deduplicate and sort
+  const normalizeBrand = b => b.trim().replace(/\w\S*/g, w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase());
+  const brands = [...new Map(allInventory.map(i => i.brand).filter(Boolean).map(b => [normalizeBrand(b).toLowerCase(), normalizeBrand(b)])).values()].sort();
   const brandSel = document.getElementById('filterBrand');
   const cur = brandSel.value;
   brandSel.innerHTML = '<option value="">All Brands</option>' +
@@ -575,11 +577,12 @@ function clearFilters() {
 }
 
 function filterByBrand(brand) {
+  // Clear other filters so all tires of this brand show
+  document.getElementById('filterCond').value = '';
+  document.getElementById('filterType').value = '';
+  document.getElementById('searchInput').value = '';
   document.getElementById('filterBrand').value = brand;
-  document.querySelectorAll('.brand-pill').forEach(p => {
-    p.classList.toggle('active', p.textContent === brand);
-  });
-  scrollToShop();
+  showPage('shop');
   applyFilters();
 }
 
