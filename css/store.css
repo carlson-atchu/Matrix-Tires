@@ -367,6 +367,9 @@ input, select, textarea, button { font-family: inherit; }
 .contact-body { font-size: 15px; color: var(--muted2); margin-bottom: 28px; line-height: 1.7; }
 .contact-details { display: flex; flex-direction: column; gap: 12px; }
 .contact-item { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 500; color: var(--text2); }
+.contact-phone-highlight { font-size: 18px; font-weight: 700; }
+.contact-phone-highlight a { color: var(--accent); text-decoration: none; }
+.contact-phone-highlight a:hover { text-decoration: underline; }
 .quote-form {
   background: var(--surface); border: 1px solid var(--border);
   border-radius: var(--radius); padding: 32px; box-shadow: var(--shadow-lg);
@@ -634,7 +637,7 @@ input, select, textarea, button { font-family: inherit; }
   background: linear-gradient(135deg, #0f172a 0%, #1a0a0a 100%);
   padding: 80px 24px;
 }
-.social-inner { max-width: 700px; margin: 0 auto; text-align: center; }
+.social-inner { max-width: 500px; margin: 0 0 0 8%; text-align: left; padding: 40px 0; }
 .social-heading {
   font-family: 'Syne', sans-serif; font-size: clamp(28px,4vw,40px);
   font-weight: 900; color: #fff; letter-spacing: -1px; margin-bottom: 12px;
