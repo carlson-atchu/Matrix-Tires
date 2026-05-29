@@ -760,8 +760,8 @@ async function addInventory() {
   const imgFile = document.getElementById('i-img')?.files?.[0];
   let imgUrl = null;
   if (imgFile) {
-    showToast('⏳ Uploading photo…', '#4D9EFF');
-    imgUrl = await uploadTireImage(imgFile, id);
+    showToast('⏳ Processing photo…', '#4D9EFF');
+    imgUrl = await uploadTireImage(imgFile);
   }
   const item = { id, condition: invCondition, size, brand: document.getElementById('i-brand').value.trim(), type: document.getElementById('i-type').value, qty, cost: parseFloat(document.getElementById('i-cost').value)||0, sell: parseFloat(document.getElementById('i-sell').value)||0, lowAt: parseInt(document.getElementById('i-low').value)||2, notes: document.getElementById('i-notes').value.trim() };
   if (imgUrl) item.imgUrl = imgUrl;
@@ -773,7 +773,7 @@ async function addInventory() {
   if (imgInput) imgInput.value = '';
   const preview = document.getElementById('i-img-preview');
   if (preview) { preview.style.display = 'none'; preview.innerHTML = ''; }
-  render(); showToast(`✓ ${invCondition} tire added & sorted by size!`);
+  render(); showToast(`✓ ${invCondition} tire added${imgUrl ? ' with photo' : ''}!`);
 }
 
 let modalMode = '', modalId = '';
@@ -808,23 +808,33 @@ function deleteInventory(id) {
   );
 }
 
-async function uploadTireImage(file, tireId) {
-  if (!window._storage || !file) return null;
-  try {
-    const ref = window._storageRef(window._storage, `tires/${tireId}`);
-    await window._uploadBytes(ref, file);
-    const url = await window._getDownloadURL(ref);
-    showToast('✓ Photo uploaded!', '#16a34a');
-    return url;
-  } catch(e) {
-    console.error('Image upload failed:', e);
-    if (e.code === 'storage/unauthorized') {
-      showToast('⚠ Photo upload blocked — Firebase Storage rules need to be updated. See instructions in admin.', '#FF4D6D');
-    } else {
-      showToast(`⚠ Photo upload failed: ${e.code || e.message}`, '#FF4D6D');
-    }
-    return null;
-  }
+// Compress image and return a base64 data URL — no Firebase Storage needed
+function uploadTireImage(file) {
+  return new Promise((resolve) => {
+    if (!file) { resolve(null); return; }
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onload = () => {
+        // Resize to max 600px wide, keep aspect ratio
+        const MAX_W = 600;
+        const scale = img.width > MAX_W ? MAX_W / img.width : 1;
+        const w = Math.round(img.width * scale);
+        const h = Math.round(img.height * scale);
+        const canvas = document.createElement('canvas');
+        canvas.width = w;
+        canvas.height = h;
+        canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+        // Compress to JPEG at 70% quality (~20-40KB per photo)
+        const dataUrl = canvas.toDataURL('image/jpeg', 0.70);
+        resolve(dataUrl);
+      };
+      img.onerror = () => resolve(null);
+      img.src = e.target.result;
+    };
+    reader.onerror = () => resolve(null);
+    reader.readAsDataURL(file);
+  });
 }
 
 function previewInvImg(input) {
@@ -1339,8 +1349,8 @@ async function saveEdit() {
     if (idx === -1) return;
     const imgFile = document.getElementById('ed-img')?.files?.[0];
     if (imgFile) {
-      showToast('⏳ Uploading photo…', '#4D9EFF');
-      const url = await uploadTireImage(imgFile, _editId);
+      showToast('⏳ Processing photo…', '#4D9EFF');
+      const url = await uploadTireImage(imgFile);
       if (url) inventory[idx].imgUrl = url;
     }
     inventory[idx] = {
