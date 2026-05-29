@@ -141,10 +141,26 @@ function populateFilters() {
   brandSel.innerHTML = '<option value="">All Brands</option>' +
     brands.map(b => `<option value="${b}"${b===cur?' selected':''}>${b}</option>`).join('');
 
+  const brandColors = [
+    ['#dc2626','#b91c1c'], ['#ea580c','#c2410c'], ['#d97706','#b45309'],
+    ['#16a34a','#15803d'], ['#2563eb','#1d4ed8'], ['#7c3aed','#6d28d9'],
+    ['#db2777','#be185d'], ['#0891b2','#0e7490'], ['#65a30d','#4d7c0f'],
+    ['#9333ea','#7e22ce'],
+  ];
   const brandsGrid = document.getElementById('brandsGrid');
-  brandsGrid.innerHTML = brands.map(b =>
-    `<div class="brand-pill" onclick="filterByBrand('${b}')">${b}</div>`
-  ).join('');
+  brandsGrid.innerHTML = brands.map((b, i) => {
+    const [c1, c2] = brandColors[i % brandColors.length];
+    return `
+    <div class="brand-card" onclick="filterByBrand('${b}')">
+      <div class="brand-card-accent" style="background:linear-gradient(135deg,${c1},${c2})">
+        <span class="brand-card-initial">${b.charAt(0)}</span>
+      </div>
+      <div class="brand-card-body">
+        <div class="brand-card-name">${b}</div>
+        <div class="brand-card-cta">Shop ${b} →</div>
+      </div>
+    </div>`;
+  }).join('');
 }
 
 function populateSizeDropdowns() {

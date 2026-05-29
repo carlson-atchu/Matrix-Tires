@@ -318,13 +318,27 @@ input, select, textarea, button { font-family: inherit; }
 
 /* ===== BRANDS ===== */
 .brands-section { background: var(--bg); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-.brands-grid { display: flex; flex-wrap: wrap; gap: 12px; }
-.brand-pill {
+.brands-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 16px; }
+.brand-card {
   background: var(--surface); border: 1px solid var(--border);
-  border-radius: 99px; padding: 10px 22px; font-size: 13px; font-weight: 700;
-  color: var(--muted2); cursor: pointer; transition: all .2s; box-shadow: var(--shadow);
+  border-radius: 16px; overflow: hidden; cursor: pointer;
+  transition: transform .2s, box-shadow .2s;
+  box-shadow: var(--shadow);
 }
-.brand-pill:hover, .brand-pill.active { border-color: var(--accent); color: var(--accent); background: var(--red-bg); }
+.brand-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.15); border-color: var(--border2); }
+.brand-card-accent {
+  height: 80px; display: flex; align-items: center; justify-content: center;
+}
+.brand-card-initial {
+  font-family: 'Syne', sans-serif; font-size: 42px; font-weight: 900;
+  color: rgba(255,255,255,0.9); text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+.brand-card-body { padding: 12px 14px; }
+.brand-card-name {
+  font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 800;
+  color: var(--text); margin-bottom: 4px;
+}
+.brand-card-cta { font-size: 11px; color: var(--accent); font-weight: 700; }
 
 /* ===== SERVICES ===== */
 .services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; }
