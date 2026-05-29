@@ -7,6 +7,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>emailjs.init('i_E0zuZp3d2Yy3yAj');</script>
 <!-- Firebase -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
@@ -1843,16 +1845,17 @@ function sendDepositRequest(quoteId) {
   const amount = parseFloat(depInput && depInput.value);
   if (!amount || amount < 1) { showToast('⚠ Enter a deposit amount', '#FF4D6D'); return; }
   const customerEmail = (q.reply_to && q.reply_to !== 'Not provided') ? q.reply_to : '';
-  const subject = encodeURIComponent('Your Matrix Tires Quote Has Been Accepted — Deposit Required');
-  const body = encodeURIComponent(
+  if (!customerEmail) { showToast('⚠ No customer email on file', '#FF4D6D'); return; }
+
+  const message =
 `Hi ${q.from_name || 'there'},
 
 Great news — your tire quote has been accepted!
 
 To confirm your appointment, please send a deposit of $${amount.toFixed(2)} using one of the options below:
 
-💚 Zelle: matrixtireaervices@gmail.com
-💵 Cash App: $MatrixTires
+Zelle: matrixtireaervices@gmail.com
+Cash App: $MatrixTires
 
 Please include your name in the payment note so we can match it to your booking.
 
@@ -1864,20 +1867,40 @@ Quote Details:
 
 Once we confirm your deposit, we will reach out to schedule your appointment.
 
-Questions? Reply to this email or call us directly.
+Questions? Reply to this email or call us directly at (571) 555-0199.
 
-Thank you for choosing Matrix Tires!`
-  );
-  window.open(`mailto:${customerEmail}?subject=${subject}&body=${body}`, '_blank');
-  const docRef = window._doc(window._db, 'quotes', quoteId);
-  window._updateDoc(docRef, { status: 'deposit_requested', depositAmount: amount })
-    .then(() => {
-      const idx = quotesCache.findIndex(x => x._id === quoteId);
-      if (idx !== -1) { quotesCache[idx].status = 'deposit_requested'; quotesCache[idx].depositAmount = amount; }
-      renderQuotes();
-      showToast('✓ Email opened & quote updated');
-    })
-    .catch(() => showToast('Email opened — refresh quotes to see update', '#FFD166'));
+Thank you for choosing Matrix Tires!
+— Matrix Tires Team`;
+
+  showToast('Sending email…', '#4D9EFF');
+
+  emailjs.send('service_wtb1gzm', 'template_a9y4bpc', {
+    to_email: customerEmail,
+    from_name: 'Matrix Tires',
+    reply_to: 'matrixtireservices@gmail.com',
+    subject: 'Your Quote Has Been Accepted — Deposit Required',
+    message: message,
+    // Fill standard template fields in case template uses them
+    from_name2: 'Matrix Tires',
+    phone: q.phone || '—',
+    size: q.size || '—',
+    qty: q.qty || '—',
+    condition: q.condition || '—',
+    services: q.services || 'Standard Installation',
+    notes: `Deposit requested: $${amount.toFixed(2)}`,
+    timestamp: new Date().toLocaleString('en-US', { timeZone: 'America/New_York' }),
+  }).then(() => {
+    const docRef = window._doc(window._db, 'quotes', quoteId);
+    return window._updateDoc(docRef, { status: 'deposit_requested', depositAmount: amount });
+  }).then(() => {
+    const idx = quotesCache.findIndex(x => x._id === quoteId);
+    if (idx !== -1) { quotesCache[idx].status = 'deposit_requested'; quotesCache[idx].depositAmount = amount; }
+    renderQuotes();
+    showToast('✓ Deposit email sent from company email!');
+  }).catch(err => {
+    console.error('EmailJS error:', err);
+    showToast('⚠ Email failed — check EmailJS template', '#FF4D6D');
+  });
 }
 
 function markDepositReceived(quoteId) {
