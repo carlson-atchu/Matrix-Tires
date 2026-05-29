@@ -279,9 +279,9 @@ select option{background:var(--surface);}
           <div class="field"><label>Low Stock Alert At</label><input type="number" id="i-low" placeholder="2" min="1"/></div>
           <div class="field"><label>Notes</label><input type="text" id="i-notes" placeholder="Optional"/></div>
           <div class="field span2">
-            <label>Tire Photo (optional)</label>
-            <input type="file" id="i-img" accept="image/*" onchange="previewInvImg(this)" style="padding:6px;cursor:pointer"/>
-            <div id="i-img-preview" style="display:none;margin-top:8px;border-radius:8px;overflow:hidden;"></div>
+            <label>Tire Photos (optional — select multiple)</label>
+            <input type="file" id="i-img" accept="image/*" multiple onchange="previewInvImg(this)" style="padding:6px;cursor:pointer"/>
+            <div id="i-img-preview" style="display:none;margin-top:8px;gap:8px;flex-wrap:wrap;"></div>
           </div>
         </div>
         <button class="btn btn-blue" onclick="addInventory()">＋ Add to Inventory</button>
@@ -757,14 +757,18 @@ async function addInventory() {
   const qty = parseInt(document.getElementById('i-qty').value);
   if (!size || isNaN(qty)) { showToast('⚠ Tire size & quantity required', '#FF4D6D'); return; }
   const id = genId();
-  const imgFile = document.getElementById('i-img')?.files?.[0];
-  let imgUrl = null;
-  if (imgFile) {
-    showToast('⏳ Processing photo…', '#4D9EFF');
-    imgUrl = await uploadTireImage(imgFile);
+  const imgFiles = document.getElementById('i-img')?.files;
+  let imgUrls = [];
+  if (imgFiles && imgFiles.length) {
+    showToast(`⏳ Processing ${imgFiles.length} photo${imgFiles.length>1?'s':''}…`, '#4D9EFF');
+    for (const file of imgFiles) {
+      const url = await uploadTireImage(file);
+      if (url) imgUrls.push(url);
+    }
   }
   const item = { id, condition: invCondition, size, brand: document.getElementById('i-brand').value.trim(), type: document.getElementById('i-type').value, qty, cost: parseFloat(document.getElementById('i-cost').value)||0, sell: parseFloat(document.getElementById('i-sell').value)||0, lowAt: parseInt(document.getElementById('i-low').value)||2, notes: document.getElementById('i-notes').value.trim() };
-  if (imgUrl) item.imgUrl = imgUrl;
+  if (imgUrls.length) { item.imgUrls = imgUrls; item.imgUrl = imgUrls[0]; }
+  const imgUrl = imgUrls[0] || null;
   inventory.unshift(item);
   inventory = sortInventoryBySize(inventory);
   save();
@@ -840,13 +844,20 @@ function uploadTireImage(file) {
 function previewInvImg(input) {
   const preview = document.getElementById('i-img-preview');
   if (!preview) return;
-  if (input.files && input.files[0]) {
-    const reader = new FileReader();
-    reader.onload = e => {
-      preview.innerHTML = `<img src="${e.target.result}" style="width:100%;object-fit:cover;border-radius:8px;max-height:120px;"/>`;
-      preview.style.display = 'block';
-    };
-    reader.readAsDataURL(input.files[0]);
+  const files = input.files;
+  if (files && files.length) {
+    preview.innerHTML = '';
+    preview.style.display = 'flex';
+    Array.from(files).forEach(file => {
+      const reader = new FileReader();
+      reader.onload = e => {
+        const img = document.createElement('img');
+        img.src = e.target.result;
+        img.style.cssText = 'width:80px;height:80px;object-fit:cover;border-radius:6px;border:1px solid #e2e8f0;flex-shrink:0;';
+        preview.appendChild(img);
+      };
+      reader.readAsDataURL(file);
+    });
   } else {
     preview.style.display = 'none';
     preview.innerHTML = '';
@@ -856,13 +867,20 @@ function previewInvImg(input) {
 function previewEditImg(input) {
   const preview = document.getElementById('ed-img-preview');
   if (!preview) return;
-  if (input.files && input.files[0]) {
-    const reader = new FileReader();
-    reader.onload = e => {
-      preview.innerHTML = `<img src="${e.target.result}" style="width:100%;object-fit:cover;border-radius:8px;max-height:120px;"/>`;
-      preview.style.display = 'block';
-    };
-    reader.readAsDataURL(input.files[0]);
+  const files = input.files;
+  if (files && files.length) {
+    preview.innerHTML = '';
+    preview.style.display = 'flex';
+    Array.from(files).forEach(file => {
+      const reader = new FileReader();
+      reader.onload = e => {
+        const img = document.createElement('img');
+        img.src = e.target.result;
+        img.style.cssText = 'width:80px;height:80px;object-fit:cover;border-radius:6px;border:1px solid #e2e8f0;flex-shrink:0;';
+        preview.appendChild(img);
+      };
+      reader.readAsDataURL(file);
+    });
   } else {
     preview.style.display = 'none';
     preview.innerHTML = '';
@@ -1294,10 +1312,10 @@ function editInventory(id) {
       <div class="field"><label>Selling Price ($)</label><input type="number" id="ed-sell" value="${item.sell||0}" step="0.01"/></div>
       <div class="field span2"><label>Notes</label><input type="text" id="ed-notes" value="${item.notes||''}"/></div>
       <div class="field span2">
-        <label>Tire Photo (optional — upload to replace)</label>
-        <input type="file" id="ed-img" accept="image/*" onchange="previewEditImg(this)" style="padding:6px;cursor:pointer"/>
-        <div id="ed-img-preview" style="display:none;margin-top:8px;border-radius:8px;overflow:hidden;"></div>
-        ${item.imgUrl ? `<div style="margin-top:8px;border-radius:8px;overflow:hidden;max-height:100px"><img src="${item.imgUrl}" style="width:100%;object-fit:cover;"/></div>` : ''}
+        <label>Tire Photos (upload new to add more)</label>
+        <input type="file" id="ed-img" accept="image/*" multiple onchange="previewEditImg(this)" style="padding:6px;cursor:pointer"/>
+        <div id="ed-img-preview" style="display:none;margin-top:8px;gap:8px;flex-wrap:wrap;"></div>
+        ${(()=>{ const photos = item.imgUrls && item.imgUrls.length ? item.imgUrls : (item.imgUrl ? [item.imgUrl] : []); return photos.length ? `<div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap">${photos.map(url=>`<img src="${url}" style="width:72px;height:72px;object-fit:cover;border-radius:6px;border:1px solid #e2e8f0"/>`).join('')}</div><p style="font-size:12px;color:#94a3b8;margin-top:4px">Uploading new photos will be added to existing ones</p>` : ''; })()}
       </div>
     </div>`;
   window._editInvCondition = item.condition || 'New';
@@ -1347,11 +1365,21 @@ async function saveEdit() {
   } else if (_editType === 'inventory') {
     const idx = inventory.findIndex(i => i.id === _editId);
     if (idx === -1) return;
-    const imgFile = document.getElementById('ed-img')?.files?.[0];
-    if (imgFile) {
-      showToast('⏳ Processing photo…', '#4D9EFF');
-      const url = await uploadTireImage(imgFile);
-      if (url) inventory[idx].imgUrl = url;
+    const imgFiles = document.getElementById('ed-img')?.files;
+    if (imgFiles && imgFiles.length) {
+      showToast(`⏳ Processing ${imgFiles.length} photo${imgFiles.length>1?'s':''}…`, '#4D9EFF');
+      const newUrls = [];
+      for (const file of imgFiles) {
+        const url = await uploadTireImage(file);
+        if (url) newUrls.push(url);
+      }
+      if (newUrls.length) {
+        const existing = inventory[idx].imgUrls && inventory[idx].imgUrls.length
+          ? inventory[idx].imgUrls
+          : (inventory[idx].imgUrl ? [inventory[idx].imgUrl] : []);
+        inventory[idx].imgUrls = [...existing, ...newUrls];
+        inventory[idx].imgUrl = inventory[idx].imgUrls[0];
+      }
     }
     inventory[idx] = {
       ...inventory[idx],

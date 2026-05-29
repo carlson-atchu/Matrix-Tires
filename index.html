@@ -757,6 +757,11 @@ window.dispatchEvent(new Event('firebase-ready'));
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
+<!-- Tire Detail Modal -->
+<div id="tireModalOverlay" class="tire-modal-overlay hidden" onclick="if(event.target===this)closeTireModal()">
+  <div id="tireModal" class="tire-modal"></div>
+</div>
+
 <script src="js/store.js"></script>
 </body>
 </html>

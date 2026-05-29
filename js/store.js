@@ -92,7 +92,7 @@ const i18n = {
     filter_winter: 'Winter', filter_performance: 'Performance', filter_truck_suv: 'Truck/SUV', filter_runflat: 'Run-Flat',
     sort_price_asc: 'Price: Low → High', sort_price_desc: 'Price: High → Low', sort_brand: 'Brand A–Z', sort_newest: 'Newest First',
     cond_new_badge: '🟢 New', cond_used_badge: '🟡 Used',
-    out_of_stock: 'Out of Stock', add_to_cart: '+ Add', per_tire: 'per tire', call_for_price: 'Call for Price',
+    out_of_stock: 'Out of Stock', add_to_cart: '+ Add', per_tire: 'per tire', call_for_price: 'Call for Price', in_stock: 'In stock', no_photo: 'No photo available',
     result_singular: 'tire found', result_plural: 'tires found',
     // Brands
     brands_eyebrow: 'Top Brands We Carry', brands_title: 'Trusted Manufacturers', brand_shop_now: 'Shop Now →',
@@ -220,7 +220,7 @@ const i18n = {
     filter_winter: 'Invierno', filter_performance: 'Alto Rendimiento', filter_truck_suv: 'Camioneta/SUV', filter_runflat: 'Run-Flat',
     sort_price_asc: 'Precio: Bajo → Alto', sort_price_desc: 'Precio: Alto → Bajo', sort_brand: 'Marca A–Z', sort_newest: 'Más Reciente',
     cond_new_badge: '🟢 Nueva', cond_used_badge: '🟡 Usada',
-    out_of_stock: 'Sin Stock', add_to_cart: '+ Agregar', per_tire: 'por llanta', call_for_price: 'Llama por Precio',
+    out_of_stock: 'Sin Stock', add_to_cart: '+ Agregar', per_tire: 'por llanta', call_for_price: 'Llama por Precio', in_stock: 'En stock', no_photo: 'Foto no disponible',
     result_singular: 'llanta encontrada', result_plural: 'llantas encontradas',
     // Brands
     brands_eyebrow: 'Mejores Marcas que Manejamos', brands_title: 'Fabricantes de Confianza', brand_shop_now: 'Comprar →',
@@ -869,9 +869,10 @@ function renderGrid(tires) {
     const outOfStock = tire.qty === 0;
     const price = tire.sell ? `$${Number(tire.sell).toFixed(2)}` : (t.call_for_price || 'Call for Price');
 
-    const imgHtml = tire.imgUrl
-      ? `<div class="card-img"><img src="${tire.imgUrl}" alt="${tire.size}" loading="lazy"/></div>`
-      : `<div class="card-img card-img-placeholder"><div class="card-img-no-photo">📷<br/>No photo available</div></div>`;
+    const photos = tire.imgUrls && tire.imgUrls.length ? tire.imgUrls : (tire.imgUrl ? [tire.imgUrl] : []);
+    const imgHtml = photos.length
+      ? `<div class="card-img" onclick="openTireModal(${idx})"><img src="${photos[0]}" alt="${tire.size}" loading="lazy"/></div>`
+      : `<div class="card-img card-img-placeholder" onclick="openTireModal(${idx})"><div class="card-img-no-photo">📷<br/>${t.no_photo||'No photo available'}</div></div>`;
     return `
     <div class="tire-card" style="animation-delay:${idx * 0.04}s">
       ${imgHtml}
@@ -879,7 +880,7 @@ function renderGrid(tires) {
         <span class="cond-badge ${isNew ? 'cond-new' : 'cond-used'}">${isNew ? (t.cond_new_badge||'🟢 New') : (t.cond_used_badge||'🟡 Used')}</span>
         ${outOfStock ? `<span class="stock-badge stock-out">${t.out_of_stock||'Out of Stock'}</span>` : ''}
       </div>
-      <div class="card-body">
+      <div class="card-body" onclick="openTireModal(${idx})" style="cursor:pointer">
         <div class="card-size">${tire.size || '—'}</div>
         <div class="card-brand">${tire.brand || 'Brand N/A'}</div>
         <div class="card-type">${tire.type || ''}</div>
@@ -892,8 +893,8 @@ function renderGrid(tires) {
         ${outOfStock
           ? `<button class="card-add-btn" disabled>${t.out_of_stock||'Out of Stock'}</button>`
           : `<div class="card-add-row">
-              <input type="number" class="card-qty-input" id="qty_${idx}" value="1" min="1" max="${tire.qty}" aria-label="Quantity"/>
-              <button class="card-add-btn" onclick="addToCart(${idx})">${t.add_to_cart||'+ Add'}</button>
+              <input type="number" class="card-qty-input" id="qty_${idx}" value="1" min="1" max="${tire.qty}" aria-label="Quantity" onclick="event.stopPropagation()"/>
+              <button class="card-add-btn" onclick="event.stopPropagation();addToCart(${idx})">${t.add_to_cart||'+ Add'}</button>
              </div>`
         }
       </div>
@@ -903,6 +904,109 @@ function renderGrid(tires) {
   // Store filtered list for cart reference
   window._currentTires = tires;
 }
+
+// ── Tire Detail Modal ─────────────────────────────────────────────────────────
+let _modalTire = null;
+let _modalPhotoIdx = 0;
+
+function openTireModal(idx) {
+  const tire = window._currentTires[idx];
+  if (!tire) return;
+  _modalTire = tire;
+  _modalPhotoIdx = 0;
+  const photos = tire.imgUrls && tire.imgUrls.length ? tire.imgUrls : (tire.imgUrl ? [tire.imgUrl] : []);
+  const t = i18n[currentLang];
+  const isNew = tire.condition === 'New';
+  const outOfStock = tire.qty === 0;
+  const price = tire.sell ? `$${Number(tire.sell).toFixed(2)}` : (t.call_for_price || 'Call for Price');
+
+  const thumbsHtml = photos.length > 1
+    ? `<div class="tire-modal-thumbs">${photos.map((url, i) =>
+        `<div class="tire-modal-thumb${i===0?' active':''}" id="tmThumb${i}" onclick="tireModalGoTo(${i})"><img src="${url}" alt=""/></div>`
+      ).join('')}</div>` : '';
+
+  const navHtml = photos.length > 1
+    ? `<button class="tire-modal-nav tire-modal-prev" onclick="tireModalPrev()">&#8249;</button>
+       <button class="tire-modal-nav tire-modal-next" onclick="tireModalNext()">&#8250;</button>` : '';
+
+  const galleryHtml = photos.length
+    ? `<div class="tire-modal-main-img"><img src="${photos[0]}" alt="${tire.size}" id="tmMainImgEl"/></div>${navHtml}${thumbsHtml}`
+    : `<div class="tire-modal-no-photo">📷<br/>${t.no_photo||'No photo available'}</div>`;
+
+  const addHtml = outOfStock
+    ? `<button class="tire-modal-add-btn" disabled>${t.out_of_stock||'Out of Stock'}</button>`
+    : `<div class="tire-modal-add-row">
+         <input type="number" class="tire-modal-qty" id="tmQty" value="1" min="1" max="${tire.qty}"/>
+         <button class="tire-modal-add-btn" onclick="addToCartFromModal()">${t.add_to_cart||'+ Add to Cart'}</button>
+       </div>`;
+
+  document.getElementById('tireModal').innerHTML = `
+    <button class="tire-modal-close" onclick="closeTireModal()">✕</button>
+    <div class="tire-modal-gallery">${galleryHtml}</div>
+    <div class="tire-modal-info">
+      <span class="tire-modal-cond ${isNew?'new':'used'}">${isNew ? (t.cond_new_badge||'🟢 New') : (t.cond_used_badge||'🟡 Used')}</span>
+      <div class="tire-modal-size">${tire.size || '—'}</div>
+      ${tire.brand ? `<div class="tire-modal-brand">${tire.brand}</div>` : ''}
+      ${tire.type ? `<div class="tire-modal-type">${tire.type}</div>` : ''}
+      <div>
+        <div class="tire-modal-price">${price}</div>
+        <div class="tire-modal-price-label">${t.per_tire||'per tire'}</div>
+      </div>
+      <div class="tire-modal-stock">${t.in_stock||'In stock'}: ${tire.qty}</div>
+      ${tire.notes ? `<div style="font-size:13px;color:var(--muted2);font-style:italic">${tire.notes}</div>` : ''}
+      ${addHtml}
+    </div>`;
+
+  document.getElementById('tireModalOverlay').classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeTireModal() {
+  document.getElementById('tireModalOverlay').classList.add('hidden');
+  document.body.style.overflow = '';
+  _modalTire = null;
+}
+
+function _getModalPhotos() {
+  if (!_modalTire) return [];
+  return _modalTire.imgUrls && _modalTire.imgUrls.length ? _modalTire.imgUrls : (_modalTire.imgUrl ? [_modalTire.imgUrl] : []);
+}
+
+function tireModalPrev() {
+  const photos = _getModalPhotos();
+  tireModalGoTo((_modalPhotoIdx - 1 + photos.length) % photos.length);
+}
+
+function tireModalNext() {
+  const photos = _getModalPhotos();
+  tireModalGoTo((_modalPhotoIdx + 1) % photos.length);
+}
+
+function tireModalGoTo(idx) {
+  const photos = _getModalPhotos();
+  _modalPhotoIdx = idx;
+  const imgEl = document.getElementById('tmMainImgEl');
+  if (imgEl) imgEl.src = photos[idx];
+  document.querySelectorAll('.tire-modal-thumb').forEach((el, i) => el.classList.toggle('active', i === idx));
+}
+
+function addToCartFromModal() {
+  if (!_modalTire) return;
+  const qtyInput = document.getElementById('tmQty');
+  const qty = qtyInput ? Math.min(Math.max(1, parseInt(qtyInput.value) || 1), _modalTire.qty) : 1;
+  const existing = cart.find(c => c.size === _modalTire.size && c.brand === _modalTire.brand && c.condition === _modalTire.condition);
+  if (existing) {
+    existing.qty = (existing.qty || 1) + qty;
+  } else {
+    cart.push({ size: _modalTire.size, brand: _modalTire.brand, condition: _modalTire.condition, price: _modalTire.sell, qty });
+  }
+  saveCart();
+  showToast(`✓ ${qty}x ${_modalTire.size} added to cart`);
+  closeTireModal();
+}
+
+// close modal on Escape key
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeTireModal(); });
 
 function showNoInventory() {
   document.getElementById('tireGrid').innerHTML = `
