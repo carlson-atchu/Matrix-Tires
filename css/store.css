@@ -318,27 +318,26 @@ input, select, textarea, button { font-family: inherit; }
 
 /* ===== BRANDS ===== */
 .brands-section { background: var(--bg); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-.brands-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 16px; }
+.brands-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 16px; }
 .brand-card {
-  background: var(--surface); border: 1px solid var(--border);
-  border-radius: 16px; overflow: hidden; cursor: pointer;
-  transition: transform .2s, box-shadow .2s;
-  box-shadow: var(--shadow);
+  border-radius: 14px; overflow: hidden; cursor: pointer;
+  border: 1px solid var(--border); transition: transform .2s, box-shadow .2s;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
 }
-.brand-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.15); border-color: var(--border2); }
-.brand-card-accent {
-  height: 80px; display: flex; align-items: center; justify-content: center;
+.brand-card:hover { transform: translateY(-5px); box-shadow: 0 16px 36px rgba(0,0,0,0.13); }
+.brand-card-logo {
+  height: 100px; display: flex; align-items: center; justify-content: center;
+  padding: 16px;
 }
-.brand-card-initial {
-  font-family: 'Syne', sans-serif; font-size: 42px; font-weight: 900;
-  color: rgba(255,255,255,0.9); text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+.brand-card-wordmark {
+  font-family: 'Syne', sans-serif; font-size: clamp(16px, 2vw, 22px); font-weight: 900;
+  letter-spacing: -0.5px; text-align: center; line-height: 1.1;
 }
-.brand-card-body { padding: 12px 14px; }
-.brand-card-name {
-  font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 800;
-  color: var(--text); margin-bottom: 4px;
+.brand-card-footer {
+  background: var(--surface); border-top: 1px solid var(--border);
+  padding: 8px 14px; font-size: 11px; font-weight: 700;
+  color: var(--accent); text-align: center; letter-spacing: .3px;
 }
-.brand-card-cta { font-size: 11px; color: var(--accent); font-weight: 700; }
 
 /* ===== SERVICES ===== */
 .services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; }

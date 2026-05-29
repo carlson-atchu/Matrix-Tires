@@ -141,24 +141,37 @@ function populateFilters() {
   brandSel.innerHTML = '<option value="">All Brands</option>' +
     brands.map(b => `<option value="${b}"${b===cur?' selected':''}>${b}</option>`).join('');
 
-  const brandColors = [
-    ['#dc2626','#b91c1c'], ['#ea580c','#c2410c'], ['#d97706','#b45309'],
-    ['#16a34a','#15803d'], ['#2563eb','#1d4ed8'], ['#7c3aed','#6d28d9'],
-    ['#db2777','#be185d'], ['#0891b2','#0e7490'], ['#65a30d','#4d7c0f'],
-    ['#9333ea','#7e22ce'],
-  ];
+  const brandStyles = {
+    'Michelin':    { color: '#003087', bg: '#fff', font: 'italic' },
+    'Goodyear':    { color: '#003087', bg: '#fff', font: 'normal' },
+    'BFGoodrich':  { color: '#cc0000', bg: '#fff', font: 'normal' },
+    'Continental': { color: '#ff6600', bg: '#fff', font: 'normal' },
+    'Pirelli':     { color: '#cc0000', bg: '#fff', font: 'italic' },
+    'Cooper':      { color: '#003087', bg: '#fff', font: 'normal' },
+    'Bridgestone': { color: '#cc0000', bg: '#fff', font: 'normal' },
+    'Firestone':   { color: '#cc0000', bg: '#fff', font: 'normal' },
+    'Hankook':     { color: '#cc0000', bg: '#fff', font: 'normal' },
+    'Yokohama':    { color: '#003087', bg: '#fff', font: 'normal' },
+    'Toyo':        { color: '#cc0000', bg: '#fff', font: 'normal' },
+    'Falken':      { color: '#000', bg: '#fff', font: 'normal' },
+    'Nitto':       { color: '#cc0000', bg: '#fff', font: 'normal' },
+    'General':     { color: '#cc0000', bg: '#fff', font: 'normal' },
+    'Kumho':       { color: '#003087', bg: '#fff', font: 'normal' },
+    'Nexen':       { color: '#003087', bg: '#fff', font: 'normal' },
+    'GT Radial':   { color: '#cc0000', bg: '#fff', font: 'normal' },
+    'Sailun':      { color: '#003087', bg: '#fff', font: 'normal' },
+    'Uniroyal':    { color: '#cc0000', bg: '#fff', font: 'normal' },
+  };
+  const fallbackColors = ['#cc0000','#003087','#1a1a1a','#e65c00','#6d28d9'];
   const brandsGrid = document.getElementById('brandsGrid');
   brandsGrid.innerHTML = brands.map((b, i) => {
-    const [c1, c2] = brandColors[i % brandColors.length];
+    const s = brandStyles[b] || { color: fallbackColors[i % fallbackColors.length], bg: '#fff', font: 'normal' };
     return `
     <div class="brand-card" onclick="filterByBrand('${b}')">
-      <div class="brand-card-accent" style="background:linear-gradient(135deg,${c1},${c2})">
-        <span class="brand-card-initial">${b.charAt(0)}</span>
+      <div class="brand-card-logo" style="background:${s.bg}">
+        <span class="brand-card-wordmark" style="color:${s.color};font-style:${s.font}">${b}</span>
       </div>
-      <div class="brand-card-body">
-        <div class="brand-card-name">${b}</div>
-        <div class="brand-card-cta">Shop ${b} →</div>
-      </div>
+      <div class="brand-card-footer">Shop Now →</div>
     </div>`;
   }).join('');
 }
