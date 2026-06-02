@@ -1164,6 +1164,7 @@ function submitQuote(e) {
       document.getElementById('quoteForm').reset();
       cart = [];
       saveCart();
+      renderCart();
       selectedServices = [];
       document.querySelectorAll('.service-card').forEach(sc => {
         sc.classList.remove('selected');
