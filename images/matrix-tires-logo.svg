@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 180" width="520" height="180">
+  <defs>
+    <linearGradient id="matrixGreen" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f0ff44"/>
+      <stop offset="45%" style="stop-color:#a8e600"/>
+      <stop offset="100%" style="stop-color:#52c41a"/>
+    </linearGradient>
+    <linearGradient id="swooshGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#0c1525"/>
+      <stop offset="55%" style="stop-color:#162032"/>
+      <stop offset="100%" style="stop-color:#0c1525;stop-opacity:0.6"/>
+    </linearGradient>
+    <radialGradient id="tireRadial" cx="38%" cy="32%" r="62%">
+      <stop offset="0%" style="stop-color:#3d4f63"/>
+      <stop offset="100%" style="stop-color:#010a14"/>
+    </radialGradient>
+    <radialGradient id="rimRadial" cx="40%" cy="33%" r="62%">
+      <stop offset="0%" style="stop-color:#ffffff"/>
+      <stop offset="40%" style="stop-color:#cbd5e1"/>
+      <stop offset="100%" style="stop-color:#2d3f55"/>
+    </radialGradient>
+    <linearGradient id="spokeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#e2e8f0"/>
+      <stop offset="50%" style="stop-color:#ffffff"/>
+      <stop offset="100%" style="stop-color:#94a3b8"/>
+    </linearGradient>
+    <filter id="greenGlow" x="-20%" y="-30%" width="140%" height="160%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur"/>
+      <feColorMatrix in="blur" type="matrix"
+        values="0 0 0 0 0.6  0 0 0 0 1  0 0 0 0 0  0 0 0 0.9 0" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="whiteGlow" x="-10%" y="-20%" width="120%" height="140%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <clipPath id="swooshClip">
+      <ellipse cx="312" cy="90" rx="228" ry="80"/>
+    </clipPath>
+  </defs>
+
+  <!-- Swoosh body -->
+  <ellipse cx="312" cy="90" rx="228" ry="80" fill="url(#swooshGrad)"/>
+
+  <!-- Speed lines -->
+  <path d="M388 34 Q455 28 520 20 L520 40 Q455 46 388 52 Z" fill="#4fc3f7" opacity="0.95"/>
+  <path d="M392 52 Q458 48 520 42 L520 60 Q458 64 392 68 Z" fill="#d4ff00" opacity="1"/>
+  <path d="M394 70 Q460 68 520 65 L520 80 Q460 83 394 85 Z" fill="#b2ff00" opacity="0.95"/>
+  <path d="M394 88 Q460 88 520 88 L520 100 Q460 102 394 102 Z" fill="#ffffff" opacity="0.9"/>
+  <path d="M392 108 Q458 110 520 114 L520 128 Q458 126 392 124 Z" fill="#7dd3fc" opacity="0.85"/>
+  <path d="M388 130 Q454 134 520 140 L520 152 Q454 150 388 146 Z" fill="#38bdf8" opacity="0.7"/>
+
+  <!-- City skyline -->
+  <g fill="#1e3a5f" opacity="0.75" clip-path="url(#swooshClip)">
+    <rect x="195" y="58" width="9" height="42"/><rect x="208" y="50" width="7" height="50"/>
+    <rect x="219" y="63" width="6" height="37"/><rect x="229" y="43" width="11" height="57"/>
+    <rect x="244" y="54" width="8" height="46"/><rect x="256" y="38" width="9" height="62"/>
+    <rect x="269" y="52" width="7" height="48"/><rect x="280" y="58" width="10" height="42"/>
+    <rect x="294" y="48" width="8" height="52"/><rect x="306" y="60" width="6" height="40"/>
+    <rect x="316" y="54" width="7" height="46"/>
+    <rect x="259" y="30" width="3" height="10"/><rect x="233" y="35" width="2" height="10"/>
+  </g>
+
+  <!-- Tire -->
+  <circle cx="88" cy="90" r="80" fill="url(#tireRadial)"/>
+  <circle cx="88" cy="90" r="80" fill="none" stroke="#0a1628" stroke-width="5" stroke-dasharray="11 7" opacity="0.9"/>
+  <circle cx="88" cy="90" r="80" fill="none" stroke="#4a6080" stroke-width="1.5" stroke-dasharray="11 7" opacity="0.5"/>
+  <circle cx="88" cy="90" r="71" fill="url(#tireRadial)" stroke="#0a1628" stroke-width="1"/>
+  <circle cx="88" cy="90" r="60" fill="#05101e" stroke="#1e2d3d" stroke-width="1.5"/>
+  <circle cx="88" cy="90" r="56" fill="url(#rimRadial)" stroke="#94a3b8" stroke-width="1.5"/>
+  <circle cx="88" cy="90" r="47" fill="#0f1f30" stroke="#2d3f55" stroke-width="1"/>
+
+  <!-- Spokes -->
+  <g stroke="url(#spokeGrad)" stroke-width="12" stroke-linecap="round" opacity="0.95">
+    <line x1="88" y1="90" x2="88" y2="44"/>
+    <line x1="88" y1="90" x2="131" y2="63"/>
+    <line x1="88" y1="90" x2="115" y2="128"/>
+    <line x1="88" y1="90" x2="61" y2="128"/>
+    <line x1="88" y1="90" x2="45" y2="63"/>
+  </g>
+  <g stroke="#1e3a5a" stroke-width="5" stroke-linecap="round" opacity="0.6">
+    <line x1="88" y1="90" x2="88" y2="48"/>
+    <line x1="88" y1="90" x2="127" y2="65"/>
+    <line x1="88" y1="90" x2="112" y2="124"/>
+    <line x1="88" y1="90" x2="64" y2="124"/>
+    <line x1="88" y1="90" x2="49" y2="65"/>
+  </g>
+
+  <!-- Center cap -->
+  <circle cx="88" cy="90" r="18" fill="#1e3a5a" stroke="#4a7aaa" stroke-width="2"/>
+  <circle cx="88" cy="90" r="13" fill="#1a6fcf"/>
+  <circle cx="88" cy="90" r="9" fill="#1555b0"/>
+  <circle cx="88" cy="90" r="5" fill="#60a5fa"/>
+  <circle cx="88" cy="90" r="2.5" fill="#e0f2fe"/>
+
+  <!-- Text -->
+  <text x="172" y="108" font-family="'Arial Black', Impact, sans-serif" font-size="76" font-weight="900" font-style="italic" fill="url(#matrixGreen)" filter="url(#greenGlow)" letter-spacing="-2">MATRIX</text>
+  <text x="190" y="152" font-family="'Arial Black', Impact, sans-serif" font-size="44" font-weight="900" font-style="italic" fill="#ffffff" filter="url(#whiteGlow)" letter-spacing="8">TIRES</text>
+</svg>
