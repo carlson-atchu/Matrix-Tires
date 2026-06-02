@@ -1,14 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 180" width="520" height="180">
   <defs>
     <linearGradient id="matrixGreen" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#ff6b6b"/>
-      <stop offset="45%" style="stop-color:#ff0000"/>
-      <stop offset="100%" style="stop-color:#cc0000"/>
+      <stop offset="0%" style="stop-color:#ffffff"/>
+      <stop offset="100%" style="stop-color:#f0f0f0"/>
     </linearGradient>
     <linearGradient id="swooshGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" style="stop-color:#0c1525"/>
-      <stop offset="55%" style="stop-color:#162032"/>
-      <stop offset="100%" style="stop-color:#0c1525;stop-opacity:0.6"/>
+      <stop offset="0%" style="stop-color:#cc0000"/>
+      <stop offset="55%" style="stop-color:#e00000"/>
+      <stop offset="100%" style="stop-color:#b00000;stop-opacity:0.85"/>
     </linearGradient>
     <radialGradient id="tireRadial" cx="38%" cy="32%" r="62%">
       <stop offset="0%" style="stop-color:#3d4f63"/>
@@ -27,7 +26,7 @@
     <filter id="greenGlow" x="-20%" y="-30%" width="140%" height="160%">
       <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur"/>
       <feColorMatrix in="blur" type="matrix"
-        values="0 0 0 0 1  0 0 0 0 0  0 0 0 0 0  0 0 0 0.9 0" result="coloredBlur"/>
+        values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.6 0" result="coloredBlur"/>
       <feMerge>
         <feMergeNode in="coloredBlur"/>
         <feMergeNode in="SourceGraphic"/>
@@ -49,15 +48,15 @@
   <ellipse cx="312" cy="90" rx="228" ry="80" fill="url(#swooshGrad)"/>
 
   <!-- Speed lines -->
-  <path d="M388 34 Q455 28 520 20 L520 40 Q455 46 388 52 Z" fill="#4fc3f7" opacity="0.95"/>
-  <path d="M392 52 Q458 48 520 42 L520 60 Q458 64 392 68 Z" fill="#ff3333" opacity="1"/>
-  <path d="M394 70 Q460 68 520 65 L520 80 Q460 83 394 85 Z" fill="#ff6666" opacity="0.95"/>
-  <path d="M394 88 Q460 88 520 88 L520 100 Q460 102 394 102 Z" fill="#ffffff" opacity="0.9"/>
-  <path d="M392 108 Q458 110 520 114 L520 128 Q458 126 392 124 Z" fill="#7dd3fc" opacity="0.85"/>
-  <path d="M388 130 Q454 134 520 140 L520 152 Q454 150 388 146 Z" fill="#38bdf8" opacity="0.7"/>
+  <path d="M388 34 Q455 28 520 20 L520 40 Q455 46 388 52 Z" fill="#ffffff" opacity="0.9"/>
+  <path d="M392 52 Q458 48 520 42 L520 60 Q458 64 392 68 Z" fill="#ffcccc" opacity="0.95"/>
+  <path d="M394 70 Q460 68 520 65 L520 80 Q460 83 394 85 Z" fill="#ffffff" opacity="0.7"/>
+  <path d="M394 88 Q460 88 520 88 L520 100 Q460 102 394 102 Z" fill="#ffe0e0" opacity="0.85"/>
+  <path d="M392 108 Q458 110 520 114 L520 128 Q458 126 392 124 Z" fill="#ffffff" opacity="0.6"/>
+  <path d="M388 130 Q454 134 520 140 L520 152 Q454 150 388 146 Z" fill="#ffcccc" opacity="0.5"/>
 
   <!-- City skyline -->
-  <g fill="#1e3a5f" opacity="0.75" clip-path="url(#swooshClip)">
+  <g fill="#7a0000" opacity="0.5" clip-path="url(#swooshClip)">
     <rect x="195" y="58" width="9" height="42"/><rect x="208" y="50" width="7" height="50"/>
     <rect x="219" y="63" width="6" height="37"/><rect x="229" y="43" width="11" height="57"/>
     <rect x="244" y="54" width="8" height="46"/><rect x="256" y="38" width="9" height="62"/>
