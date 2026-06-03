@@ -86,7 +86,7 @@ input, select, textarea, button { font-family: inherit; }
 /* ===== HERO ===== */
 .hero {
   min-height: 88vh; padding-top: var(--nav-h);
-  display: grid; grid-template-columns: 1fr 2.6fr;
+  display: grid; grid-template-columns: 1fr 2fr;
   align-items: stretch; gap: 0;
   max-width: 1440px; margin: 0 auto 0 8%;
   padding-left: 24px; padding-right: 0;
