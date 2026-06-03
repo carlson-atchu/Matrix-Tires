@@ -1184,9 +1184,16 @@ function submitQuote(e) {
       fsEl.textContent = i18n[currentLang].form_success || "✅ Quote request sent!";
       fsEl.style.display = 'block';
       document.getElementById('quoteForm').reset();
+      // Clear cart
       cart = [];
       saveCart();
       renderCart();
+      // Clear cart summary block in form
+      const csf = document.getElementById('cartSummaryField');
+      const csd = document.getElementById('cartQuoteSummary');
+      if (csf) csf.style.display = 'none';
+      if (csd) csd.innerHTML = '';
+      // Clear services
       selectedServices = [];
       document.querySelectorAll('.service-card').forEach(sc => {
         sc.classList.remove('selected');
@@ -1196,7 +1203,8 @@ function submitQuote(e) {
       const cta = document.getElementById('servicesCta');
       if (cta) cta.style.display = 'none';
       updateServicesSummary();
-      setTimeout(() => document.getElementById('formSuccess').style.display = 'none', 6000);
+      // Hide success message after 5s
+      setTimeout(() => { document.getElementById('formSuccess').style.display = 'none'; }, 5000);
     })
     .catch(() => {
       btn.textContent = i18n[currentLang].form_submit || 'Send Quote Request →';
