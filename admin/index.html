@@ -1856,7 +1856,14 @@ function renderQuotes() {
         <div style="font-weight:700;font-size:14px">${q.from_name || 'Unknown'}</div>
         <span class="tag" style="background:rgba(255,255,255,0.07);color:${statusColor[st]||'var(--yellow)'};flex-shrink:0;margin-left:8px">${statusLabel[st]||'Pending'}</span>
       </div>
-      <div style="font-size:12px;color:var(--muted);margin-bottom:3px">📞 ${q.phone||'—'} &nbsp;·&nbsp; 📧 ${q.reply_to||'—'}</div>
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px">
+        ${q.phone ? `
+          <a href="tel:${q.phone.replace(/\D/g,'')}" style="display:inline-flex;align-items:center;gap:4px;background:rgba(34,197,94,0.12);color:#22c55e;border:1px solid rgba(34,197,94,0.25);border-radius:6px;padding:4px 10px;font-size:12px;font-weight:600;text-decoration:none">📞 Call</a>
+          <a href="sms:${q.phone.replace(/\D/g,'')}?body=Hi%20${encodeURIComponent(q.from_name||'there')}%2C%20this%20is%20Matrix%20Tires%20responding%20to%20your%20quote%20request." style="display:inline-flex;align-items:center;gap:4px;background:rgba(59,130,246,0.12);color:#3b82f6;border:1px solid rgba(59,130,246,0.25);border-radius:6px;padding:4px 10px;font-size:12px;font-weight:600;text-decoration:none">💬 Text</a>
+          <span style="font-size:12px;color:var(--muted)">${q.phone}</span>
+        ` : '<span style="font-size:12px;color:var(--muted)">No phone</span>'}
+        ${q.reply_to && q.reply_to !== 'Not provided' ? `<span style="font-size:12px;color:var(--muted)">· 📧 ${q.reply_to}</span>` : ''}
+      </div>
       <div style="font-size:12px;color:var(--text2);margin-bottom:3px">Tire: <b>${q.size||'—'}</b> &nbsp;·&nbsp; Qty: ${q.qty||'—'} &nbsp;·&nbsp; ${q.condition||'—'}</div>
       ${q.services && q.services !== 'None' ? `<div style="font-size:11px;color:var(--muted);margin-bottom:3px">Services: ${q.services}</div>` : ''}
       ${q.notes && q.notes !== 'None' ? `<div style="font-size:11px;color:var(--muted);margin-bottom:3px">Notes: ${q.notes}</div>` : ''}
@@ -1890,7 +1897,16 @@ function sendDepositRequest(quoteId) {
   const amount = parseFloat(depInput && depInput.value);
   if (!amount || amount < 1) { showToast('⚠ Enter a deposit amount', '#FF4D6D'); return; }
   const customerEmail = (q.reply_to && q.reply_to !== 'Not provided') ? q.reply_to : '';
-  if (!customerEmail) { showToast('⚠ No customer email on file', '#FF4D6D'); return; }
+  if (!customerEmail) {
+    const phone = (q.phone||'').replace(/\D/g,'');
+    if (phone) {
+      const msg = encodeURIComponent(`Hi ${q.from_name||'there'}, this is Matrix Tires! Your quote is ready. We require a $${amount} deposit to confirm your appointment. Please call or text us back to confirm. Thank you!`);
+      window.open(`sms:${phone}?body=${msg}`, '_blank');
+    } else {
+      showToast('⚠ No email or phone on file', '#FF4D6D');
+    }
+    return;
+  }
 
   const message =
 `Hi ${q.from_name || 'there'},

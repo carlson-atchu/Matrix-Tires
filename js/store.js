@@ -1156,6 +1156,7 @@ function submitQuote(e) {
     from_name:  `${firstName} ${lastName}`,
     reply_to:   email || 'Not provided',
     phone:      phone,
+    phone_clean: phone.replace(/\D/g,''),
     size:       size || 'Not specified',
     qty:        qty,
     condition:  condition,
@@ -1163,6 +1164,7 @@ function submitQuote(e) {
     cart_items: cartLines,
     notes:      notes || 'None',
     timestamp:  new Date().toLocaleString('en-US', { timeZone: 'America/New_York' }),
+    contact_note: email ? `Reply to this email to reach ${firstName}, or call/text ${phone}` : `No email provided — call or text ${phone} to respond`,
   };
 
   // Save to Firestore
