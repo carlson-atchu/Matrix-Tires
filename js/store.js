@@ -411,37 +411,57 @@ function populateFilters() {
   brandSel.innerHTML = '<option value="">All Brands</option>' +
     brands.map(b => `<option value="${b}"${b===cur?' selected':''}>${b}</option>`).join('');
 
-  const brandStyles = {
-    'Michelin':    { color: '#003087', bg: '#fff', font: 'italic' },
-    'Goodyear':    { color: '#003087', bg: '#fff', font: 'normal' },
-    'BFGoodrich':  { color: '#cc0000', bg: '#fff', font: 'normal' },
-    'Continental': { color: '#ff6600', bg: '#fff', font: 'normal' },
-    'Pirelli':     { color: '#cc0000', bg: '#fff', font: 'italic' },
-    'Cooper':      { color: '#003087', bg: '#fff', font: 'normal' },
-    'Bridgestone': { color: '#cc0000', bg: '#fff', font: 'normal' },
-    'Firestone':   { color: '#cc0000', bg: '#fff', font: 'normal' },
-    'Hankook':     { color: '#cc0000', bg: '#fff', font: 'normal' },
-    'Yokohama':    { color: '#003087', bg: '#fff', font: 'normal' },
-    'Toyo':        { color: '#cc0000', bg: '#fff', font: 'normal' },
-    'Falken':      { color: '#000', bg: '#fff', font: 'normal' },
-    'Nitto':       { color: '#cc0000', bg: '#fff', font: 'normal' },
-    'General':     { color: '#cc0000', bg: '#fff', font: 'normal' },
-    'Kumho':       { color: '#003087', bg: '#fff', font: 'normal' },
-    'Nexen':       { color: '#003087', bg: '#fff', font: 'normal' },
-    'GT Radial':   { color: '#cc0000', bg: '#fff', font: 'normal' },
-    'Sailun':      { color: '#003087', bg: '#fff', font: 'normal' },
-    'Uniroyal':    { color: '#cc0000', bg: '#fff', font: 'normal' },
+  const brandLogos = {
+    'Michelin':         'images/brands/michelin.svg',
+    'Cooper Tires':     'images/brands/cooper.svg',
+    'Kumho Tire':       'images/brands/kumho.svg',
+    'BFGoodrich':       'images/brands/bfgoodrich.png',
+    'Continental':      'images/brands/continental.svg',
+    'Goodyear':         'images/brands/goodyear.svg',
+    'General Tire':     'images/brands/general.svg',
+    'Uniroyal':         'images/brands/uniroyal.svg',
+    'Pirelli':          'images/brands/pirelli.svg',
+    'Sailun Tire':      'images/brands/sailun.png',
+    'Sumitomo':         'images/brands/sumitomo.svg',
+    'Bridgestone':      'images/brands/bridgestone.png',
+    'Hankook':          'images/brands/hankook.png',
+    'Toyo':             'images/brands/toyo.png',
+    'Nexen':            'images/brands/nexen.svg',
+    'Falken':           'images/brands/falken.svg',
   };
-  const fallbackColors = ['#cc0000','#003087','#1a1a1a','#e65c00','#6d28d9'];
+  const brandColors = {
+    'Kelly Tires':      '#003087',
+    'Starfire Tires':   '#cc0000',
+    'American Tourer':  '#1a1a1a',
+  };
+
+  const featuredBrands = [
+    'Michelin', 'Cooper Tires', 'Kumho Tire',
+    'BFGoodrich', 'Continental', 'Goodyear',
+    'General Tire', 'Uniroyal', 'Pirelli',
+    'Starfire Tires', 'Kelly Tires', 'Sailun Tire',
+    'Sumitomo', 'American Tourer',
+  ];
+
   const brandsGrid = document.getElementById('brandsGrid');
-  brandsGrid.innerHTML = brands.map((b, i) => {
-    const s = brandStyles[b] || { color: fallbackColors[i % fallbackColors.length], bg: '#fff', font: 'normal' };
+  brandsGrid.innerHTML = featuredBrands.map(b => {
+    const logoSrc = brandLogos[b];
+    const fbColor = brandColors[b] || '#1a1a1a';
+    if (logoSrc) {
+      return `
+      <div class="brand-card" onclick="filterByBrand('${b}')">
+        <div class="brand-card-logo">
+          <img src="${logoSrc}" alt="${b}" class="brand-card-img"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+          <span class="brand-card-wordmark" style="display:none;color:${fbColor}">${b}</span>
+        </div>
+      </div>`;
+    }
     return `
     <div class="brand-card" onclick="filterByBrand('${b}')">
-      <div class="brand-card-logo" style="background:${s.bg}">
-        <span class="brand-card-wordmark" style="color:${s.color};font-style:${s.font}">${b}</span>
+      <div class="brand-card-logo">
+        <span class="brand-card-wordmark" style="color:${fbColor}">${b}</span>
       </div>
-      <div class="brand-card-footer">Shop Now →</div>
     </div>`;
   }).join('');
 }
