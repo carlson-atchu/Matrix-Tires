@@ -1110,16 +1110,21 @@ input, select, textarea, button { font-family: inherit; }
 @media (max-width: 900px) {
   /* Layout containers — remove the 8% left offset */
   .nav-inner { margin: 0 auto; padding: 0 16px; }
-  .hero { grid-template-columns: 1fr; text-align: center; gap: 0; padding-top: calc(var(--nav-h) + 16px); padding-bottom: 40px; margin: 0 auto; padding-left: 16px; padding-right: 16px; }
+  .hero { grid-template-columns: 1fr; text-align: center; gap: 0; padding-top: calc(var(--nav-h) + 16px); padding-bottom: 40px; margin: 0 auto; padding-left: 16px; padding-right: 16px; min-height: unset; }
   .section-inner { margin: 0 auto; padding: 48px 20px; }
   .hero-visual { display: none; }
   .hero-stats { justify-content: center; }
-  .hero-sub { margin: 0 auto 36px; }
-  .hero-badge { margin: 0 auto 24px; }
+  .hero-sub { margin: 0 auto 24px; }
+  .hero-badge { margin: 0 auto 20px; }
   .contact-inner { grid-template-columns: 1fr; }
   .form-row { grid-template-columns: 1fr; }
-  .search-row { flex-direction: column; }
-  .hero-search-btn { width: 100%; }
+  .search-row { flex-direction: column; gap: 12px; }
+  .search-sep { display: none; }
+  .search-field { width: 100%; flex: unset; }
+  .search-field select { width: 100%; padding: 10px 12px; }
+  .hero-search-btn { width: 100%; padding: 12px; font-size: 15px; margin-top: 4px; }
+  .hero-search-box { padding: 16px; }
+  .search-tabs { margin-bottom: 14px; }
   .nav-links { display: none; }
   .about-inner { grid-template-columns: 1fr; gap: 40px; }
   .about-stats-panel { grid-template-columns: repeat(4, 1fr); }
