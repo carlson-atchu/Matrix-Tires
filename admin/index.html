@@ -279,6 +279,17 @@ select option{background:var(--surface);}
           <div class="field"><label>Low Stock Alert At</label><input type="number" id="i-low" placeholder="2" min="1"/></div>
           <div class="field"><label>Notes</label><input type="text" id="i-notes" placeholder="Optional"/></div>
           <div class="field span2">
+            <label>Compatible Vehicles (optional)</label>
+            <div id="fitment-list" style="margin-bottom:8px"></div>
+            <div style="display:grid;grid-template-columns:1fr 1fr 60px 60px auto;gap:6px;align-items:end">
+              <div><select id="f-make" onchange="onFitmentMakeChange()" style="font-size:12px"><option value="">Make</option></select></div>
+              <div><select id="f-model" style="font-size:12px"><option value="">Model</option></select></div>
+              <div><input type="number" id="f-year-start" placeholder="From" min="1990" max="2030" style="font-size:12px;padding:8px 6px"/></div>
+              <div><input type="number" id="f-year-end" placeholder="To" min="1990" max="2030" style="font-size:12px;padding:8px 6px"/></div>
+              <button type="button" onclick="addFitmentEntry()" style="padding:8px 10px;background:rgba(77,158,255,0.15);border:1px solid rgba(77,158,255,0.3);border-radius:9px;color:var(--blue);font-weight:700;font-size:13px;cursor:pointer;white-space:nowrap">+ Add</button>
+            </div>
+          </div>
+          <div class="field span2">
             <label>Tire Photos (optional — select multiple)</label>
             <input type="file" id="i-img" accept="image/*" multiple onchange="previewInvImg(this)" style="padding:6px;cursor:pointer"/>
             <div id="i-img-preview" style="display:none;margin-top:8px;gap:8px;flex-wrap:wrap;"></div>
@@ -531,6 +542,108 @@ select option{background:var(--surface);}
 // ── STATE ──────────────────────────────────────────────────────
 let sales = [], expenses = [], inventory = [];
 let invCondition = 'New', invFilter = 'all', invSearch = '', salesSearch = '', expSearch = '';
+let currentFitment = [];
+
+// Vehicle makes/models for fitment dropdowns (mirrors store.js VEHICLE_DATA structure)
+const VEHICLE_DATA_MAKES = {
+  Toyota:['Camry','Corolla','RAV4','Highlander','Tacoma','Tundra','Prius','4Runner','Sienna','Avalon','Venza','C-HR'],
+  Honda:['Civic','Accord','CR-V','Pilot','Odyssey','HR-V','Ridgeline','Passport','Fit'],
+  Ford:['F-150','Mustang','Explorer','Escape','Edge','Bronco','Ranger','Expedition','Maverick','Transit Connect'],
+  Chevrolet:['Silverado','Malibu','Equinox','Tahoe','Suburban','Traverse','Colorado','Trailblazer','Trax'],
+  GMC:['Sierra','Yukon','Terrain','Acadia','Canyon'],
+  Nissan:['Altima','Sentra','Rogue','Pathfinder','Murano','Frontier','Maxima','Armada','Kicks','Versa'],
+  Ram:['1500','2500','3500','ProMaster'],
+  Dodge:['Charger','Challenger','Durango','Journey','Grand Caravan'],
+  Jeep:['Wrangler','Grand Cherokee','Cherokee','Compass','Gladiator','Renegade'],
+  BMW:['3 Series','5 Series','X3','X5','X1','4 Series','X7'],
+  Mercedes:['C-Class','E-Class','GLE','GLC','GLS','A-Class'],
+  Hyundai:['Elantra','Sonata','Tucson','Santa Fe','Palisade','Kona','Venue','Ioniq'],
+  Kia:['Optima','K5','Sorento','Sportage','Soul','Telluride','Forte','Rio'],
+  Subaru:['Outback','Forester','Impreza','Crosstrek','WRX','Legacy','Ascent'],
+  Volkswagen:['Jetta','Passat','Tiguan','Atlas','Golf','Taos'],
+  Buick:['Enclave','Encore','Envision','LaCrosse'],
+  Cadillac:['Escalade','XT5','CT5','SRX','XT4'],
+  Lexus:['RX','ES','IS','GX','NX','LX','UX'],
+  Acura:['MDX','RDX','TLX','ILX'],
+  Tesla:['Model 3','Model Y','Model S','Model X'],
+};
+
+function renderFitmentListHTML(fitment, removeFn='removeFitmentEntry') {
+  if (!fitment || !fitment.length) return '<p style="font-size:12px;color:var(--muted);margin:0 0 4px">No vehicles tagged yet.</p>';
+  return fitment.map((f, idx) =>
+    `<div style="display:flex;align-items:center;gap:6px;background:rgba(77,158,255,0.08);border:1px solid rgba(77,158,255,0.2);border-radius:8px;padding:6px 10px;margin-bottom:5px;font-size:12px;font-weight:600">
+      <span style="flex:1">${f.make} ${f.model} (${f.yearStart}–${f.yearEnd})</span>
+      <button type="button" onclick="${removeFn}(${idx})" style="background:rgba(255,77,109,0.12);border:1px solid rgba(255,77,109,0.2);border-radius:6px;padding:2px 7px;color:var(--accent);font-size:11px;cursor:pointer">✕</button>
+    </div>`
+  ).join('');
+}
+
+function renderFitmentList(containerId, fitment, isEdit) {
+  const el = document.getElementById(containerId);
+  if (el) el.innerHTML = renderFitmentListHTML(fitment);
+}
+
+function initFitmentMakes() {
+  const sel = document.getElementById('f-make');
+  if (!sel) return;
+  sel.innerHTML = '<option value="">Make</option>' + Object.keys(VEHICLE_DATA_MAKES).map(m=>`<option value="${m}">${m}</option>`).join('');
+}
+
+function onFitmentMakeChange() {
+  const make = document.getElementById('f-make').value;
+  const modelSel = document.getElementById('f-model');
+  const models = make && VEHICLE_DATA_MAKES[make] ? VEHICLE_DATA_MAKES[make] : [];
+  modelSel.innerHTML = '<option value="">Model</option>' + models.map(m=>`<option value="${m}">${m}</option>`).join('');
+}
+
+function onEditFitmentMakeChange() {
+  const make = document.getElementById('ed-f-make').value;
+  const modelSel = document.getElementById('ed-f-model');
+  const models = make && VEHICLE_DATA_MAKES[make] ? VEHICLE_DATA_MAKES[make] : [];
+  modelSel.innerHTML = '<option value="">Model</option>' + models.map(m=>`<option value="${m}">${m}</option>`).join('');
+}
+
+function addFitmentEntry() {
+  const make = document.getElementById('f-make').value;
+  const model = document.getElementById('f-model').value;
+  const ys = parseInt(document.getElementById('f-year-start').value);
+  const ye = parseInt(document.getElementById('f-year-end').value);
+  if (!make || !model || !ys || !ye) { alert('Select make, model, and both years.'); return; }
+  if (ys > ye) { alert('From year must be ≤ To year.'); return; }
+  currentFitment.push({ make, model, yearStart: ys, yearEnd: ye });
+  renderFitmentList('fitment-list', currentFitment, false);
+  document.getElementById('f-make').value = '';
+  document.getElementById('f-model').innerHTML = '<option value="">Model</option>';
+  document.getElementById('f-year-start').value = '';
+  document.getElementById('f-year-end').value = '';
+}
+
+function removeFitmentEntry(idx) {
+  currentFitment.splice(idx, 1);
+  renderFitmentList('fitment-list', currentFitment, false);
+}
+
+function addEditFitmentEntry() {
+  const make = document.getElementById('ed-f-make').value;
+  const model = document.getElementById('ed-f-model').value;
+  const ys = parseInt(document.getElementById('ed-f-year-start').value);
+  const ye = parseInt(document.getElementById('ed-f-year-end').value);
+  if (!make || !model || !ys || !ye) { alert('Select make, model, and both years.'); return; }
+  if (ys > ye) { alert('From year must be ≤ To year.'); return; }
+  window._editFitment = window._editFitment || [];
+  window._editFitment.push({ make, model, yearStart: ys, yearEnd: ye });
+  document.getElementById('ed-fitment-list').innerHTML = renderFitmentListHTML(window._editFitment, 'removeEditFitmentEntry');
+  document.getElementById('ed-f-make').value = '';
+  document.getElementById('ed-f-model').innerHTML = '<option value="">Model</option>';
+  document.getElementById('ed-f-year-start').value = '';
+  document.getElementById('ed-f-year-end').value = '';
+}
+
+function removeEditFitmentEntry(idx) {
+  window._editFitment = window._editFitment || [];
+  window._editFitment.splice(idx, 1);
+  document.getElementById('ed-fitment-list').innerHTML = renderFitmentListHTML(window._editFitment, 'removeEditFitmentEntry');
+}
 let capital = { amount: 0, date: '', notes: '' };
 let saveTimer = null;
 let unsubscribe = null;
@@ -593,6 +706,7 @@ function loadFromLocalStorage() {
   setSyncStatus('err');
   document.getElementById('loading-screen').style.display = 'none';
   document.getElementById('app').style.display = 'flex';
+  initFitmentMakes();
   render();
 }
 
@@ -618,6 +732,7 @@ waitForFirebase(async () => {
   document.getElementById('e-date').value = today();
   document.getElementById('loading-screen').style.display = 'none';
   document.getElementById('app').style.display = 'flex';
+  initFitmentMakes();
   render();
 });
 
@@ -766,13 +881,14 @@ async function addInventory() {
       if (url) imgUrls.push(url);
     }
   }
-  const item = { id, condition: invCondition, size, brand: document.getElementById('i-brand').value.trim(), type: document.getElementById('i-type').value, qty, cost: parseFloat(document.getElementById('i-cost').value)||0, sell: parseFloat(document.getElementById('i-sell').value)||0, lowAt: parseInt(document.getElementById('i-low').value)||2, notes: document.getElementById('i-notes').value.trim() };
+  const item = { id, condition: invCondition, size, brand: document.getElementById('i-brand').value.trim(), type: document.getElementById('i-type').value, qty, cost: parseFloat(document.getElementById('i-cost').value)||0, sell: parseFloat(document.getElementById('i-sell').value)||0, lowAt: parseInt(document.getElementById('i-low').value)||2, notes: document.getElementById('i-notes').value.trim(), fitment: [...currentFitment] };
   if (imgUrls.length) { item.imgUrls = imgUrls; item.imgUrl = imgUrls[0]; }
   const imgUrl = imgUrls[0] || null;
   inventory.unshift(item);
   inventory = sortInventoryBySize(inventory);
   save();
   ['i-size','i-brand','i-qty','i-cost','i-sell','i-low','i-notes'].forEach(fid => document.getElementById(fid).value = '');
+  currentFitment = []; renderFitmentList('fitment-list', currentFitment, false);
   const imgInput = document.getElementById('i-img');
   if (imgInput) imgInput.value = '';
   const preview = document.getElementById('i-img-preview');
@@ -1312,6 +1428,17 @@ function editInventory(id) {
       <div class="field"><label>Selling Price ($)</label><input type="number" id="ed-sell" value="${item.sell||0}" step="0.01"/></div>
       <div class="field span2"><label>Notes</label><input type="text" id="ed-notes" value="${item.notes||''}"/></div>
       <div class="field span2">
+        <label>Compatible Vehicles</label>
+        <div id="ed-fitment-list" style="margin-bottom:8px">${renderFitmentListHTML(item.fitment||[],'removeEditFitmentEntry')}</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 60px 60px auto;gap:6px;align-items:end">
+          <div><select id="ed-f-make" onchange="onEditFitmentMakeChange()" style="font-size:12px"><option value="">Make</option>${Object.keys(VEHICLE_DATA_MAKES).map(m=>`<option value="${m}">${m}</option>`).join('')}</select></div>
+          <div><select id="ed-f-model" style="font-size:12px"><option value="">Model</option></select></div>
+          <div><input type="number" id="ed-f-year-start" placeholder="From" min="1990" max="2030" style="font-size:12px;padding:8px 6px"/></div>
+          <div><input type="number" id="ed-f-year-end" placeholder="To" min="1990" max="2030" style="font-size:12px;padding:8px 6px"/></div>
+          <button type="button" onclick="addEditFitmentEntry()" style="padding:8px 10px;background:rgba(77,158,255,0.15);border:1px solid rgba(77,158,255,0.3);border-radius:9px;color:var(--blue);font-weight:700;font-size:13px;cursor:pointer;white-space:nowrap">+ Add</button>
+        </div>
+      </div>
+      <div class="field span2">
         <label>Tire Photos (upload new to add more)</label>
         <input type="file" id="ed-img" accept="image/*" multiple onchange="previewEditImg(this)" style="padding:6px;cursor:pointer"/>
         <div id="ed-img-preview" style="display:none;margin-top:8px;gap:8px;flex-wrap:wrap;"></div>
@@ -1319,6 +1446,7 @@ function editInventory(id) {
       </div>
     </div>`;
   window._editInvCondition = item.condition || 'New';
+  window._editFitment = [...(item.fitment || [])];
   document.getElementById('edit-overlay').style.display = 'flex';
 }
 
@@ -1392,6 +1520,7 @@ async function saveEdit() {
       cost: parseFloat(document.getElementById('ed-cost').value) || 0,
       sell: parseFloat(document.getElementById('ed-sell').value) || 0,
       notes: document.getElementById('ed-notes').value.trim(),
+      fitment: [...(window._editFitment || [])],
     };
     inventory = sortInventoryBySize(inventory);
     save(); render(); closeEdit(); showToast('✓ Tire updated!');

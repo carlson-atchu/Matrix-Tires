@@ -335,6 +335,9 @@ let selectedServices = [];
 let currentPage = 'home';
 let vehicleSizeFilter = [];
 let vehicleFilterLabel = '';
+let vehicleMakeFilter = '';
+let vehicleModelFilter = '';
+let vehicleYearFilter = '';
 
 // ── Navbar scroll effect ──────────────────────────────────────────────────────
 window.addEventListener('scroll', () => {
@@ -1343,6 +1346,9 @@ function vehicleSearch() {
     showToast(`⚠ No tire data for ${year} ${make} ${model}`); return;
   }
   vehicleSizeFilter = getSizesForYear(info, year);
+  vehicleMakeFilter = make;
+  vehicleModelFilter = model;
+  vehicleYearFilter = year;
   vehicleFilterLabel = `${year ? year + ' ' : ''}${make} ${model}`;
   document.getElementById('searchInput').value = '';
   showPage('shop');
@@ -1352,6 +1358,9 @@ function vehicleSearch() {
 function clearVehicleFilter() {
   vehicleSizeFilter = [];
   vehicleFilterLabel = '';
+  vehicleMakeFilter = '';
+  vehicleModelFilter = '';
+  vehicleYearFilter = '';
   document.getElementById('vehicleFilterBanner').style.display = 'none';
   applyFilters();
 }
@@ -1376,10 +1385,21 @@ function applyFilters() {
   }
 
   let results = allInventory.filter(i => {
-    // Vehicle size filter — only show tires matching the vehicle's sizes
     if (vehicleSizeFilter.length > 0) {
-      const norm = (i.size||'').replace(/\s/g,'').toUpperCase();
-      if (!vehicleSizeFilter.some(s => s.replace(/\s/g,'').toUpperCase() === norm)) return false;
+      if (i.fitment && i.fitment.length > 0) {
+        // Tire has manual fitment tags — use those (most accurate)
+        const yr = vehicleYearFilter ? parseInt(vehicleYearFilter) : null;
+        const matched = i.fitment.some(f =>
+          f.make === vehicleMakeFilter &&
+          f.model === vehicleModelFilter &&
+          (!yr || (yr >= (f.yearStart||0) && yr <= (f.yearEnd||9999)))
+        );
+        if (!matched) return false;
+      } else {
+        // No fitment tags — fall back to size matching
+        const norm = (i.size||'').replace(/\s/g,'').toUpperCase();
+        if (!vehicleSizeFilter.some(s => s.replace(/\s/g,'').toUpperCase() === norm)) return false;
+      }
     }
     if (cond && i.condition !== cond) return false;
     if (brand && i.brand !== brand) return false;
@@ -1410,6 +1430,9 @@ function applyFilters() {
 function clearFilters() {
   vehicleSizeFilter = [];
   vehicleFilterLabel = '';
+  vehicleMakeFilter = '';
+  vehicleModelFilter = '';
+  vehicleYearFilter = '';
   document.getElementById('searchInput').value = '';
   document.getElementById('filterCond').value = '';
   document.getElementById('filterBrand').value = '';
