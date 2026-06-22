@@ -1232,8 +1232,8 @@ const VEHICLE_DATA = {
   Acura: {
     MDX: {
       start:2001, end:2025,
-      sizes:['235/65R17','245/55R19','255/45R20'],
-      yearRanges:[{start:2001,end:2006,sizes:['235/65R17']},{start:2007,end:2013,sizes:['245/55R19']},{start:2014,end:2025,sizes:['255/45R20']}]
+      sizes:['235/65R17','245/55R19','255/45R20','255/50R20'],
+      yearRanges:[{start:2001,end:2006,sizes:['235/65R17']},{start:2007,end:2013,sizes:['245/55R19']},{start:2014,end:2021,sizes:['255/45R20']},{start:2022,end:2025,sizes:['255/50R20']}]
     },
     RDX: {
       start:2007, end:2025,
