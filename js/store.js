@@ -554,180 +554,724 @@ function scrollToShop() {
 // ── Vehicle search ────────────────────────────────────────────────────────────
 const VEHICLE_DATA = {
   Toyota: {
-    Camry:       { start:2000, end:2025, sizes:['205/65R15','215/60R16','215/55R17','225/45R18'] },
-    Corolla:     { start:2000, end:2025, sizes:['185/65R15','195/65R15','205/55R16','225/40R18'] },
-    RAV4:        { start:2000, end:2025, sizes:['215/70R16','225/65R17','235/55R18','235/50R19'] },
-    Highlander:  { start:2001, end:2025, sizes:['225/65R17','245/55R19','245/60R20'] },
-    Tacoma:      { start:2000, end:2025, sizes:['265/70R16','245/75R17','265/60R18','245/60R20'] },
-    Tundra:      { start:2000, end:2025, sizes:['255/70R18','275/55R20','265/50R22'] },
-    Prius:       { start:2001, end:2025, sizes:['175/65R15','195/65R15','215/45R17'] },
-    '4Runner':   { start:2000, end:2025, sizes:['265/70R17','265/60R18','265/65R17'] },
-    Sienna:      { start:2000, end:2025, sizes:['215/65R16','225/60R17','235/55R18'] },
-    Avalon:      { start:2000, end:2022, sizes:['215/55R17','235/45R18','235/40R19'] },
-    Venza:       { start:2009, end:2015, sizes:['235/55R19','245/45R19'] },
-    'C-HR':      { start:2018, end:2025, sizes:['215/50R18','225/50R18'] },
+    Camry: {
+      start:2000, end:2025,
+      sizes:['205/65R15','215/60R16','215/55R17','225/45R18'],
+      yearRanges:[{start:2000,end:2006,sizes:['205/65R15']},{start:2007,end:2011,sizes:['215/60R16']},{start:2012,end:2017,sizes:['215/55R17']},{start:2018,end:2025,sizes:['225/45R18']}]
+    },
+    Corolla: {
+      start:2000, end:2025,
+      sizes:['185/65R15','195/65R15','205/55R16','225/40R18'],
+      yearRanges:[{start:2000,end:2002,sizes:['185/65R15']},{start:2003,end:2013,sizes:['195/65R15']},{start:2014,end:2018,sizes:['205/55R16']},{start:2019,end:2025,sizes:['225/40R18']}]
+    },
+    RAV4: {
+      start:2000, end:2025,
+      sizes:['215/70R16','225/65R17','235/55R18','235/50R19'],
+      yearRanges:[{start:2000,end:2005,sizes:['215/70R16']},{start:2006,end:2012,sizes:['225/65R17']},{start:2013,end:2018,sizes:['235/55R18']},{start:2019,end:2025,sizes:['235/50R19']}]
+    },
+    Highlander: {
+      start:2001, end:2025,
+      sizes:['225/65R17','245/55R19','245/60R20'],
+      yearRanges:[{start:2001,end:2007,sizes:['225/65R17']},{start:2008,end:2019,sizes:['245/55R19']},{start:2020,end:2025,sizes:['245/60R20']}]
+    },
+    Tacoma: {
+      start:2000, end:2025,
+      sizes:['265/70R16','245/75R17','265/60R18','245/60R20'],
+      yearRanges:[{start:2000,end:2004,sizes:['265/70R16']},{start:2005,end:2015,sizes:['245/75R17']},{start:2016,end:2023,sizes:['265/60R18']},{start:2024,end:2025,sizes:['245/60R20']}]
+    },
+    Tundra: {
+      start:2000, end:2025,
+      sizes:['255/70R18','275/55R20','265/50R22'],
+      yearRanges:[{start:2000,end:2006,sizes:['255/70R18']},{start:2007,end:2021,sizes:['275/55R20']},{start:2022,end:2025,sizes:['265/50R22']}]
+    },
+    Prius: {
+      start:2001, end:2025,
+      sizes:['175/65R15','195/65R15','215/45R17'],
+      yearRanges:[{start:2001,end:2009,sizes:['175/65R15']},{start:2010,end:2015,sizes:['195/65R15']},{start:2016,end:2025,sizes:['215/45R17']}]
+    },
+    '4Runner': {
+      start:2000, end:2025,
+      sizes:['265/70R17','265/60R18','265/65R17'],
+      yearRanges:[{start:2000,end:2009,sizes:['265/70R17']},{start:2010,end:2024,sizes:['265/60R18']},{start:2025,end:2025,sizes:['265/65R17']}]
+    },
+    Sienna: {
+      start:2000, end:2025,
+      sizes:['215/65R16','225/60R17','235/55R18'],
+      yearRanges:[{start:2000,end:2003,sizes:['215/65R16']},{start:2004,end:2010,sizes:['225/60R17']},{start:2011,end:2025,sizes:['235/55R18']}]
+    },
+    Avalon: {
+      start:2000, end:2022,
+      sizes:['215/55R17','235/45R18','235/40R19'],
+      yearRanges:[{start:2000,end:2004,sizes:['215/55R17']},{start:2005,end:2012,sizes:['235/45R18']},{start:2013,end:2022,sizes:['235/40R19']}]
+    },
+    Venza: {
+      start:2009, end:2015,
+      sizes:['235/55R19','245/45R19'],
+      yearRanges:[{start:2009,end:2012,sizes:['235/55R19']},{start:2013,end:2015,sizes:['245/45R19']}]
+    },
+    'C-HR': {
+      start:2018, end:2025,
+      sizes:['215/50R18','225/50R18'],
+      yearRanges:[{start:2018,end:2021,sizes:['215/50R18']},{start:2022,end:2025,sizes:['225/50R18']}]
+    },
   },
   Honda: {
-    Civic:     { start:2000, end:2025, sizes:['195/65R15','205/55R16','215/50R17','235/40R18'] },
-    Accord:    { start:2000, end:2025, sizes:['215/60R16','225/50R17','235/45R18','245/40R19'] },
-    'CR-V':    { start:2000, end:2025, sizes:['215/65R16','225/65R17','235/60R18','235/55R19'] },
-    Pilot:     { start:2003, end:2025, sizes:['235/65R17','245/60R18','255/50R20'] },
-    Odyssey:   { start:2000, end:2025, sizes:['225/60R17','235/60R18'] },
-    'HR-V':    { start:2016, end:2025, sizes:['215/60R16','215/55R17'] },
-    Ridgeline: { start:2006, end:2025, sizes:['245/60R18','255/50R20'] },
-    Passport:  { start:2019, end:2025, sizes:['245/60R18','255/45R20'] },
-    Fit:       { start:2009, end:2020, sizes:['185/55R16','175/65R14'] },
+    Civic: {
+      start:2000, end:2025,
+      sizes:['195/65R15','205/55R16','215/50R17','235/40R18'],
+      yearRanges:[{start:2000,end:2005,sizes:['195/65R15']},{start:2006,end:2011,sizes:['205/55R16']},{start:2012,end:2021,sizes:['215/50R17']},{start:2022,end:2025,sizes:['235/40R18']}]
+    },
+    Accord: {
+      start:2000, end:2025,
+      sizes:['215/60R16','225/50R17','235/45R18','245/40R19'],
+      yearRanges:[{start:2000,end:2007,sizes:['215/60R16']},{start:2008,end:2012,sizes:['225/50R17']},{start:2013,end:2017,sizes:['235/45R18']},{start:2018,end:2025,sizes:['245/40R19']}]
+    },
+    'CR-V': {
+      start:2000, end:2025,
+      sizes:['215/65R16','225/65R17','235/60R18','235/55R19'],
+      yearRanges:[{start:2000,end:2006,sizes:['215/65R16']},{start:2007,end:2011,sizes:['225/65R17']},{start:2012,end:2016,sizes:['235/60R18']},{start:2017,end:2025,sizes:['235/55R19']}]
+    },
+    Pilot: {
+      start:2003, end:2025,
+      sizes:['235/65R17','245/60R18','255/50R20'],
+      yearRanges:[{start:2003,end:2008,sizes:['235/65R17']},{start:2009,end:2022,sizes:['245/60R18']},{start:2023,end:2025,sizes:['255/50R20']}]
+    },
+    Odyssey: {
+      start:2000, end:2025,
+      sizes:['225/60R17','235/60R18'],
+      yearRanges:[{start:2000,end:2010,sizes:['225/60R17']},{start:2011,end:2025,sizes:['235/60R18']}]
+    },
+    'HR-V': {
+      start:2016, end:2025,
+      sizes:['215/60R16','215/55R17'],
+      yearRanges:[{start:2016,end:2021,sizes:['215/60R16']},{start:2022,end:2025,sizes:['215/55R17']}]
+    },
+    Ridgeline: {
+      start:2006, end:2025,
+      sizes:['245/60R18','255/50R20'],
+      yearRanges:[{start:2006,end:2014,sizes:['245/60R18']},{start:2017,end:2025,sizes:['255/50R20']}]
+    },
+    Passport: {
+      start:2019, end:2025,
+      sizes:['245/60R18','255/45R20'],
+      yearRanges:[{start:2019,end:2022,sizes:['245/60R18']},{start:2023,end:2025,sizes:['255/45R20']}]
+    },
+    Fit: {
+      start:2009, end:2020,
+      sizes:['185/55R16','175/65R14'],
+      yearRanges:[{start:2009,end:2013,sizes:['185/55R16']},{start:2015,end:2020,sizes:['175/65R14']}]
+    },
   },
   Ford: {
-    'F-150':    { start:2000, end:2025, sizes:['255/70R17','265/60R18','275/55R20','275/45R22'] },
-    Mustang:    { start:2000, end:2025, sizes:['225/55R17','255/40R18','255/40R19','305/30R20'] },
-    Explorer:   { start:2000, end:2025, sizes:['225/60R18','255/45R20','275/45R21'] },
-    Escape:     { start:2001, end:2025, sizes:['215/65R16','235/55R17','235/50R18','235/45R19'] },
-    Edge:       { start:2007, end:2024, sizes:['235/60R18','245/50R20','265/40R21'] },
-    Bronco:     { start:2021, end:2025, sizes:['255/70R17','265/70R17','285/70R17'] },
-    Ranger:     { start:2000, end:2025, sizes:['225/70R16','255/65R17','265/50R20'] },
-    Expedition: { start:2000, end:2025, sizes:['255/65R17','275/55R20','275/50R22'] },
-    Maverick:   { start:2022, end:2025, sizes:['225/65R17','255/45R19'] },
-    'Transit Connect': { start:2010, end:2025, sizes:['215/55R16','215/60R16'] },
+    'F-150': {
+      start:2000, end:2025,
+      sizes:['255/70R17','265/60R18','275/55R20','275/45R22'],
+      yearRanges:[{start:2000,end:2003,sizes:['255/70R17']},{start:2004,end:2008,sizes:['265/60R18']},{start:2009,end:2020,sizes:['275/55R20']},{start:2021,end:2025,sizes:['275/45R22']}]
+    },
+    Mustang: {
+      start:2000, end:2025,
+      sizes:['225/55R17','255/40R18','255/40R19','305/30R20'],
+      yearRanges:[{start:2000,end:2004,sizes:['225/55R17']},{start:2005,end:2014,sizes:['255/40R18']},{start:2015,end:2023,sizes:['255/40R19']},{start:2024,end:2025,sizes:['305/30R20']}]
+    },
+    Explorer: {
+      start:2000, end:2025,
+      sizes:['225/60R18','255/45R20','275/45R21'],
+      yearRanges:[{start:2000,end:2010,sizes:['225/60R18']},{start:2011,end:2019,sizes:['255/45R20']},{start:2020,end:2025,sizes:['275/45R21']}]
+    },
+    Escape: {
+      start:2001, end:2025,
+      sizes:['215/65R16','235/55R17','235/50R18','235/45R19'],
+      yearRanges:[{start:2001,end:2007,sizes:['215/65R16']},{start:2008,end:2012,sizes:['235/55R17']},{start:2013,end:2019,sizes:['235/50R18']},{start:2020,end:2025,sizes:['235/45R19']}]
+    },
+    Edge: {
+      start:2007, end:2024,
+      sizes:['235/60R18','245/50R20','265/40R21'],
+      yearRanges:[{start:2007,end:2014,sizes:['235/60R18']},{start:2015,end:2020,sizes:['245/50R20']},{start:2021,end:2024,sizes:['265/40R21']}]
+    },
+    Bronco: {
+      start:2021, end:2025,
+      sizes:['255/70R17','265/70R17','285/70R17'],
+      yearRanges:[{start:2021,end:2025,sizes:['255/70R17','265/70R17','285/70R17']}]
+    },
+    Ranger: {
+      start:2000, end:2025,
+      sizes:['225/70R16','255/65R17','265/50R20'],
+      yearRanges:[{start:2000,end:2011,sizes:['225/70R16']},{start:2012,end:2019,sizes:['255/65R17']},{start:2020,end:2025,sizes:['265/50R20']}]
+    },
+    Expedition: {
+      start:2000, end:2025,
+      sizes:['255/65R17','275/55R20','275/50R22'],
+      yearRanges:[{start:2000,end:2006,sizes:['255/65R17']},{start:2007,end:2017,sizes:['275/55R20']},{start:2018,end:2025,sizes:['275/50R22']}]
+    },
+    Maverick: {
+      start:2022, end:2025,
+      sizes:['225/65R17','255/45R19'],
+      yearRanges:[{start:2022,end:2022,sizes:['225/65R17']},{start:2023,end:2025,sizes:['255/45R19']}]
+    },
+    'Transit Connect': {
+      start:2010, end:2025,
+      sizes:['215/55R16','215/60R16'],
+      yearRanges:[{start:2010,end:2018,sizes:['215/55R16']},{start:2019,end:2025,sizes:['215/60R16']}]
+    },
   },
   Chevrolet: {
-    Silverado:   { start:2000, end:2025, sizes:['245/75R16','265/70R17','275/60R20','275/55R20'] },
-    Malibu:      { start:2000, end:2024, sizes:['215/60R16','225/55R17','235/45R18'] },
-    Equinox:     { start:2005, end:2025, sizes:['225/65R17','235/55R18','235/50R19','255/45R20'] },
-    Tahoe:       { start:2000, end:2025, sizes:['255/70R17','275/55R20','285/45R22'] },
-    Suburban:    { start:2000, end:2025, sizes:['265/65R18','275/55R20','285/45R22'] },
-    Traverse:    { start:2009, end:2025, sizes:['245/60R18','255/55R20','275/45R21'] },
-    Colorado:    { start:2004, end:2025, sizes:['245/70R16','265/65R17','265/60R18'] },
-    Trailblazer: { start:2002, end:2009, sizes:['235/70R16','245/65R17','255/60R18'] },
-    Trax:        { start:2013, end:2025, sizes:['215/55R18','225/50R17'] },
+    Silverado: {
+      start:2000, end:2025,
+      sizes:['245/75R16','265/70R17','275/60R20','275/55R20'],
+      yearRanges:[{start:2000,end:2006,sizes:['245/75R16']},{start:2007,end:2013,sizes:['265/70R17']},{start:2014,end:2018,sizes:['275/60R20']},{start:2019,end:2025,sizes:['275/55R20']}]
+    },
+    Malibu: {
+      start:2000, end:2024,
+      sizes:['215/60R16','225/55R17','235/45R18'],
+      yearRanges:[{start:2000,end:2007,sizes:['215/60R16']},{start:2008,end:2012,sizes:['225/55R17']},{start:2013,end:2024,sizes:['235/45R18']}]
+    },
+    Equinox: {
+      start:2005, end:2025,
+      sizes:['225/65R17','235/55R18','235/50R19','255/45R20'],
+      yearRanges:[{start:2005,end:2009,sizes:['225/65R17']},{start:2010,end:2017,sizes:['235/55R18']},{start:2018,end:2021,sizes:['235/50R19']},{start:2022,end:2025,sizes:['255/45R20']}]
+    },
+    Tahoe: {
+      start:2000, end:2025,
+      sizes:['255/70R17','275/55R20','285/45R22'],
+      yearRanges:[{start:2000,end:2006,sizes:['255/70R17']},{start:2007,end:2020,sizes:['275/55R20']},{start:2021,end:2025,sizes:['285/45R22']}]
+    },
+    Suburban: {
+      start:2000, end:2025,
+      sizes:['265/65R18','275/55R20','285/45R22'],
+      yearRanges:[{start:2000,end:2006,sizes:['265/65R18']},{start:2007,end:2020,sizes:['275/55R20']},{start:2021,end:2025,sizes:['285/45R22']}]
+    },
+    Traverse: {
+      start:2009, end:2025,
+      sizes:['245/60R18','255/55R20','275/45R21'],
+      yearRanges:[{start:2009,end:2017,sizes:['245/60R18']},{start:2018,end:2021,sizes:['255/55R20']},{start:2022,end:2025,sizes:['275/45R21']}]
+    },
+    Colorado: {
+      start:2004, end:2025,
+      sizes:['245/70R16','265/65R17','265/60R18'],
+      yearRanges:[{start:2004,end:2012,sizes:['245/70R16']},{start:2015,end:2022,sizes:['265/65R17']},{start:2023,end:2025,sizes:['265/60R18']}]
+    },
+    Trailblazer: {
+      start:2002, end:2009,
+      sizes:['235/70R16','245/65R17','255/60R18'],
+      yearRanges:[{start:2002,end:2004,sizes:['235/70R16']},{start:2005,end:2007,sizes:['245/65R17']},{start:2008,end:2009,sizes:['255/60R18']}]
+    },
+    Trax: {
+      start:2013, end:2025,
+      sizes:['215/55R18','225/50R17'],
+      yearRanges:[{start:2013,end:2022,sizes:['215/55R18']},{start:2023,end:2025,sizes:['225/50R17']}]
+    },
   },
   GMC: {
-    Sierra:   { start:2000, end:2025, sizes:['245/75R16','265/70R17','275/60R20','275/55R20'] },
-    Yukon:    { start:2000, end:2025, sizes:['255/70R17','275/55R20','285/45R22'] },
-    Terrain:  { start:2010, end:2025, sizes:['225/65R17','235/55R18','235/50R19','255/45R20'] },
-    Acadia:   { start:2007, end:2025, sizes:['245/60R18','255/55R20','275/45R21'] },
-    Canyon:   { start:2004, end:2025, sizes:['245/70R16','265/65R17','265/60R18'] },
+    Sierra: {
+      start:2000, end:2025,
+      sizes:['245/75R16','265/70R17','275/60R20','275/55R20'],
+      yearRanges:[{start:2000,end:2006,sizes:['245/75R16']},{start:2007,end:2013,sizes:['265/70R17']},{start:2014,end:2018,sizes:['275/60R20']},{start:2019,end:2025,sizes:['275/55R20']}]
+    },
+    Yukon: {
+      start:2000, end:2025,
+      sizes:['255/70R17','275/55R20','285/45R22'],
+      yearRanges:[{start:2000,end:2006,sizes:['255/70R17']},{start:2007,end:2020,sizes:['275/55R20']},{start:2021,end:2025,sizes:['285/45R22']}]
+    },
+    Terrain: {
+      start:2010, end:2025,
+      sizes:['225/65R17','235/55R18','235/50R19','255/45R20'],
+      yearRanges:[{start:2010,end:2017,sizes:['225/65R17']},{start:2018,end:2021,sizes:['235/55R18']},{start:2022,end:2025,sizes:['255/45R20']}]
+    },
+    Acadia: {
+      start:2007, end:2025,
+      sizes:['245/60R18','255/55R20','275/45R21'],
+      yearRanges:[{start:2007,end:2016,sizes:['245/60R18']},{start:2017,end:2021,sizes:['255/55R20']},{start:2022,end:2025,sizes:['275/45R21']}]
+    },
+    Canyon: {
+      start:2004, end:2025,
+      sizes:['245/70R16','265/65R17','265/60R18'],
+      yearRanges:[{start:2004,end:2012,sizes:['245/70R16']},{start:2015,end:2022,sizes:['265/65R17']},{start:2023,end:2025,sizes:['265/60R18']}]
+    },
   },
   Nissan: {
-    Altima:     { start:2000, end:2025, sizes:['215/60R16','215/55R17','235/45R18'] },
-    Sentra:     { start:2000, end:2025, sizes:['195/65R15','205/55R16','215/45R17'] },
-    Rogue:      { start:2008, end:2025, sizes:['215/65R17','225/60R17','225/55R19'] },
-    Pathfinder: { start:2000, end:2025, sizes:['245/65R17','265/50R20','255/50R20'] },
-    Murano:     { start:2003, end:2025, sizes:['235/65R18','235/55R20','255/45R20'] },
-    Frontier:   { start:2000, end:2025, sizes:['265/70R16','255/65R17','265/60R18'] },
-    Maxima:     { start:2000, end:2023, sizes:['215/55R17','245/40R19'] },
-    Armada:     { start:2004, end:2025, sizes:['275/65R18','285/50R20','275/50R22'] },
-    Kicks:      { start:2018, end:2025, sizes:['205/60R16','205/55R17'] },
-    Versa:      { start:2006, end:2025, sizes:['175/65R14','185/60R15','205/55R16'] },
+    Altima: {
+      start:2000, end:2025,
+      sizes:['215/60R16','215/55R17','235/45R18'],
+      yearRanges:[{start:2000,end:2006,sizes:['215/60R16']},{start:2007,end:2012,sizes:['215/55R17']},{start:2013,end:2025,sizes:['235/45R18']}]
+    },
+    Sentra: {
+      start:2000, end:2025,
+      sizes:['195/65R15','205/55R16','215/45R17'],
+      yearRanges:[{start:2000,end:2006,sizes:['195/65R15']},{start:2007,end:2012,sizes:['205/55R16']},{start:2013,end:2025,sizes:['215/45R17']}]
+    },
+    Rogue: {
+      start:2008, end:2025,
+      sizes:['215/65R17','225/60R17','225/55R19'],
+      yearRanges:[{start:2008,end:2013,sizes:['215/65R17']},{start:2014,end:2020,sizes:['225/60R17']},{start:2021,end:2025,sizes:['225/55R19']}]
+    },
+    Pathfinder: {
+      start:2000, end:2025,
+      sizes:['245/65R17','265/50R20','255/50R20'],
+      yearRanges:[{start:2000,end:2012,sizes:['245/65R17']},{start:2013,end:2021,sizes:['265/50R20']},{start:2022,end:2025,sizes:['255/50R20']}]
+    },
+    Murano: {
+      start:2003, end:2025,
+      sizes:['235/65R18','235/55R20','255/45R20'],
+      yearRanges:[{start:2003,end:2008,sizes:['235/65R18']},{start:2009,end:2014,sizes:['235/55R20']},{start:2015,end:2025,sizes:['255/45R20']}]
+    },
+    Frontier: {
+      start:2000, end:2025,
+      sizes:['265/70R16','255/65R17','265/60R18'],
+      yearRanges:[{start:2000,end:2004,sizes:['265/70R16']},{start:2005,end:2021,sizes:['255/65R17']},{start:2022,end:2025,sizes:['265/60R18']}]
+    },
+    Maxima: {
+      start:2000, end:2023,
+      sizes:['215/55R17','245/40R19'],
+      yearRanges:[{start:2000,end:2015,sizes:['215/55R17']},{start:2016,end:2023,sizes:['245/40R19']}]
+    },
+    Armada: {
+      start:2004, end:2025,
+      sizes:['275/65R18','285/50R20','275/50R22'],
+      yearRanges:[{start:2004,end:2016,sizes:['275/65R18']},{start:2017,end:2021,sizes:['285/50R20']},{start:2022,end:2025,sizes:['275/50R22']}]
+    },
+    Kicks: {
+      start:2018, end:2025,
+      sizes:['205/60R16','205/55R17'],
+      yearRanges:[{start:2018,end:2021,sizes:['205/60R16']},{start:2022,end:2025,sizes:['205/55R17']}]
+    },
+    Versa: {
+      start:2006, end:2025,
+      sizes:['175/65R14','185/60R15','205/55R16'],
+      yearRanges:[{start:2006,end:2011,sizes:['175/65R14']},{start:2012,end:2019,sizes:['185/60R15']},{start:2020,end:2025,sizes:['205/55R16']}]
+    },
   },
   Ram: {
-    '1500':      { start:2000, end:2025, sizes:['245/70R17','265/60R18','275/55R20','275/60R20'] },
-    '2500':      { start:2000, end:2025, sizes:['265/70R17','265/60R20','285/60R20'] },
-    '3500':      { start:2000, end:2025, sizes:['235/80R17','265/70R17','285/60R20'] },
-    ProMaster:   { start:2014, end:2025, sizes:['225/75R16','235/65R16'] },
+    '1500': {
+      start:2000, end:2025,
+      sizes:['245/70R17','265/60R18','275/55R20','275/60R20'],
+      yearRanges:[{start:2000,end:2008,sizes:['245/70R17']},{start:2009,end:2018,sizes:['265/60R18']},{start:2019,end:2021,sizes:['275/55R20']},{start:2022,end:2025,sizes:['275/60R20']}]
+    },
+    '2500': {
+      start:2000, end:2025,
+      sizes:['265/70R17','265/60R20','285/60R20'],
+      yearRanges:[{start:2000,end:2009,sizes:['265/70R17']},{start:2010,end:2021,sizes:['265/60R20']},{start:2022,end:2025,sizes:['285/60R20']}]
+    },
+    '3500': {
+      start:2000, end:2025,
+      sizes:['235/80R17','265/70R17','285/60R20'],
+      yearRanges:[{start:2000,end:2009,sizes:['235/80R17']},{start:2010,end:2021,sizes:['265/70R17']},{start:2022,end:2025,sizes:['285/60R20']}]
+    },
+    ProMaster: {
+      start:2014, end:2025,
+      sizes:['225/75R16','235/65R16'],
+      yearRanges:[{start:2014,end:2019,sizes:['225/75R16']},{start:2020,end:2025,sizes:['235/65R16']}]
+    },
   },
   Dodge: {
-    Charger:    { start:2006, end:2025, sizes:['215/65R17','225/55R18','245/45R20','255/45R20'] },
-    Challenger: { start:2008, end:2023, sizes:['225/55R18','235/55R19','275/40R20','305/35R20'] },
-    Durango:    { start:2000, end:2025, sizes:['235/65R17','265/50R20','295/45R20'] },
-    Journey:    { start:2009, end:2020, sizes:['225/65R17','225/60R17','225/55R19'] },
-    Grand_Caravan: { start:2000, end:2020, sizes:['215/65R16','225/65R16'] },
+    Charger: {
+      start:2006, end:2025,
+      sizes:['215/65R17','225/55R18','245/45R20','255/45R20'],
+      yearRanges:[{start:2006,end:2010,sizes:['215/65R17']},{start:2011,end:2014,sizes:['225/55R18']},{start:2015,end:2022,sizes:['245/45R20']},{start:2023,end:2025,sizes:['255/45R20']}]
+    },
+    Challenger: {
+      start:2008, end:2023,
+      sizes:['225/55R18','235/55R19','275/40R20','305/35R20'],
+      yearRanges:[{start:2008,end:2014,sizes:['225/55R18']},{start:2015,end:2018,sizes:['235/55R19']},{start:2019,end:2021,sizes:['275/40R20']},{start:2022,end:2023,sizes:['305/35R20']}]
+    },
+    Durango: {
+      start:2000, end:2025,
+      sizes:['235/65R17','265/50R20','295/45R20'],
+      yearRanges:[{start:2000,end:2010,sizes:['235/65R17']},{start:2011,end:2013,sizes:['265/50R20']},{start:2014,end:2025,sizes:['295/45R20']}]
+    },
+    Journey: {
+      start:2009, end:2020,
+      sizes:['225/65R17','225/60R17','225/55R19'],
+      yearRanges:[{start:2009,end:2012,sizes:['225/65R17']},{start:2013,end:2016,sizes:['225/60R17']},{start:2017,end:2020,sizes:['225/55R19']}]
+    },
+    Grand_Caravan: {
+      start:2000, end:2020,
+      sizes:['215/65R16','225/65R16'],
+      yearRanges:[{start:2000,end:2010,sizes:['215/65R16']},{start:2011,end:2020,sizes:['225/65R16']}]
+    },
   },
   Jeep: {
-    Wrangler:         { start:2000, end:2025, sizes:['245/75R16','255/75R17','255/70R18','285/70R17'] },
-    'Grand Cherokee': { start:2000, end:2025, sizes:['245/65R17','265/50R20','275/45R21','295/40R21'] },
-    Cherokee:         { start:2014, end:2025, sizes:['225/60R17','235/55R18','245/50R20'] },
-    Compass:          { start:2007, end:2025, sizes:['215/60R17','225/55R18','235/50R19'] },
-    Gladiator:        { start:2020, end:2025, sizes:['255/75R17','255/70R18','285/70R17'] },
-    Renegade:         { start:2015, end:2025, sizes:['215/60R17','225/55R17'] },
+    Wrangler: {
+      start:2000, end:2025,
+      sizes:['245/75R16','255/75R17','255/70R18','285/70R17'],
+      yearRanges:[{start:2000,end:2006,sizes:['245/75R16']},{start:2007,end:2017,sizes:['255/75R17']},{start:2018,end:2025,sizes:['255/70R18','285/70R17']}]
+    },
+    'Grand Cherokee': {
+      start:2000, end:2025,
+      sizes:['245/65R17','265/50R20','275/45R21','295/40R21'],
+      yearRanges:[{start:2000,end:2010,sizes:['245/65R17']},{start:2011,end:2021,sizes:['265/50R20']},{start:2022,end:2025,sizes:['275/45R21']}]
+    },
+    Cherokee: {
+      start:2014, end:2025,
+      sizes:['225/60R17','235/55R18','245/50R20'],
+      yearRanges:[{start:2014,end:2018,sizes:['225/60R17']},{start:2019,end:2022,sizes:['235/55R18']},{start:2023,end:2025,sizes:['245/50R20']}]
+    },
+    Compass: {
+      start:2007, end:2025,
+      sizes:['215/60R17','225/55R18','235/50R19'],
+      yearRanges:[{start:2007,end:2016,sizes:['215/60R17']},{start:2017,end:2021,sizes:['225/55R18']},{start:2022,end:2025,sizes:['235/50R19']}]
+    },
+    Gladiator: {
+      start:2020, end:2025,
+      sizes:['255/75R17','255/70R18','285/70R17'],
+      yearRanges:[{start:2020,end:2025,sizes:['255/75R17','255/70R18','285/70R17']}]
+    },
+    Renegade: {
+      start:2015, end:2025,
+      sizes:['215/60R17','225/55R17'],
+      yearRanges:[{start:2015,end:2019,sizes:['215/60R17']},{start:2020,end:2025,sizes:['225/55R17']}]
+    },
   },
   BMW: {
-    '3 Series': { start:2000, end:2025, sizes:['205/55R16','225/45R17','225/40R18','245/35R19'] },
-    '5 Series': { start:2000, end:2025, sizes:['225/55R17','245/45R18','245/40R19','275/35R19'] },
-    'X3':       { start:2004, end:2025, sizes:['225/55R18','245/50R18','245/45R20','255/40R21'] },
-    'X5':       { start:2000, end:2025, sizes:['255/55R18','255/50R19','275/40R20','275/35R22'] },
-    'X1':       { start:2012, end:2025, sizes:['225/50R18','225/45R19','245/40R20'] },
-    '4 Series': { start:2014, end:2025, sizes:['225/45R18','245/40R18','255/35R19','275/30R20'] },
-    'X7':       { start:2019, end:2025, sizes:['275/50R20','285/45R21','315/35R22'] },
+    '3 Series': {
+      start:2000, end:2025,
+      sizes:['205/55R16','225/45R17','225/40R18','245/35R19'],
+      yearRanges:[{start:2000,end:2005,sizes:['205/55R16']},{start:2006,end:2011,sizes:['225/45R17']},{start:2012,end:2018,sizes:['225/40R18']},{start:2019,end:2025,sizes:['245/35R19']}]
+    },
+    '5 Series': {
+      start:2000, end:2025,
+      sizes:['225/55R17','245/45R18','245/40R19','275/35R19'],
+      yearRanges:[{start:2000,end:2003,sizes:['225/55R17']},{start:2004,end:2010,sizes:['245/45R18']},{start:2011,end:2017,sizes:['245/40R19']},{start:2018,end:2025,sizes:['275/35R19']}]
+    },
+    'X3': {
+      start:2004, end:2025,
+      sizes:['225/55R18','245/50R18','245/45R20','255/40R21'],
+      yearRanges:[{start:2004,end:2010,sizes:['225/55R18']},{start:2011,end:2017,sizes:['245/50R18']},{start:2018,end:2021,sizes:['245/45R20']},{start:2022,end:2025,sizes:['255/40R21']}]
+    },
+    'X5': {
+      start:2000, end:2025,
+      sizes:['255/55R18','255/50R19','275/40R20','275/35R22'],
+      yearRanges:[{start:2000,end:2006,sizes:['255/55R18']},{start:2007,end:2013,sizes:['255/50R19']},{start:2014,end:2018,sizes:['275/40R20']},{start:2019,end:2025,sizes:['275/35R22']}]
+    },
+    'X1': {
+      start:2012, end:2025,
+      sizes:['225/50R18','225/45R19','245/40R20'],
+      yearRanges:[{start:2012,end:2019,sizes:['225/50R18']},{start:2020,end:2022,sizes:['225/45R19']},{start:2023,end:2025,sizes:['245/40R20']}]
+    },
+    '4 Series': {
+      start:2014, end:2025,
+      sizes:['225/45R18','245/40R18','255/35R19','275/30R20'],
+      yearRanges:[{start:2014,end:2020,sizes:['225/45R18']},{start:2021,end:2025,sizes:['255/35R19']}]
+    },
+    'X7': {
+      start:2019, end:2025,
+      sizes:['275/50R20','285/45R21','315/35R22'],
+      yearRanges:[{start:2019,end:2022,sizes:['275/50R20']},{start:2023,end:2025,sizes:['285/45R21']}]
+    },
   },
   Mercedes: {
-    'C-Class':  { start:2000, end:2025, sizes:['205/55R16','225/45R17','245/40R18','255/35R19'] },
-    'E-Class':  { start:2000, end:2025, sizes:['225/55R17','245/45R17','245/40R18','275/35R19'] },
-    'GLE':      { start:2016, end:2025, sizes:['255/50R19','265/45R20','295/35R21'] },
-    'GLC':      { start:2016, end:2025, sizes:['235/60R18','245/50R19','255/45R20'] },
-    'GLS':      { start:2013, end:2025, sizes:['275/50R20','275/45R21','315/35R22'] },
-    'A-Class':  { start:2019, end:2025, sizes:['225/45R18','235/40R19'] },
+    'C-Class': {
+      start:2000, end:2025,
+      sizes:['205/55R16','225/45R17','245/40R18','255/35R19'],
+      yearRanges:[{start:2000,end:2007,sizes:['205/55R16']},{start:2008,end:2014,sizes:['225/45R17']},{start:2015,end:2021,sizes:['245/40R18']},{start:2022,end:2025,sizes:['255/35R19']}]
+    },
+    'E-Class': {
+      start:2000, end:2025,
+      sizes:['225/55R17','245/45R17','245/40R18','275/35R19'],
+      yearRanges:[{start:2000,end:2002,sizes:['225/55R17']},{start:2003,end:2009,sizes:['245/45R17']},{start:2010,end:2016,sizes:['245/40R18']},{start:2017,end:2025,sizes:['275/35R19']}]
+    },
+    'GLE': {
+      start:2016, end:2025,
+      sizes:['255/50R19','265/45R20','295/35R21'],
+      yearRanges:[{start:2016,end:2019,sizes:['255/50R19']},{start:2020,end:2022,sizes:['265/45R20']},{start:2023,end:2025,sizes:['295/35R21']}]
+    },
+    'GLC': {
+      start:2016, end:2025,
+      sizes:['235/60R18','245/50R19','255/45R20'],
+      yearRanges:[{start:2016,end:2019,sizes:['235/60R18']},{start:2020,end:2022,sizes:['245/50R19']},{start:2023,end:2025,sizes:['255/45R20']}]
+    },
+    'GLS': {
+      start:2013, end:2025,
+      sizes:['275/50R20','275/45R21','315/35R22'],
+      yearRanges:[{start:2013,end:2019,sizes:['275/50R20']},{start:2020,end:2022,sizes:['275/45R21']},{start:2023,end:2025,sizes:['315/35R22']}]
+    },
+    'A-Class': {
+      start:2019, end:2025,
+      sizes:['225/45R18','235/40R19'],
+      yearRanges:[{start:2019,end:2022,sizes:['225/45R18']},{start:2023,end:2025,sizes:['235/40R19']}]
+    },
   },
   Hyundai: {
-    Elantra:    { start:2000, end:2025, sizes:['195/65R15','205/55R16','225/45R17','245/40R18'] },
-    Sonata:     { start:2000, end:2025, sizes:['205/65R16','215/55R17','235/45R18','245/40R19'] },
-    Tucson:     { start:2005, end:2025, sizes:['215/65R16','225/60R17','235/55R18','255/45R19'] },
-    'Santa Fe': { start:2001, end:2025, sizes:['225/65R17','235/60R18','235/55R19','255/45R20'] },
-    Palisade:   { start:2020, end:2025, sizes:['245/60R18','245/55R20','255/45R20'] },
-    Kona:       { start:2018, end:2025, sizes:['205/60R16','215/55R17','235/45R18'] },
-    Venue:      { start:2020, end:2025, sizes:['205/60R16'] },
-    Ioniq:      { start:2017, end:2025, sizes:['195/65R15','205/55R16','215/45R17'] },
+    Elantra: {
+      start:2000, end:2025,
+      sizes:['195/65R15','205/55R16','225/45R17','245/40R18'],
+      yearRanges:[{start:2000,end:2006,sizes:['195/65R15']},{start:2007,end:2011,sizes:['205/55R16']},{start:2012,end:2020,sizes:['225/45R17']},{start:2021,end:2025,sizes:['245/40R18']}]
+    },
+    Sonata: {
+      start:2000, end:2025,
+      sizes:['205/65R16','215/55R17','235/45R18','245/40R19'],
+      yearRanges:[{start:2000,end:2005,sizes:['205/65R16']},{start:2006,end:2010,sizes:['215/55R17']},{start:2011,end:2019,sizes:['235/45R18']},{start:2020,end:2025,sizes:['245/40R19']}]
+    },
+    Tucson: {
+      start:2005, end:2025,
+      sizes:['215/65R16','225/60R17','235/55R18','255/45R19'],
+      yearRanges:[{start:2005,end:2009,sizes:['215/65R16']},{start:2010,end:2015,sizes:['225/60R17']},{start:2016,end:2021,sizes:['235/55R18']},{start:2022,end:2025,sizes:['255/45R19']}]
+    },
+    'Santa Fe': {
+      start:2001, end:2025,
+      sizes:['225/65R17','235/60R18','235/55R19','255/45R20'],
+      yearRanges:[{start:2001,end:2006,sizes:['225/65R17']},{start:2007,end:2012,sizes:['235/60R18']},{start:2013,end:2018,sizes:['235/55R19']},{start:2019,end:2025,sizes:['255/45R20']}]
+    },
+    Palisade: {
+      start:2020, end:2025,
+      sizes:['245/60R18','245/55R20','255/45R20'],
+      yearRanges:[{start:2020,end:2022,sizes:['245/60R18']},{start:2023,end:2025,sizes:['245/55R20']}]
+    },
+    Kona: {
+      start:2018, end:2025,
+      sizes:['205/60R16','215/55R17','235/45R18'],
+      yearRanges:[{start:2018,end:2021,sizes:['205/60R16']},{start:2022,end:2025,sizes:['215/55R17']}]
+    },
+    Venue: {
+      start:2020, end:2025,
+      sizes:['205/60R16'],
+      yearRanges:[{start:2020,end:2025,sizes:['205/60R16']}]
+    },
+    Ioniq: {
+      start:2017, end:2025,
+      sizes:['195/65R15','205/55R16','215/45R17'],
+      yearRanges:[{start:2017,end:2019,sizes:['195/65R15']},{start:2020,end:2022,sizes:['205/55R16']},{start:2023,end:2025,sizes:['215/45R17']}]
+    },
   },
   Kia: {
-    Optima:    { start:2001, end:2021, sizes:['205/65R16','215/55R17','225/45R18'] },
-    K5:        { start:2021, end:2025, sizes:['225/55R16','245/45R18','245/40R19'] },
-    Sorento:   { start:2003, end:2025, sizes:['225/65R17','235/60R18','235/55R19','255/45R20'] },
-    Sportage:  { start:2000, end:2025, sizes:['215/65R16','225/60R17','235/55R18','255/45R19'] },
-    Soul:      { start:2010, end:2025, sizes:['205/60R16','215/55R17','235/45R18'] },
-    Telluride: { start:2020, end:2025, sizes:['245/60R18','245/55R20','255/45R20'] },
-    Forte:     { start:2010, end:2025, sizes:['195/65R15','205/55R16','225/45R17'] },
-    Rio:       { start:2001, end:2025, sizes:['185/65R14','185/55R15','195/45R16'] },
+    Optima: {
+      start:2001, end:2021,
+      sizes:['205/65R16','215/55R17','225/45R18'],
+      yearRanges:[{start:2001,end:2010,sizes:['205/65R16']},{start:2011,end:2015,sizes:['215/55R17']},{start:2016,end:2021,sizes:['225/45R18']}]
+    },
+    K5: {
+      start:2021, end:2025,
+      sizes:['225/55R16','245/45R18','245/40R19'],
+      yearRanges:[{start:2021,end:2022,sizes:['225/55R16']},{start:2023,end:2025,sizes:['245/45R18']}]
+    },
+    Sorento: {
+      start:2003, end:2025,
+      sizes:['225/65R17','235/60R18','235/55R19','255/45R20'],
+      yearRanges:[{start:2003,end:2009,sizes:['225/65R17']},{start:2010,end:2015,sizes:['235/60R18']},{start:2016,end:2020,sizes:['235/55R19']},{start:2021,end:2025,sizes:['255/45R20']}]
+    },
+    Sportage: {
+      start:2000, end:2025,
+      sizes:['215/65R16','225/60R17','235/55R18','255/45R19'],
+      yearRanges:[{start:2000,end:2010,sizes:['215/65R16']},{start:2011,end:2016,sizes:['225/60R17']},{start:2017,end:2021,sizes:['235/55R18']},{start:2022,end:2025,sizes:['255/45R19']}]
+    },
+    Soul: {
+      start:2010, end:2025,
+      sizes:['205/60R16','215/55R17','235/45R18'],
+      yearRanges:[{start:2010,end:2013,sizes:['205/60R16']},{start:2014,end:2019,sizes:['215/55R17']},{start:2020,end:2025,sizes:['235/45R18']}]
+    },
+    Telluride: {
+      start:2020, end:2025,
+      sizes:['245/60R18','245/55R20','255/45R20'],
+      yearRanges:[{start:2020,end:2022,sizes:['245/60R18']},{start:2023,end:2025,sizes:['245/55R20']}]
+    },
+    Forte: {
+      start:2010, end:2025,
+      sizes:['195/65R15','205/55R16','225/45R17'],
+      yearRanges:[{start:2010,end:2013,sizes:['195/65R15']},{start:2014,end:2018,sizes:['205/55R16']},{start:2019,end:2025,sizes:['225/45R17']}]
+    },
+    Rio: {
+      start:2001, end:2025,
+      sizes:['185/65R14','185/55R15','195/45R16'],
+      yearRanges:[{start:2001,end:2011,sizes:['185/65R14']},{start:2012,end:2016,sizes:['185/55R15']},{start:2017,end:2025,sizes:['195/45R16']}]
+    },
   },
   Subaru: {
-    Outback:    { start:2000, end:2025, sizes:['215/60R16','225/60R17','225/55R18','225/55R19'] },
-    Forester:   { start:2000, end:2025, sizes:['215/60R16','225/55R17','225/50R18'] },
-    Impreza:    { start:2000, end:2025, sizes:['195/60R15','205/55R16','225/45R17','225/40R18'] },
-    Crosstrek:  { start:2013, end:2025, sizes:['215/60R16','225/55R17','225/50R18'] },
-    WRX:        { start:2002, end:2025, sizes:['205/55R16','225/45R17','245/40R18','245/35R19'] },
-    Legacy:     { start:2000, end:2025, sizes:['205/60R16','215/55R17','225/45R18'] },
-    Ascent:     { start:2019, end:2025, sizes:['235/65R17','245/55R19'] },
+    Outback: {
+      start:2000, end:2025,
+      sizes:['215/60R16','225/60R17','225/55R18','225/55R19'],
+      yearRanges:[{start:2000,end:2009,sizes:['215/60R16']},{start:2010,end:2014,sizes:['225/60R17']},{start:2015,end:2019,sizes:['225/55R18']},{start:2020,end:2025,sizes:['225/55R19']}]
+    },
+    Forester: {
+      start:2000, end:2025,
+      sizes:['215/60R16','225/55R17','225/50R18'],
+      yearRanges:[{start:2000,end:2013,sizes:['215/60R16']},{start:2014,end:2018,sizes:['225/55R17']},{start:2019,end:2025,sizes:['225/50R18']}]
+    },
+    Impreza: {
+      start:2000, end:2025,
+      sizes:['195/60R15','205/55R16','225/45R17','225/40R18'],
+      yearRanges:[{start:2000,end:2006,sizes:['195/60R15']},{start:2007,end:2011,sizes:['205/55R16']},{start:2012,end:2016,sizes:['225/45R17']},{start:2017,end:2025,sizes:['225/40R18']}]
+    },
+    Crosstrek: {
+      start:2013, end:2025,
+      sizes:['215/60R16','225/55R17','225/50R18'],
+      yearRanges:[{start:2013,end:2017,sizes:['215/60R16']},{start:2018,end:2022,sizes:['225/55R17']},{start:2023,end:2025,sizes:['225/50R18']}]
+    },
+    WRX: {
+      start:2002, end:2025,
+      sizes:['205/55R16','225/45R17','245/40R18','245/35R19'],
+      yearRanges:[{start:2002,end:2007,sizes:['205/55R16']},{start:2008,end:2014,sizes:['225/45R17']},{start:2015,end:2021,sizes:['245/40R18']},{start:2022,end:2025,sizes:['245/35R19']}]
+    },
+    Legacy: {
+      start:2000, end:2025,
+      sizes:['205/60R16','215/55R17','225/45R18'],
+      yearRanges:[{start:2000,end:2009,sizes:['205/60R16']},{start:2010,end:2014,sizes:['215/55R17']},{start:2015,end:2025,sizes:['225/45R18']}]
+    },
+    Ascent: {
+      start:2019, end:2025,
+      sizes:['235/65R17','245/55R19'],
+      yearRanges:[{start:2019,end:2021,sizes:['235/65R17']},{start:2022,end:2025,sizes:['245/55R19']}]
+    },
   },
   Volkswagen: {
-    Jetta:   { start:2000, end:2025, sizes:['195/65R15','205/55R16','225/45R17','225/40R18'] },
-    Passat:  { start:2000, end:2022, sizes:['205/60R16','215/55R17','235/45R18'] },
-    Tiguan:  { start:2009, end:2025, sizes:['215/65R16','225/55R17','235/50R18','235/45R19'] },
-    Atlas:   { start:2018, end:2025, sizes:['235/55R19','235/50R20','265/40R21'] },
-    Golf:    { start:2000, end:2025, sizes:['195/65R15','205/55R16','225/45R17','225/40R18'] },
-    Taos:    { start:2022, end:2025, sizes:['215/55R18','235/45R19'] },
+    Jetta: {
+      start:2000, end:2025,
+      sizes:['195/65R15','205/55R16','225/45R17','225/40R18'],
+      yearRanges:[{start:2000,end:2005,sizes:['195/65R15']},{start:2006,end:2010,sizes:['205/55R16']},{start:2011,end:2018,sizes:['225/45R17']},{start:2019,end:2025,sizes:['225/40R18']}]
+    },
+    Passat: {
+      start:2000, end:2022,
+      sizes:['205/60R16','215/55R17','235/45R18'],
+      yearRanges:[{start:2000,end:2005,sizes:['205/60R16']},{start:2006,end:2011,sizes:['215/55R17']},{start:2012,end:2022,sizes:['235/45R18']}]
+    },
+    Tiguan: {
+      start:2009, end:2025,
+      sizes:['215/65R16','225/55R17','235/50R18','235/45R19'],
+      yearRanges:[{start:2009,end:2017,sizes:['215/65R16']},{start:2018,end:2020,sizes:['225/55R17']},{start:2021,end:2023,sizes:['235/50R18']},{start:2024,end:2025,sizes:['235/45R19']}]
+    },
+    Atlas: {
+      start:2018, end:2025,
+      sizes:['235/55R19','235/50R20','265/40R21'],
+      yearRanges:[{start:2018,end:2020,sizes:['235/55R19']},{start:2021,end:2023,sizes:['235/50R20']},{start:2024,end:2025,sizes:['265/40R21']}]
+    },
+    Golf: {
+      start:2000, end:2025,
+      sizes:['195/65R15','205/55R16','225/45R17','225/40R18'],
+      yearRanges:[{start:2000,end:2004,sizes:['195/65R15']},{start:2005,end:2012,sizes:['205/55R16']},{start:2013,end:2019,sizes:['225/45R17']},{start:2020,end:2025,sizes:['225/40R18']}]
+    },
+    Taos: {
+      start:2022, end:2025,
+      sizes:['215/55R18','235/45R19'],
+      yearRanges:[{start:2022,end:2023,sizes:['215/55R18']},{start:2024,end:2025,sizes:['235/45R19']}]
+    },
   },
   Buick: {
-    Enclave:  { start:2008, end:2025, sizes:['245/60R18','255/55R20','275/45R21'] },
-    Encore:   { start:2013, end:2025, sizes:['215/55R17','225/50R18','235/45R18'] },
-    Envision: { start:2016, end:2025, sizes:['225/55R18','235/50R20','245/45R21'] },
-    LaCrosse: { start:2005, end:2019, sizes:['225/55R17','245/45R18','245/40R19'] },
+    Enclave: {
+      start:2008, end:2025,
+      sizes:['245/60R18','255/55R20','275/45R21'],
+      yearRanges:[{start:2008,end:2017,sizes:['245/60R18']},{start:2018,end:2022,sizes:['255/55R20']},{start:2023,end:2025,sizes:['275/45R21']}]
+    },
+    Encore: {
+      start:2013, end:2025,
+      sizes:['215/55R17','225/50R18','235/45R18'],
+      yearRanges:[{start:2013,end:2019,sizes:['215/55R17']},{start:2020,end:2025,sizes:['225/50R18']}]
+    },
+    Envision: {
+      start:2016, end:2025,
+      sizes:['225/55R18','235/50R20','245/45R21'],
+      yearRanges:[{start:2016,end:2020,sizes:['225/55R18']},{start:2021,end:2023,sizes:['235/50R20']},{start:2024,end:2025,sizes:['245/45R21']}]
+    },
+    LaCrosse: {
+      start:2005, end:2019,
+      sizes:['225/55R17','245/45R18','245/40R19'],
+      yearRanges:[{start:2005,end:2009,sizes:['225/55R17']},{start:2010,end:2016,sizes:['245/45R18']},{start:2017,end:2019,sizes:['245/40R19']}]
+    },
   },
   Cadillac: {
-    Escalade: { start:2000, end:2025, sizes:['275/55R20','285/45R22','295/40R22'] },
-    XT5:      { start:2017, end:2025, sizes:['235/60R18','235/55R20','245/50R21'] },
-    CT5:      { start:2020, end:2025, sizes:['235/45R18','255/40R19','275/35R20'] },
-    SRX:      { start:2004, end:2016, sizes:['235/55R17','255/50R19','265/45R20'] },
-    XT4:      { start:2019, end:2025, sizes:['235/50R18','235/45R20'] },
+    Escalade: {
+      start:2000, end:2025,
+      sizes:['275/55R20','285/45R22','295/40R22'],
+      yearRanges:[{start:2000,end:2006,sizes:['275/55R20']},{start:2007,end:2020,sizes:['285/45R22']},{start:2021,end:2025,sizes:['295/40R22']}]
+    },
+    XT5: {
+      start:2017, end:2025,
+      sizes:['235/60R18','235/55R20','245/50R21'],
+      yearRanges:[{start:2017,end:2020,sizes:['235/60R18']},{start:2021,end:2023,sizes:['235/55R20']},{start:2024,end:2025,sizes:['245/50R21']}]
+    },
+    CT5: {
+      start:2020, end:2025,
+      sizes:['235/45R18','255/40R19','275/35R20'],
+      yearRanges:[{start:2020,end:2022,sizes:['235/45R18']},{start:2023,end:2025,sizes:['255/40R19']}]
+    },
+    SRX: {
+      start:2004, end:2016,
+      sizes:['235/55R17','255/50R19','265/45R20'],
+      yearRanges:[{start:2004,end:2009,sizes:['235/55R17']},{start:2010,end:2012,sizes:['255/50R19']},{start:2013,end:2016,sizes:['265/45R20']}]
+    },
+    XT4: {
+      start:2019, end:2025,
+      sizes:['235/50R18','235/45R20'],
+      yearRanges:[{start:2019,end:2022,sizes:['235/50R18']},{start:2023,end:2025,sizes:['235/45R20']}]
+    },
   },
   Lexus: {
-    RX:  { start:2000, end:2025, sizes:['235/60R18','235/55R19','235/50R20','265/45R21'] },
-    ES:  { start:2000, end:2025, sizes:['215/55R17','235/45R18','235/40R19'] },
-    IS:  { start:2001, end:2025, sizes:['215/45R17','225/40R18','245/35R19'] },
-    GX:  { start:2003, end:2025, sizes:['265/65R17','265/60R18','265/55R20'] },
-    NX:  { start:2015, end:2025, sizes:['225/60R18','235/50R18','235/45R20'] },
-    LX:  { start:2000, end:2025, sizes:['275/55R20','285/50R20','295/45R20'] },
-    UX:  { start:2019, end:2025, sizes:['215/50R18','225/50R18'] },
+    RX: {
+      start:2000, end:2025,
+      sizes:['235/60R18','235/55R19','235/50R20','265/45R21'],
+      yearRanges:[{start:2000,end:2003,sizes:['235/60R18']},{start:2004,end:2009,sizes:['235/55R19']},{start:2010,end:2022,sizes:['235/50R20']},{start:2023,end:2025,sizes:['265/45R21']}]
+    },
+    ES: {
+      start:2000, end:2025,
+      sizes:['215/55R17','235/45R18','235/40R19'],
+      yearRanges:[{start:2000,end:2006,sizes:['215/55R17']},{start:2007,end:2018,sizes:['235/45R18']},{start:2019,end:2025,sizes:['235/40R19']}]
+    },
+    IS: {
+      start:2001, end:2025,
+      sizes:['215/45R17','225/40R18','245/35R19'],
+      yearRanges:[{start:2001,end:2005,sizes:['215/45R17']},{start:2006,end:2013,sizes:['225/40R18']},{start:2014,end:2025,sizes:['245/35R19']}]
+    },
+    GX: {
+      start:2003, end:2025,
+      sizes:['265/65R17','265/60R18','265/55R20'],
+      yearRanges:[{start:2003,end:2009,sizes:['265/65R17']},{start:2010,end:2023,sizes:['265/60R18']},{start:2024,end:2025,sizes:['265/55R20']}]
+    },
+    NX: {
+      start:2015, end:2025,
+      sizes:['225/60R18','235/50R18','235/45R20'],
+      yearRanges:[{start:2015,end:2021,sizes:['225/60R18']},{start:2022,end:2025,sizes:['235/45R20']}]
+    },
+    LX: {
+      start:2000, end:2025,
+      sizes:['275/55R20','285/50R20','295/45R20'],
+      yearRanges:[{start:2000,end:2007,sizes:['275/55R20']},{start:2008,end:2021,sizes:['285/50R20']},{start:2022,end:2025,sizes:['295/45R20']}]
+    },
+    UX: {
+      start:2019, end:2025,
+      sizes:['215/50R18','225/50R18'],
+      yearRanges:[{start:2019,end:2022,sizes:['215/50R18']},{start:2023,end:2025,sizes:['225/50R18']}]
+    },
   },
   Acura: {
-    MDX:  { start:2001, end:2025, sizes:['235/65R17','245/55R19','255/45R20'] },
-    RDX:  { start:2007, end:2025, sizes:['235/55R19','235/50R20'] },
-    TLX:  { start:2015, end:2025, sizes:['225/50R17','245/40R18','245/35R19','275/30R20'] },
-    ILX:  { start:2013, end:2022, sizes:['215/45R17','235/40R18'] },
+    MDX: {
+      start:2001, end:2025,
+      sizes:['235/65R17','245/55R19','255/45R20'],
+      yearRanges:[{start:2001,end:2006,sizes:['235/65R17']},{start:2007,end:2013,sizes:['245/55R19']},{start:2014,end:2025,sizes:['255/45R20']}]
+    },
+    RDX: {
+      start:2007, end:2025,
+      sizes:['235/55R19','235/50R20'],
+      yearRanges:[{start:2007,end:2018,sizes:['235/55R19']},{start:2019,end:2025,sizes:['235/50R20']}]
+    },
+    TLX: {
+      start:2015, end:2025,
+      sizes:['225/50R17','245/40R18','245/35R19','275/30R20'],
+      yearRanges:[{start:2015,end:2020,sizes:['225/50R17']},{start:2021,end:2023,sizes:['245/40R18']},{start:2024,end:2025,sizes:['245/35R19']}]
+    },
+    ILX: {
+      start:2013, end:2022,
+      sizes:['215/45R17','235/40R18'],
+      yearRanges:[{start:2013,end:2018,sizes:['215/45R17']},{start:2019,end:2022,sizes:['235/40R18']}]
+    },
   },
   Tesla: {
-    'Model 3': { start:2017, end:2025, sizes:['235/45R18','235/35R20','245/35R21'] },
-    'Model Y':  { start:2020, end:2025, sizes:['255/45R19','255/40R20'] },
-    'Model S':  { start:2012, end:2025, sizes:['245/45R19','245/35R21','265/35R21'] },
-    'Model X':  { start:2015, end:2025, sizes:['265/45R20','265/35R22'] },
+    'Model 3': {
+      start:2017, end:2025,
+      sizes:['235/45R18','235/35R20','245/35R21'],
+      yearRanges:[{start:2017,end:2020,sizes:['235/45R18']},{start:2021,end:2023,sizes:['235/35R20']},{start:2024,end:2025,sizes:['245/35R21']}]
+    },
+    'Model Y': {
+      start:2020, end:2025,
+      sizes:['255/45R19','255/40R20'],
+      yearRanges:[{start:2020,end:2022,sizes:['255/45R19']},{start:2023,end:2025,sizes:['255/40R20']}]
+    },
+    'Model S': {
+      start:2012, end:2025,
+      sizes:['245/45R19','245/35R21','265/35R21'],
+      yearRanges:[{start:2012,end:2015,sizes:['245/45R19']},{start:2016,end:2021,sizes:['245/35R21']},{start:2022,end:2025,sizes:['265/35R21']}]
+    },
+    'Model X': {
+      start:2015, end:2025,
+      sizes:['265/45R20','265/35R22'],
+      yearRanges:[{start:2015,end:2021,sizes:['265/45R20']},{start:2022,end:2025,sizes:['265/35R22']}]
+    },
   },
 };
 
@@ -778,6 +1322,16 @@ function onVehicleModelChange() {
   yearSelect.innerHTML = opts;
 }
 
+function getSizesForYear(info, year) {
+  if (!year || info.sizes.length <= 1) return info.sizes;
+  const yr = parseInt(year);
+  if (info.yearRanges) {
+    const range = info.yearRanges.find(r => yr >= r.start && yr <= r.end);
+    if (range) return range.sizes;
+  }
+  return info.sizes;
+}
+
 function vehicleSearch() {
   const make = document.getElementById('vMake').value;
   const model = document.getElementById('vModel').value;
@@ -788,7 +1342,7 @@ function vehicleSearch() {
   if (year && (parseInt(year) < info.start || parseInt(year) > info.end)) {
     showToast(`⚠ No tire data for ${year} ${make} ${model}`); return;
   }
-  vehicleSizeFilter = info.sizes;
+  vehicleSizeFilter = getSizesForYear(info, year);
   vehicleFilterLabel = `${year ? year + ' ' : ''}${make} ${model}`;
   document.getElementById('searchInput').value = '';
   showPage('shop');
